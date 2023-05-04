@@ -1,0 +1,8 @@
+.DS_Store
+.git
+.gitignore
+.gitattributes
+Dockerfile
+README.md
+build.sh
+start.sh
