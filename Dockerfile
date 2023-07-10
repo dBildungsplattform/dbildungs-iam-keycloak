@@ -1,5 +1,5 @@
 ### Keycloak base image with dbildungs-iam extensions
-FROM quay.io/keycloak/keycloak:21.0.2 AS base
+FROM quay.io/keycloak/keycloak:21.1.2 AS base
 
 # dbildungs-iam specific extensions (providers, themes, etc.)
 #COPY src/conf/ /opt/keycloak/conf/
