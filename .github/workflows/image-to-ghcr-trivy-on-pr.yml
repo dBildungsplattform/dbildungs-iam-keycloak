@@ -9,7 +9,6 @@ jobs:
     permissions:
       packages: write
       security-events: write
-      # actions: read
       contents: read
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@DBP-325-add-reusable-workflow
     with:
