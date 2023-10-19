@@ -11,7 +11,7 @@ jobs:
       security-events: write
       actions: read
       contents: read
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-to-ghcr-trivy.yml@DBP-325-add-reusable-workflow
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-to-ghcr-trivy.yaml@DBP-325-add-reusable-workflow
     with:
       image_name: "dbildungs-iam"
       run_trivy_scan: true
