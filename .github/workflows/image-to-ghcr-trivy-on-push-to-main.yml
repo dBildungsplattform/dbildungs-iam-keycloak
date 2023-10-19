@@ -1,20 +1,20 @@
-name: "Build, upload and trivy scan image on PR"
+name: "Build, upload and trivy scan image on push to main (Merge)"
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 jobs:
   build_image_on_push:
     permissions:
-      # packages: write
+      packages: write
       security-events: write
-      # actions: read
+      actions: read
       contents: read
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@DBP-325-add-reusable-workflow
     with:
       image_name: "dbildungs-iam"
       run_trivy_scan: true
-      tag_generation: "ticket_from_branch"
-      add_latest_tag: false
+      tag_generation: "commit_hash"
+      add_latest_tag: true
       container_registry: "ghcr.io"
