@@ -1,0 +1,19 @@
+name: "Build, upload and trivy scan image on PR"
+
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build_image_on_push:
+    permissions:
+      packages: write
+      security-events: write
+      actions: read
+      contents: read
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-to-ghcr-trivy@DBP-325-add-reusable-workflow
+    with:
+      image_name: "dbildungs-iam"
+      run_trivy_scan: true
+      tag_generation: "ticket_from_branch"
+      add_latest_tag: false
