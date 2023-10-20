@@ -1,12 +1,13 @@
-name: "Build, upload and trivy scan image on PR"
+name: "Publish image to GHCR and trivy scan on push to branch"
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
+    branches-ignore:
+      - 'main'
 
 concurrency:
   group: dbildungs-iam-keycloak-${{ github.ref_name }}
+  cancel-in-progress: true
 
 jobs:
   build_image_on_push:

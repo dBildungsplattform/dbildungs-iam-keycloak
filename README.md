@@ -5,9 +5,11 @@ dbildungs-iam is a customized [`Keycloak`](https://github.com/keycloak/keycloak)
 Images for local development or production are build for each Git tag via GitHub Actions.
 
 ## Automtic image build and scan for development
-When a pull request is created, a GitHub Workflow builds, uploads (to GHCR) and scans the image (with trivy). The image is tagged with the ticket extracted from the branch name. The trivy scan results are available under Security -> Code scanning -> Filter: "is:open pr:\<PR number\>".
+On every push to a branch (except main) a GitHub Workflow builds, uploads (to GHCR) and scans the image (with trivy). The image is tagged with the ticket extracted from the branch name. The trivy scan results are available under Security -> Code scanning -> Filter: "is:open branch:\<branch\>".
 
-After a merge to main, a GitHub Workflow builds, uploads (to GHCR) and scans the image (with trivy). The image is tagged with the short commit hash and "latest". The trivy scan results are available under Security -> Code scanning.
+After a merge to main a GitHub Workflow builds, uploads (to GHCR) and scans the image (with trivy). The image is tagged with the short commit hash and "latest". The trivy scan results are available under Security -> Code scanning.
+
+The latest image on GHCR is scanned with trivy every night.
 
 ## Manual build for local development image
 

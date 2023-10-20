@@ -1,0 +1,18 @@
+name: Check latest GHCR image with trivy every night
+on:
+  schedule:
+    - cron:  '0 2 * * *'
+  workflow_dispatch: # TODO: For testing
+
+jobs:
+  trivy_scan:
+    name: Run Trivy scan
+    runs-on: ubuntu-latest
+    permissions:
+      packages: read
+      security-events: write
+    steps:
+      - name: Trivy scan
+        uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@DBP-330-trivy-workflow # TODO: switch to version when merged
+        with:
+          image_ref: 'ghcr.io/${{ github.repository_owner }}/dbildungs-iam@DBP-325' # TODO: change to latest

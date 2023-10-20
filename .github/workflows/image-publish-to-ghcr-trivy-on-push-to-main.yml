@@ -1,4 +1,4 @@
-name: "Build, upload and trivy scan image on push to main (Merge)"
+name: "Publish image on push to main (Merge)"
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 concurrency:
   group: dbildungs-iam-keycloak-main
+  cancel-in-progress: true
 
 jobs:
   build_image_on_push:
@@ -17,7 +18,7 @@ jobs:
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@1.0.0
     with:
       image_name: "dbildungs-iam"
-      run_trivy_scan: true
+      run_trivy_scan: false
       tag_generation: "commit_hash"
       add_latest_tag: true
       container_registry: "ghcr.io"
