@@ -4,6 +4,10 @@ on:
   pull_request:
     branches:
       - main
+
+concurrency:
+  group: dbildungs-iam-keycloak-${{ github.ref_name }}
+
 jobs:
   build_image_on_push:
     permissions:
