@@ -1,4 +1,4 @@
-name: "Publish image on push to main (Merge)"
+name: "Publish image to GHCR on push to main (Merge)"
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
       packages: write
       security-events: write
       contents: read
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@1.0.0
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@DBP-330-trivy-workflow
     with:
       image_name: "dbildungs-iam"
       run_trivy_scan: false

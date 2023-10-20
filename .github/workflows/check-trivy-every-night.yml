@@ -2,13 +2,12 @@ name: Check latest GHCR image with trivy every night
 on:
   schedule:
     - cron:  '0 2 * * *'
-  push: # TODO: For testing
 
 jobs:
   trivy_scan:
     permissions:
       packages: read
       security-events: write
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-trivy.yaml@DBP-330-trivy-workflow # TODO: switch to version when merged
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-trivy.yaml@1.2.0
     with:
-      image_ref: 'ghcr.io/${{ github.repository_owner }}/dbildungs-iam:DBP-325' # TODO: change to latest
+      image_ref: 'ghcr.io/${{ github.repository_owner }}/dbildungs-iam:latest'
