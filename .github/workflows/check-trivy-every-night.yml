@@ -2,7 +2,7 @@ name: Check latest GHCR image with trivy every night
 on:
   schedule:
     - cron:  '0 2 * * *'
-  workflow_dispatch: # TODO: For testing
+  push: # TODO: For testing
 
 jobs:
   trivy_scan:
