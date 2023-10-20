@@ -11,4 +11,4 @@ jobs:
       security-events: write
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-trivy.yaml@DBP-330-trivy-workflow # TODO: switch to version when merged
     with:
-      image_ref: 'ghcr.io/${{ github.repository_owner }}/dbildungs-iam@DBP-325' # TODO: change to latest
+      image_ref: 'ghcr.io/${{ github.repository_owner }}/dbildungs-iam:DBP-325' # TODO: change to latest
