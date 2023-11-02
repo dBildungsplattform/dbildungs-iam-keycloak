@@ -19,7 +19,7 @@ jobs:
       packages: write
       security-events: write
       contents: read
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@DBP-340-trivy
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@2.1.0
     with:
       image_name: "dbildungs-iam"
       run_trivy_scan: true
@@ -35,7 +35,7 @@ jobs:
     permissions:
       packages: read
       security-events: write
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-trivy.yaml@DBP-340-trivy
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-trivy.yaml@2.1.0
     with:
       image_ref: 'ghcr.io/${{ github.repository_owner }}/dbildungs-iam:latest'
       fail_on_vulnerabilites: false
