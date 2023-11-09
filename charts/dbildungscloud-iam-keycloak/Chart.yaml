@@ -1,8 +1,8 @@
 apiVersion: v2
-name: dbildungs-iam
+name: dbildungscloud-iam-keycloak
 version: 0.1.1
 
-description: dBildungs-IAM
+description: dBildungs-IAM-Keycloak
 type: application
 
 dependencies:

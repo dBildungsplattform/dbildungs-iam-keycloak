@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "dbildungs-iam.fullname" . }}-keycloak
+  name: {{ include "dbildungscloud-iam-keycloak.fullname" . }}
   labels:
-    {{- include "dbildungs-iam.selectorLabels" . | nindent 4 }}
+    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "dbildungs-iam.selectorLabels" . | nindent 6 }}
+      {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 6 }}
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
-        {{- include "dbildungs-iam.selectorLabels" . | nindent 8 }}
+        {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        - name: {{ include "dbildungs-iam.fullname" . }}-keycloak-container
+        - name: keycloak  # Simplified container name
           image: {{ .Values.keycloakImage }}
           args:
             - start-dev
@@ -26,9 +26,9 @@ spec:
               containerPort: 8080
           env:
             - name: KEYCLOAK_ADMIN
-              value: admin
+              value: admin  # Note: I guess , it's best to use a secret for admin credentials
             - name: KEYCLOAK_ADMIN_PASSWORD
-              value: admin
+              value: admin  # Note:  i guess, it's best to use a secret for admin credentials
             - name: KC_PROXY
               value: "edge"
           volumeMounts:
@@ -39,4 +39,4 @@ spec:
       volumes:
         - name: realm-config
           secret:
-            secretName: {{ include "dbildungs-iam.secretName" . }}
+            secretName: {{ include "dbildungscloud-iam-keycloak.secretName" . }}
