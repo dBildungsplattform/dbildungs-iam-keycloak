@@ -1,0 +1,9 @@
+{{- if .Values.keycloakPublic}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "dbildungs-iam.fullname" . }}-keycloak-ingress
+spec:
+  tls:
+    - hosts:
+        - {{ include "dbildungs-iam.ingress
