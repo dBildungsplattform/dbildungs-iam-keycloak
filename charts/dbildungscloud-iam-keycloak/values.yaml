@@ -1,4 +1,4 @@
 replicaCount: 1
-keycloakImage: "ghcr.io/dbildungsplattform/dbildungs-iam:sha-15679d4"  # for test purpose i set this image name
+keycloakImage: "ghcr.io/dbildungsplattform/dbildungs-iam:sha-15679d4"  # The future objective is to deploy the latest image(Using github action)
 keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
 keycloakPublic: false

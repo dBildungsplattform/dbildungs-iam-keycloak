@@ -5,12 +5,10 @@ metadata:
   labels:
     {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 4 }}
 spec:
-  selector:
-    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 4 }}
   ports:
-    - protocol: TCP
-      name: web
+    - name: web
       port: 80
-      targetPort: web
+      targetPort: 8080
+  selector:
+    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . }}
   type: ClusterIP
-

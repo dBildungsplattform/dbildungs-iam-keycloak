@@ -5,18 +5,18 @@ metadata:
   labels:
     {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 4 }}
 spec:
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 6 }}
-  replicas: {{ .Values.replicaCount }}
+      {{- include "dbildungscloud-iam-keycloak.selectorLabels" . }}
   template:
     metadata:
       labels:
-        {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 8 }}
+        {{- include "dbildungscloud-iam-keycloak.selectorLabels" . }}
     spec:
       containers:
-        - name: keycloak  # Simplified container name
-          image: {{ .Values.keycloakImage }}
+        - name: keycloak
+          image: "{{ .Values.keycloakImage }}"
           args:
             - start-dev
             - "--import-realm"
@@ -26,16 +26,20 @@ spec:
               containerPort: 8080
           env:
             - name: KEYCLOAK_ADMIN
-              value: admin  # Note: I guess , it's best to use a secret for admin credentials
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "dbildungscloud-iam-keycloak.secretName" . }}
+                  key: admin-user
             - name: KEYCLOAK_ADMIN_PASSWORD
-              value: admin  # Note:  i guess, it's best to use a secret for admin credentials
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "dbildungscloud-iam-keycloak.secretName" . }}
+                  key: admin-password
             - name: KC_PROXY
               value: "edge"
           volumeMounts:
-            - mountPath: "/opt/keycloak/data/import"
-              name: "realm-config"
-              readOnly: true
-      restartPolicy: Always
+            - mountPath: "/opt/jboss/keycloak/standalone/data/import"
+              name: realm-config
       volumes:
         - name: realm-config
           secret:

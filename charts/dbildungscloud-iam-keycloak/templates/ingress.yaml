@@ -9,7 +9,7 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-      - {{ include "dbildungscloud-iam-keycloak.ingressHost" . }}
+        - {{ include "dbildungscloud-iam-keycloak.ingressHost" . }}
       secretName: {{ include "dbildungscloud-iam-keycloak.fullname" . }}-tls
   rules:
     - host: {{ include "dbildungscloud-iam-keycloak.ingressHost" . }}
