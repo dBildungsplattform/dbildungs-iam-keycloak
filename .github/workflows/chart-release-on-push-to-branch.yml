@@ -8,7 +8,7 @@ on:
       - '.github/workflows/**'
 
 concurrency:
-  group: dbildungs-iam-keycloak-chart-${{ github.ref }}
+  group: dbildungs-iam-keycloak-${{ github.event_name }}-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
     permissions:
       contents: read
   release:
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@2.1.0
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@2.1.1
     secrets: inherit
     with:
       chart_name: dbildungscloud-iam-keycloak
