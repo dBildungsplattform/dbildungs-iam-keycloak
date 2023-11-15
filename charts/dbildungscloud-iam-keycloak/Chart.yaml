@@ -10,4 +10,4 @@ dependencies:
     version: "*"
     condition: keycloakEnabled
 
-appVersion: "dbp-351"  # Set this to match your Docker image tag (see :https://github.com/dBildungsplattform/dbildungs-iam-keycloak/pkgs/container/dbildungs-iam)
+appVersion: "sha-15679d4"  # Set this to match your Docker image tag (see :https://github.com/dBildungsplattform/dbildungs-iam-keycloak/pkgs/container/dbildungs-iam)
