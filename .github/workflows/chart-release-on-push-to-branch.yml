@@ -20,5 +20,6 @@ jobs:
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@2.1.1
     secrets: inherit
     with:
+      image_name: dbildungs-iam
       chart_name: dbildungscloud-iam-keycloak
       version_generation: ticket_from_branch_short_hash
