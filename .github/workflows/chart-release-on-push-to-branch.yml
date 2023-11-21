@@ -17,6 +17,7 @@ jobs:
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@DBP-352-Set-the-correct-Docker-Image-in-the-Helm-chart-for-each-SPSH-repository
     secrets: inherit
     with:
-      image_name: dbildungs-iam
       chart_name: dbildungscloud-iam-keycloak
       version_generation: ticket_from_branch_short_hash
+      tag_generation: ticket_from_branch
+      
