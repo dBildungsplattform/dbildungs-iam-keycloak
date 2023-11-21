@@ -3,4 +3,3 @@ keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
 keycloakPublic: false
 image:
   repository: ghcr.io/dBildungsplattform/dbildungs-iam-keycloak
-  tag: {{ .Chart.AppVersion }}  # This will use the appVersion from Chart.yaml

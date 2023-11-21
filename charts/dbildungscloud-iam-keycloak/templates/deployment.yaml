@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: keycloak
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           args:
             - start-dev
             - "--import-realm"
