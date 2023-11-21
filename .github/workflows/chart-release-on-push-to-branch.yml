@@ -3,9 +3,6 @@ on:
   push:
     branches-ignore:
       - 'main'
-    paths:
-      - 'charts/**'
-      - '.github/workflows/**'
 
 concurrency:
   group: dbildungs-iam-keycloak-${{ github.event_name }}-${{ github.ref_name }}
