@@ -8,11 +8,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "dbildungscloud-iam-keycloak.selectorLabels" . }}
+      {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "dbildungscloud-iam-keycloak.selectorLabels" . }}
+        {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: keycloak

@@ -21,7 +21,6 @@ Selector labels for matching labels
 */}}
 {{- define "dbildungscloud-iam-keycloak.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "dbildungscloud-iam-keycloak.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
@@ -35,9 +34,12 @@ Secret name
 Service name
 */}}
 {{- define "dbildungscloud-iam-keycloak.serviceName" -}}
-{{- if endsWith "-keycloak" .Release.Name -}}
-{{- .Release.Name -}}
-{{- else -}}
-{{- printf "%s-keycloak" .Release.Name -}}
+{{- printf "%s-service" (include "dbildungscloud-iam-keycloak.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Ingress host
+*/}}
+{{- define "dbildungscloud-iam-keycloak.ingressHost" -}}
+{{ default (printf "%s.dev.spsh.dbildungsplattform.de" (include "dbildungscloud-iam-keycloak.fullname" .)) .Values.keycloakHostname }}
 {{- end -}}

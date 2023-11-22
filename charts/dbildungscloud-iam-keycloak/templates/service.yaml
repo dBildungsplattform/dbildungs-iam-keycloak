@@ -10,5 +10,5 @@ spec:
       port: 80
       targetPort: 8080
   selector:
-    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . }}
+    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 6 }}
   type: ClusterIP
