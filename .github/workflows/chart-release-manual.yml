@@ -7,9 +7,15 @@ on:
         type: string
         description: "Chart version"
         required: true
+      tag_generation:
+        type: string
+        description: "Tag generation"
+        required: true
+
+
 
 concurrency:
-  group: dbildungs-iam-keycloak-${{ github.event_name }}-${{ github.ref_name }}
+  group: dbildungs-iam-keycloak-chart-manual
   cancel-in-progress: true
 
 jobs:
@@ -19,9 +25,10 @@ jobs:
       contents: read
   release:
     needs: scan
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@2.1.1
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@DBP-352-Set-the-correct-Docker-Image-in-the-Helm-chart-for-each-SPSH-repository
     secrets: inherit
     with:
       chart_name: dbildungscloud-iam-keycloak
       version_generation: specified
       chart_version: ${{ inputs.chart_version }}
+      tag_generation: ${{ inputs.tag_generation }}
