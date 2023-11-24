@@ -48,7 +48,7 @@ jobs:
     permissions:
       contents: read
 
-  select_helm_version_generation:
+  select_helm_tag_and_version_generation:
     if: ${{ github.event_name == 'push'}}
     needs: 
       - scan_helm
