@@ -73,7 +73,7 @@ jobs:
       chart_name: dbildungscloud-iam-keycloak
       version_generation: ticket_from_branch_short_hash
       tag_generation: ticket_from_branch
-      
+
   branch_meta:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
     uses: dBildungsplattform/spsh-app-deploy/.github/workflows/get-branch-meta.yml@main
