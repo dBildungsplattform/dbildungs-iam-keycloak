@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dbildungscloud-iam-keycloak.fullname" . }}
+  labels:
+    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: keycloak
+          image: "{{ .Values.image.repository }}"
+          securityContext:
+            allowPrivilegeEscalation: false
+          args:
+            - start-dev
+            - "--import-realm"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: web
+              containerPort: 8080
+          env:
+            - name: KEYCLOAK_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "dbildungscloud-iam-keycloak.secretName" . }}
+                  key: admin-user
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "dbildungscloud-iam-keycloak.secretName" . }}
+                  key: admin-password
+            - name: KC_PROXY
+              value: "edge"
+          volumeMounts:
+            - mountPath: "/opt/jboss/keycloak/standalone/data/import"
+              name: realm-config
+      volumes:
+        - name: realm-config
+          secret:
+            secretName: {{ include "dbildungscloud-iam-keycloak.secretName" . }}

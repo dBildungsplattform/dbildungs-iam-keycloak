@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "dbildungscloud-iam-keycloak.serviceName" . }}
+  labels:
+    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 4 }}
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: 8080
+  selector:
+    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 6 }}
+  type: ClusterIP
