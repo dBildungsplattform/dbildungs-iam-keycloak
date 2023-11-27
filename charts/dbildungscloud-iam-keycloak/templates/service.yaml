@@ -6,9 +6,9 @@ metadata:
     {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 4 }}
 spec:
   ports:
-    - name: web
+    - name: {{ include "dbildungscloud-iam-keycloak.portName" . }}
       port: 80
-      targetPort: 8080
+      targetPort: {{ include "dbildungscloud-iam-keycloak.portName" . }}
   selector:
     {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 6 }}
   type: ClusterIP

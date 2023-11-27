@@ -43,3 +43,10 @@ Ingress host
 {{- define "dbildungscloud-iam-keycloak.ingressHost" -}}
 {{ default (printf "%s.dev.spsh.dbildungsplattform.de" (include "dbildungscloud-iam-keycloak.fullname" .)) .Values.keycloakHostname }}
 {{- end -}}
+
+{{/*
+Define the common port name.
+*/}}
+{{- define "dbildungscloud-iam-keycloak.portName" -}}
+web
+{{- end -}}

@@ -7,9 +7,13 @@ on:
         type: string
         description: "Chart version"
         required: true
+      image_tag:
+        type: string
+        description: "image tag"
+        required: true
 
 concurrency:
-  group: dbildungs-iam-keycloak-${{ github.event_name }}-${{ github.ref_name }}
+  group: dbildungs-iam-keycloak-chart-manual
   cancel-in-progress: true
 
 jobs:
@@ -19,9 +23,11 @@ jobs:
       contents: read
   release:
     needs: scan
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@2.1.1
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@3.0.1
     secrets: inherit
     with:
       chart_name: dbildungscloud-iam-keycloak
-      version_generation: specified
+      version_generation: specified 
+      tag_generation: specified 
       chart_version: ${{ inputs.chart_version }}
+      image_tag: ${{ inputs.image_tag }}
