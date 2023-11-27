@@ -3,4 +3,5 @@ keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
 keycloakPublic: false
 image:
   repository: ghcr.io/dbildungsplattform/dbildungs-iam
-  tag: {{ .Chart.AppVersion }
+  tag: {{ .Chart.AppVersion }}
+  
