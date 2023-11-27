@@ -2,4 +2,4 @@ replicaCount: 1
 keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
 keycloakPublic: false
 image:
-  repository: ghcr.io/dBildungsplattform/dbildungs-iam-keycloak
+  repository: ghcr.io/dbildungsplattform/dbildungs-iam:latest
