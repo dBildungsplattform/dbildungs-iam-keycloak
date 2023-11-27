@@ -2,4 +2,5 @@ replicaCount: 1
 keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
 keycloakPublic: false
 image:
-  repository: ghcr.io/dbildungsplattform/dbildungs-iam:latest
+  repository: ghcr.io/dbildungsplattform/dbildungs-iam
+  tag: {{ .Chart.AppVersion }
