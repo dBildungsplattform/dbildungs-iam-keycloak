@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: keycloak
-          image: "{{ .Values.image.repository }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           securityContext:
             allowPrivilegeEscalation: false
           args:
