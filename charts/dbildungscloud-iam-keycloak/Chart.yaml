@@ -1,7 +1,6 @@
 apiVersion: v2
 name: dbildungscloud-iam-keycloak
 version: 0.1.1
-
 description: dbildungs-iam-keycloak
 type: application
 appVersion: ""
