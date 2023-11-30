@@ -1,3 +1,4 @@
+nameOverride: ""
 replicaCount: 1
 keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
 keycloakPublic: false
