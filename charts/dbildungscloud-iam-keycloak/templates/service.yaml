@@ -8,7 +8,7 @@ spec:
   ports:
     - name: {{ .Values.portName }}
       port: 80
-      targetPort: {{ .Values.portName }}
+      targetPort: 8080
   selector:
     {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 6 }}
   type: ClusterIP
