@@ -24,7 +24,7 @@ spec:
             - "--import-realm"
           imagePullPolicy: IfNotPresent
           ports:
-            - name: {{ include "dbildungscloud-iam-keycloak.portName" . }}
+            - name: {{ .Values.portName }}
               containerPort: 8080
           env:
             - name: KEYCLOAK_ADMIN
