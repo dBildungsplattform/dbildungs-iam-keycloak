@@ -1,14 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "dbildungscloud-iam-keycloak.serviceName" . }}
+  name: keycloak
   labels:
-    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/name: dbildungs-iam
 spec:
-  ports:
-    - name: {{ .Values.portName }}
-      port: 80
-      targetPort: 8080
   selector:
-    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 6 }}
+    layer: dbildungs-iam-keycloak
+  ports:
+    - protocol: TCP
+      name: web
+      port: 80
+      targetPort: web
   type: ClusterIP

@@ -24,7 +24,7 @@ jobs:
     with:
       image_name: "dbildungs-iam"
       run_trivy_scan: true
-      tag_generation: ${{ github.ref_name == 'main' && 'commit_hash' || 'ticket_from_branch' }}
+      image_tag_generation: ${{ github.ref_name == 'main' && 'commit_hash' || 'ticket_from_branch' }}
       add_latest_tag: ${{ github.ref_name == 'main' }}
       container_registry: "ghcr.io"
       fail_on_vulnerabilites: true
@@ -48,7 +48,7 @@ jobs:
     permissions:
       contents: read
 
-  select_helm_version_generation:
+  select_helm_version_generation_and_image_tag_generation:
     if: ${{ github.event_name == 'push'}}
     needs: 
       - scan_helm
@@ -69,14 +69,14 @@ jobs:
           fi
   release_helm:
     needs:
-      - select_helm_version_generation
+      - select_helm_version_generation_and_image_tag_generation
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@3.1.0
     secrets: inherit
     with:
       chart_name: dbildungscloud-iam-keycloak
-      tag_generation: ${{ needs.select_helm_version_generation.outputs.SELECT_IMAGE_TAG_GENERATION  }}
-      version_generation: ${{ needs.select_helm_version_generation.outputs.SELECT_HELM_VERION_GENERATION  }}
+      image_tag_generation: ${{ needs.select_helm_version_generation_and_image_tag_generation.outputs.SELECT_IMAGE_TAG_GENERATION  }}
+      helm_chart_version_generation: ${{ needs.select_helm_version_generation_and_image_tag_generation.outputs.SELECT_HELM_VERION_GENERATION  }}
 
   branch_meta:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}

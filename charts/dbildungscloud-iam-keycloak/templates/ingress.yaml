@@ -1,26 +1,22 @@
-{{- if .Values.keycloakPublic }}
+{{- if .Values.keycloakPublic}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "dbildungscloud-iam-keycloak.fullname" . }}-ingress
-  labels:
-    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 4 }}
+  name: keycloak-ingress
 spec:
-  ingressClassName: nginx
   tls:
     - hosts:
-        - {{ include "dbildungscloud-iam-keycloak.ingressHost" . }}
-      secretName: {{ include "dbildungscloud-iam-keycloak.fullname" . }}-tls
+        - {{.Values.keycloakHostname}}
+  ingressClassName: nginx
   rules:
-    - host: {{ include "dbildungscloud-iam-keycloak.ingressHost" . }}
+    - host: keycloak.dev.spsh.dbildungsplattform.de
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ include "dbildungscloud-iam-keycloak.serviceName" . }}
+                name: keycloak
                 port:
                   number: 80
-{{- end }}
-
+  {{end}}
