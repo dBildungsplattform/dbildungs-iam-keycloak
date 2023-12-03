@@ -36,7 +36,7 @@ jobs:
     permissions:
       packages: read
       security-events: write
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-trivy.yaml@2.1.0
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-trivy.yaml@4.0.0
     with:
       image_ref: 'ghcr.io/${{ github.repository_owner }}/dbildungs-iam:latest'
       fail_on_vulnerabilites: false
@@ -44,7 +44,7 @@ jobs:
 
   scan_helm:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@2.1.0
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@4.0.0
     permissions:
       contents: read
 

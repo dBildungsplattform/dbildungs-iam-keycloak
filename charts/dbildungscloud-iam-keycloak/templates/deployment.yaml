@@ -29,11 +29,20 @@ spec:
               containerPort: 8080
           env:
             - name: KEYCLOAK_ADMIN
-              value: admin
-            - name: KEYCLOAK_ADMIN_PASSWORD
-              value: admin
-            - name: KC_PROXY
-              value: "edge"
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak
+                  key:  admin-user
+            - name: KEYCLOAK_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak
+                  key:  admin-password
+            - name: KEYCLOAK_PROXY
+              valueFrom:
+                secretKeyRef:
+                  name: proxy
+                  key: proxy
           volumeMounts:
            - mountPath: "/opt/keycloak/data/import"
              name: "realm-config"
@@ -43,4 +52,3 @@ spec:
         - name: realm-config
           secret:
             secretName: realm-config-secret
-      
