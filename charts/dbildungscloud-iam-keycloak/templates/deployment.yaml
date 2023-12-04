@@ -39,10 +39,7 @@ spec:
                   name: keycloak
                   key:  admin-password
             - name: KEYCLOAK_PROXY
-              valueFrom:
-                configMapKeyRef:
-                  name: proxy
-                  key: proxy
+              value: "edge"
           volumeMounts:
            - mountPath: "/opt/keycloak/data/import"
              name: "realm-config"
