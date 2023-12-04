@@ -33,12 +33,12 @@ spec:
                 secretKeyRef:
                   name: keycloak
                   key:  admin-user
-            - name: KEYCLOAK_PASSWORD
+            - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: keycloak
                   key:  admin-password
-            - name: KEYCLOAK_PROXY
+            - name: KC_PROXY
               value: "edge"
           volumeMounts:
            - mountPath: "/opt/keycloak/data/import"
