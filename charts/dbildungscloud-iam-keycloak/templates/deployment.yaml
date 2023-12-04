@@ -40,7 +40,7 @@ spec:
                   key:  admin-password
             - name: KEYCLOAK_PROXY
               valueFrom:
-                secretKeyRef:
+                configMapKeyRef:
                   name: proxy
                   key: proxy
           volumeMounts:
