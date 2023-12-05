@@ -7,21 +7,27 @@ on:
         type: string
         description: "Chart version"
         required: true
+      image_tag:
+        type: string
+        description: "image tag"
+        required: true
 
 concurrency:
-  group: dbildungs-iam-keycloak-${{ github.event_name }}-${{ github.ref_name }}
+  group: dbildungs-iam-keycloak-chart-manual
   cancel-in-progress: true
 
 jobs:
   scan:
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@2.1.0
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@4.0.0
     permissions:
       contents: read
   release:
     needs: scan
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@2.1.1
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@4.0.0
     secrets: inherit
     with:
       chart_name: dbildungscloud-iam-keycloak
-      version_generation: specified
+      helm_chart_version_generation: specified 
+      image_tag_generation: specified 
       chart_version: ${{ inputs.chart_version }}
+      image_tag: ${{ inputs.image_tag }}

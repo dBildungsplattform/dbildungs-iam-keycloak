@@ -1,22 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "dbildungscloud-iam-keycloak.fullname" . }}
+  name: {{ .Release.Name }}-keycloak-deployment
   labels:
-    {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/name: dbildungs-iam
 spec:
-  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 6 }}
+      layer: dbildungs-iam-keycloak
+  replicas: 1
   template:
     metadata:
+      name: dbildungs-iam-keycloak
       labels:
-        {{- include "dbildungscloud-iam-keycloak.selectorLabels" . | nindent 8 }}
+        layer: dbildungs-iam-keycloak
     spec:
       containers:
-        - name: keycloak
-          image: "{{ .Values.image.repository }}"
+        - name: dbildungs-iam-keycloak
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           securityContext:
             allowPrivilegeEscalation: false
           args:
@@ -30,19 +31,21 @@ spec:
             - name: KEYCLOAK_ADMIN
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dbildungscloud-iam-keycloak.secretName" . }}
-                  key: admin-user
+                  name: keycloak
+                  key:  admin-user
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "dbildungscloud-iam-keycloak.secretName" . }}
-                  key: admin-password
+                  name: keycloak
+                  key:  admin-password
             - name: KC_PROXY
               value: "edge"
           volumeMounts:
-            - mountPath: "/opt/jboss/keycloak/standalone/data/import"
-              name: realm-config
+           - mountPath: "/opt/keycloak/data/import"
+             name: "realm-config"
+             readOnly: true
+      restartPolicy: Always
       volumes:
         - name: realm-config
           secret:
-            secretName: {{ include "dbildungscloud-iam-keycloak.secretName" . }}
+            secretName: realm-config-secret
