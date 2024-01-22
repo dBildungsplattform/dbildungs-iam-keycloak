@@ -1,5 +1,5 @@
 ### Keycloak base image with dbildungs-iam extensions
-FROM quay.io/keycloak/keycloak:21.1.2 AS base
+FROM quay.io/keycloak/keycloak:23.0.4 AS base
 
 # dbildungs-iam specific extensions (providers, themes, etc.)
 #COPY src/conf/ /opt/keycloak/conf/
@@ -30,12 +30,12 @@ RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysi
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev"]
 
-### Production image
+### deployment image
 
 ## Build
-FROM base AS production-build
+FROM base AS deployment-build
 
-# Keycloak settings for production mode
+# Keycloak settings for deployment mode
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 ENV KC_DB=postgres
@@ -46,8 +46,8 @@ ENV KC_CACHE_STACK=kubernetes
 RUN /opt/keycloak/bin/kc.sh build
 
 ## Run
-FROM production-build as production
-COPY --from=production-build /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
+FROM deployment-build as deployment
+COPY --from=deployment-build /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 WORKDIR /opt/keycloak
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start"]
