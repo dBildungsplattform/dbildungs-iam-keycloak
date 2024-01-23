@@ -28,7 +28,8 @@ WORKDIR /opt/keycloak
 # auto-generated keys for HTTPS in developers mode
 RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysize 2048 -dname "CN=dbildungs-iam-server" -alias dbildungs-iam -ext "SAN:c=DNS:localhost,IP:127.0.0.1" -validity 365 -keystore conf/server.keystore
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
+CMD ["start-dev"]
 
 ### Production image
 
@@ -50,4 +51,5 @@ FROM production-build as production
 COPY --from=production-build /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 WORKDIR /opt/keycloak
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
+CMD ["start"]
