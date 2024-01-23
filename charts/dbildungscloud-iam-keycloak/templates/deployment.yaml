@@ -20,8 +20,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           securityContext:
             allowPrivilegeEscalation: false
-          args:
-            - start-dev
+          args:            
             - "--import-realm"
           imagePullPolicy: IfNotPresent
           ports:
