@@ -20,7 +20,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           securityContext:
             allowPrivilegeEscalation: false
-          args:            
+          # Workaround until we figure out the correct parameters
+          command: ["/opt/keycloak/bin/kc.sh", "start"]
+          args:
+            - "--cache local"
+            - "--hostname {{ .Values.keycloakHostname }}"
             - "--import-realm"
           imagePullPolicy: IfNotPresent
           ports:
@@ -39,6 +43,28 @@ spec:
                   key:  admin-password
             - name: KC_PROXY
               value: "edge"
+            - name: DB_BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: db.url.jdbc
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: db.name
+            - name: KC_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: db.username
+            - name: KC_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: db.password
+            - name: KC_DB_URL
+              value: "jdbc:$(DB_BASE_URL)$(DB_NAME)"
           volumeMounts:
            - mountPath: "/opt/keycloak/data/import"
              name: "realm-config"
