@@ -1,5 +1,4 @@
 keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
-keycloakPublic: false
 secrets:
   name: dbildungs-iam-secrets
 image:
