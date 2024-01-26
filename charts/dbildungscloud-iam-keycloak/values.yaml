@@ -6,5 +6,6 @@ configmap:
 image:
   repository: ghcr.io/dbildungsplattform/dbildungs-iam
   tag: ""
-db-name: ""
+db:
+  name: ""
 frontendHostname: ""

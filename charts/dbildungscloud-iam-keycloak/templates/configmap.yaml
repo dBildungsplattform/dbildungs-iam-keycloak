@@ -4,5 +4,5 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.configmap.name }}
 data:  
-  db-name: "{{.Values.db-name}}"  
+  db-name: "{{.Values.db.name}}"  
 {{end}}
