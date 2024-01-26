@@ -21,9 +21,11 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
           # Workaround until we figure out the correct parameters          
-          args:
-            - "--cache local"
-            - "--hostname {{ .Values.keycloakHostname }}"
+          args:            
+            - "--cache"
+            - "local"
+            - "--hostname"
+            - "{{ .Values.keycloakHostname }}"
             - "--import-realm"
           imagePullPolicy: IfNotPresent
           ports:
