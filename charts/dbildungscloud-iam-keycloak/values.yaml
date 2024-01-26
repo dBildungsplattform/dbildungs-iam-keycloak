@@ -7,3 +7,4 @@ image:
   repository: ghcr.io/dbildungsplattform/dbildungs-iam
   tag: ""
 db-name: ""
+frontendHostname: ""
