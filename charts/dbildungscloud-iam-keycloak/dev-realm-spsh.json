@@ -803,14 +803,14 @@
         "clientId": "spsh",
         "name": "Schulportal SH",
         "description": "",
-        "rootUrl": "",
+        "rootUrl": "${KC_ROOT_URL}",
         "adminUrl": "",
         "baseUrl": "",
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
         "clientAuthenticatorType": "client-secret",
-        "secret": "___CLIENT_SECRET___",
+        "secret": "${KC_CLIENT_SECRET}",
         "redirectUris": [
           "/*"
         ],
