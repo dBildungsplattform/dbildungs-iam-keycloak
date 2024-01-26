@@ -44,11 +44,11 @@ spec:
                   key:  admin-password
             - name: KC_PROXY
               value: "edge"
-            - name: DB_BASE_URL
+            - name: DB_HOST
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.secrets.name }}
-                  key: db-url
+                  key: db-host
             - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
@@ -65,7 +65,7 @@ spec:
                   name: {{ .Values.secrets.name }}
                   key: db-password
             - name: KC_DB_URL
-              value: "jdbc:$(DB_BASE_URL)$(DB_NAME)"
+              value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
             - name: KC_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
