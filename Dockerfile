@@ -1,53 +1,61 @@
-### Keycloak base image with dbildungs-iam extensions
+# Keycloak base image with dbildungs-iam extensions
 FROM quay.io/keycloak/keycloak:23.0.4 AS base
 
-# dbildungs-iam specific extensions (providers, themes, etc.)
-#COPY src/conf/ /opt/keycloak/conf/
+# Copy dbildungs-iam specific extensions (providers, themes, etc.)
 COPY src/providers/ /opt/keycloak/providers/
-#COPY src/themes/ /opt/keycloak/themes/
 
-### Development image
+#  Build Stage
+FROM base AS build
 
-## Build
-FROM base AS development-build
+# Set Keycloak settings for developer mode
+ENV KC_HEALTH_ENABLED=true \
+    KC_METRICS_ENABLED=true \
+    KC_DB=dev-file \
+    KC_CACHE=local \
+    KC_FEATURES_DISABLED=impersonation,ciba,par,web-authn
 
-# Keycloak settings for developers mode
-ENV KC_HEALTH_ENABLED=true
-ENV KC_METRICS_ENABLED=true
-ENV KC_DB=dev-file
-ENV KC_CACHE=local
-ENV KC_FEATURES_DISABLED=impersonation,ciba,par,web-authn
-
+# Build Keycloak
 RUN /opt/keycloak/bin/kc.sh build
 
-## Run
-FROM development-build as development
-COPY --from=development-build /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
+# Development Run Stage
+FROM build as development
+
+# Set work directory
 WORKDIR /opt/keycloak
 
-# auto-generated keys for HTTPS in developers mode
-RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysize 2048 -dname "CN=dbildungs-iam-server" -alias dbildungs-iam -ext "SAN:c=DNS:localhost,IP:127.0.0.1" -validity 365 -keystore conf/server.keystore
+# Copy necessary files
+COPY --from=build /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 
+# Generate auto-generated keys for HTTPS in developer mode
+RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysize 2048 \
+    -dname "CN=dbildungs-iam-server" -alias dbildungs-iam \
+    -ext "SAN:c=DNS:localhost,IP:127.0.0.1" -validity 365 -keystore conf/server.keystore
+
+# Set entrypoint for development mode
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev"]
 
-### deployment image
-
-## Build
+# Deployment image
 FROM base AS deployment-build
 
-# Keycloak settings for deployment mode
-ENV KC_HEALTH_ENABLED=true
-ENV KC_METRICS_ENABLED=true
-ENV KC_DB=postgres
-ENV KC_FEATURES_DISABLED=impersonation,ciba,par,web-authn
-ENV KC_CACHE=ispn
-ENV KC_CACHE_STACK=kubernetes
+# Set Keycloak settings for deployment mode
+ENV KC_HEALTH_ENABLED=true \
+    KC_METRICS_ENABLED=true \
+    KC_DB=postgres \
+    KC_FEATURES_DISABLED=impersonation,ciba,par,web-authn \
+    KC_CACHE=ispn \
+    KC_CACHE_STACK=kubernetes
 
+# Build Keycloak for deployment
 RUN /opt/keycloak/bin/kc.sh build
 
-## Run
+# Deployment Run Stage
 FROM deployment-build as deployment
-COPY --from=deployment-build /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
+
+# Set work directory
 WORKDIR /opt/keycloak
 
+# Copy necessary files
+COPY --from=deployment-build /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
+
+# Set entrypoint for deployment mode
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start"]
