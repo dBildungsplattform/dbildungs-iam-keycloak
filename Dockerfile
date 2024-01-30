@@ -16,7 +16,7 @@ ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 ENV KC_DB=dev-file
 ENV KC_CACHE=local
-ENV KC_FEATURES_DISABLED=impersonation,ciba,par,web-authn
+ENV KC_FEATURES_DISABLED=impersonation,ciba,par
 
 RUN /opt/keycloak/bin/kc.sh build
 
@@ -39,7 +39,7 @@ FROM base AS production-build
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 ENV KC_DB=postgres
-ENV KC_FEATURES_DISABLED=impersonation,ciba,par,web-authn
+ENV KC_FEATURES_DISABLED=impersonation,ciba,par
 ENV KC_CACHE=ispn
 ENV KC_CACHE_STACK=kubernetes
 

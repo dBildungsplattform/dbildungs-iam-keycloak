@@ -1,0 +1,8 @@
+{{if not (lookup "v1" "ConfigMap" .Release.Namespace .Values.configmap.name)}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configmap.name }}
+data:  
+  db-name: "{{.Values.db.name}}"  
+{{end}}
