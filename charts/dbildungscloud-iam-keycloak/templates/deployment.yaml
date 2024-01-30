@@ -31,6 +31,20 @@ spec:
           ports:
             - name: web
               containerPort: 8080
+          startupProbe:
+            httpGet:
+              port: web
+              path: "/health/started"
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              port: web
+              path: "/health/live"
+          readinessProbe:
+            httpGet:
+              port: web
+              path: "/health/ready"
           env:
             - name: KEYCLOAK_ADMIN
               valueFrom:
