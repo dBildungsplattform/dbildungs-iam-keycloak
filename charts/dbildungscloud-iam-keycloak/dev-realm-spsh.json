@@ -624,21 +624,12 @@
         "id": "f5b75450-61e8-4fa5-acde-e6a0bda1bb61",
         "clientId": "admin-cli",
         "name": "${client_admin-cli}",
-        "description": "Admin for Schulportal SH",
-        "rootUrl": "${KC_ROOT_URL}",
-        "adminUrl": "",
-        "baseUrl": "",
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
-        "clientAuthenticatorType": "client-secret",        
-        "secret": "${KC_ADMIN_SECRET}",
-        "redirectUris": [
-          "/*"
-        ],
-        "webOrigins": [
-          "/*"
-        ],
+        "clientAuthenticatorType": "client-secret",
+        "redirectUris": [],
+        "webOrigins": [],
         "notBefore": 0,
         "bearerOnly": false,
         "consentRequired": false,
@@ -646,7 +637,7 @@
         "implicitFlowEnabled": false,
         "directAccessGrantsEnabled": true,
         "serviceAccountsEnabled": false,
-        "publicClient": false,
+        "publicClient": true,
         "frontchannelLogout": false,
         "protocol": "openid-connect",
         "attributes": {},
