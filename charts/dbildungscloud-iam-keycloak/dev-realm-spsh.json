@@ -469,6 +469,27 @@
         "groups": []
       },
       {
+        "id": "5442b7dc-432c-41d6-8721-fb8ec8cdb8c4",
+        "createdTimestamp": 1706711934348,
+        "username": "service-account-spsh-admin",
+        "enabled": true,
+        "totp": false,
+        "emailVerified": false,
+        "serviceAccountClientId": "spsh-admin",
+        "disableableCredentialTypes": [],
+        "requiredActions": [],
+        "realmRoles": [
+          "default-roles-spsh"
+        ],
+        "clientRoles": {
+          "realm-management": [
+            "manage-users"
+          ]
+        },
+        "notBefore": 0,
+        "groups": []
+      },
+      {
         "id": "22207262-196f-4995-8011-6830091ebdca",
         "createdTimestamp": 1697087666332,
         "username": "test",
