@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-keycloak-deployment
+  name: {{ .Release.Name }}-deployment
   labels:
     app.kubernetes.io/name: dbildungs-iam
 spec:
