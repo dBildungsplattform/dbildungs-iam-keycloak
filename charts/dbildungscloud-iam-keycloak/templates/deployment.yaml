@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-keycloak-deployment
+  name: {{ .Release.Name }}-deployment
   labels:
     app.kubernetes.io/name: dbildungs-iam
 spec:
@@ -20,26 +20,78 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           securityContext:
             allowPrivilegeEscalation: false
-          args:
-            - start-dev
+          # Workaround until we figure out the correct parameters          
+          args:            
+            - "--cache"
+            - "local"
+            - "--hostname"
+            - "{{ .Values.keycloakHostname }}"
             - "--import-realm"
           imagePullPolicy: IfNotPresent
           ports:
             - name: web
               containerPort: 8080
+          startupProbe:
+            httpGet:
+              port: web
+              path: "/health/started"
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              port: web
+              path: "/health/live"
+          readinessProbe:
+            httpGet:
+              port: web
+              path: "/health/ready"
           env:
             - name: KEYCLOAK_ADMIN
               valueFrom:
                 secretKeyRef:
-                  name: keycloak
+                  name: {{ .Values.secrets.name }}
                   key:  admin-user
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: keycloak
+                  name: {{ .Values.secrets.name }}
                   key:  admin-password
             - name: KC_PROXY
               value: "edge"
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: db-host
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configmap.name }}
+                  key: db-name
+            - name: KC_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: db-username
+            - name: KC_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: db-password
+            - name: KC_DB_URL
+              value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
+            - name: KC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: keycloak-clientSecret
+            - name: KC_ADMIN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: keycloak-adminSecret
+            - name: KC_ROOT_URL
+              value: "https://{{.Values.frontendHostname}}"
           volumeMounts:
            - mountPath: "/opt/keycloak/data/import"
              name: "realm-config"

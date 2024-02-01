@@ -467,6 +467,59 @@
         ],
         "notBefore": 0,
         "groups": []
+      },
+      {
+        "id": "5442b7dc-432c-41d6-8721-fb8ec8cdb8c4",
+        "createdTimestamp": 1706711934348,
+        "username": "service-account-spsh-admin",
+        "enabled": true,
+        "totp": false,
+        "emailVerified": false,
+        "serviceAccountClientId": "spsh-admin",
+        "disableableCredentialTypes": [],
+        "requiredActions": [],
+        "realmRoles": [
+          "default-roles-spsh"
+        ],
+        "clientRoles": {
+          "realm-management": [
+            "manage-users"
+          ]
+        },
+        "notBefore": 0,
+        "groups": []
+      },
+      {
+        "id": "22207262-196f-4995-8011-6830091ebdca",
+        "createdTimestamp": 1697087666332,
+        "username": "test",
+        "enabled": true,
+        "emailVerified": true,
+        "firstName": "Testus",
+        "lastName": "Experimentus",
+        "email": "testuser@example.com",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "test"
+          }
+        ]
+      },
+      {
+        "id": "e9806d01-0d4e-4523-b21d-2bfc8a802051",
+        "createdTimestamp": 1697087666332,
+        "username": "pwtest",
+        "enabled": true,
+        "emailVerified": true,
+        "firstName": "Max",
+        "lastName": "Mustermann",
+        "email": "pwtest@example.com",
+        "credentials": [
+            {
+                "type": "password",
+                "value": "pwtest"
+            }
+        ]
       }
     ],
     "scopeMappings": [
@@ -592,12 +645,21 @@
         "id": "f5b75450-61e8-4fa5-acde-e6a0bda1bb61",
         "clientId": "admin-cli",
         "name": "${client_admin-cli}",
+        "description": "Admin for Schulportal SH",
+        "rootUrl": "${KC_ROOT_URL}",
+        "adminUrl": "",
+        "baseUrl": "",
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
-        "clientAuthenticatorType": "client-secret",
-        "redirectUris": [],
-        "webOrigins": [],
+        "clientAuthenticatorType": "client-secret",        
+        "secret": "${KC_ADMIN_SECRET}",
+        "redirectUris": [
+          "/*"
+        ],
+        "webOrigins": [
+          "/*"
+        ],
         "notBefore": 0,
         "bearerOnly": false,
         "consentRequired": false,
@@ -605,7 +667,7 @@
         "implicitFlowEnabled": false,
         "directAccessGrantsEnabled": true,
         "serviceAccountsEnabled": false,
-        "publicClient": true,
+        "publicClient": false,
         "frontchannelLogout": false,
         "protocol": "openid-connect",
         "attributes": {},
@@ -771,14 +833,14 @@
         "clientId": "spsh",
         "name": "Schulportal SH",
         "description": "",
-        "rootUrl": "",
+        "rootUrl": "${KC_ROOT_URL}",
         "adminUrl": "",
         "baseUrl": "",
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
         "clientAuthenticatorType": "client-secret",
-        "secret": "YDp6fYkbUcj4ZkyAOnbAHGQ9O72htc5M",
+        "secret": "${KC_CLIENT_SECRET}",
         "redirectUris": [
           "/*"
         ],
@@ -866,6 +928,112 @@
           "offline_access",
           "microprofile-jwt"
         ]
+      },
+      {
+        "clientId": "spsh-admin",
+        "name": "SPSH-Admin",
+        "description": "",
+        "rootUrl": "",
+        "adminUrl": "",
+        "baseUrl": "",
+        "surrogateAuthRequired": false,
+        "enabled": true,
+        "alwaysDisplayInConsole": false,
+        "clientAuthenticatorType": "client-secret",
+        "secret": "${KC_ADMIN_SECRET}",
+        "redirectUris": [
+          "/*"
+        ],
+        "webOrigins": [
+          "/*"
+        ],
+        "notBefore": 0,
+        "bearerOnly": false,
+        "consentRequired": false,
+        "standardFlowEnabled": false,
+        "implicitFlowEnabled": false,
+        "directAccessGrantsEnabled": false,
+        "serviceAccountsEnabled": true,
+        "publicClient": false,
+        "frontchannelLogout": true,
+        "protocol": "openid-connect",
+        "attributes": {
+          "oidc.ciba.grant.enabled": false,
+          "client.secret.creation.time": "1706707674",
+          "backchannel.logout.session.required": "true",
+          "display.on.consent.screen": "false",
+          "oauth2.device.authorization.grant.enabled": false,
+          "backchannel.logout.revoke.offline.tokens": "false",
+          "login_theme": "",
+          "frontchannel.logout.url": "",
+          "backchannel.logout.url": ""
+        },
+        "authenticationFlowBindingOverrides": {},
+        "fullScopeAllowed": true,
+        "nodeReRegistrationTimeout": -1,
+        "protocolMappers": [
+          {
+            "name": "Client IP Address",
+            "protocol": "openid-connect",
+            "protocolMapper": "oidc-usersessionmodel-note-mapper",
+            "consentRequired": false,
+            "config": {
+              "user.session.note": "clientAddress",
+              "introspection.token.claim": "true",
+              "id.token.claim": "true",
+              "access.token.claim": "true",
+              "claim.name": "clientAddress",
+              "jsonType.label": "String"
+            }
+          },
+          {
+            "name": "Client ID",
+            "protocol": "openid-connect",
+            "protocolMapper": "oidc-usersessionmodel-note-mapper",
+            "consentRequired": false,
+            "config": {
+              "user.session.note": "client_id",
+              "introspection.token.claim": "true",
+              "id.token.claim": "true",
+              "access.token.claim": "true",
+              "claim.name": "client_id",
+              "jsonType.label": "String"
+            }
+          },
+          {
+            "name": "Client Host",
+            "protocol": "openid-connect",
+            "protocolMapper": "oidc-usersessionmodel-note-mapper",
+            "consentRequired": false,
+            "config": {
+              "user.session.note": "clientHost",
+              "introspection.token.claim": "true",
+              "id.token.claim": "true",
+              "access.token.claim": "true",
+              "claim.name": "clientHost",
+              "jsonType.label": "String"
+            }
+          }
+        ],
+        "defaultClientScopes": [
+          "web-origins",
+          "acr",
+          "roles",
+          "profile",
+          "email"
+        ],
+        "optionalClientScopes": [
+          "address",
+          "phone",
+          "offline_access",
+          "microprofile-jwt"
+        ],
+        "access": {
+          "view": true,
+          "configure": true,
+          "manage": true
+        },
+        "authorizationServicesEnabled": false
       }
     ],
     "clientScopes": [
@@ -2209,7 +2377,7 @@
       "cibaInterval": "5",
       "realmReusableOtpCode": "false"
     },
-    "keycloakVersion": "22.0.3",
+    "keycloakVersion": "23.0.4",
     "userManagedAccessAllowed": false,
     "clientProfiles": {
       "profiles": []
