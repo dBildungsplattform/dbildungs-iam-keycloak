@@ -1,103 +1,93 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-deployment
+  name: {{ template "common.names.deployment" . }}
   labels:
-    app.kubernetes.io/name: dbildungs-iam
+    app.kubernetes.io/name: {{ template "common.names.releasename" . }}
 spec:
   selector:
     matchLabels:
-      layer: dbildungs-iam-keycloak
-  replicas: 1
+      app.kubernetes.io/layer: {{ template "common.names.releasename" . }}
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
-      name: dbildungs-iam-keycloak
+      app.kubernetes.io/name: {{ template "common.names.releasename" . }}
       labels:
-        layer: dbildungs-iam-keycloak
+        app.kubernetes.io/layer: {{ template "common.names.releasename" . }}
     spec:
       containers:
-        - name: dbildungs-iam-keycloak
+        - name: {{ template "common.names.releasename" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           securityContext:
-            allowPrivilegeEscalation: false
-          # Workaround until we figure out the correct parameters          
+            allowPrivilegeEscalation: {{ .Values.image.allowPrivilegeEscalation }}
           args:            
             - "--cache"
             - "local"
             - "--hostname"
-            - "{{ .Values.keycloakHostname }}"
+            - "{{ .Values.ingress.hostname }}"
             - "--import-realm"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy:  {{ .Values.image.imagepullpolicy }}
           ports:
-            - name: web
-              containerPort: 8080
+            - name: {{ .Values.service.name }}
+              containerPort:  {{ .Values.containerPorts.http }}
           startupProbe:
             httpGet:
-              port: web
-              path: "/health/started"
-            failureThreshold: 30
-            periodSeconds: 10
+              port: {{ .Values.service.name }}
+              path: {{ .Values.httpRelativePath }}
+            failureThreshold: {{ .Values.startupProbe.failureThreshold }}
+            periodSeconds: {{ .Values.startupProbe.periodSeconds }}
           livenessProbe:
             httpGet:
-              port: web
-              path: "/health/live"
+              port: {{ .Values.service.name }}
+              path:  {{ .Values.livenessProbe.path }}
           readinessProbe:
             httpGet:
-              port: web
-              path: "/health/ready"
+              port: {{ .Values.service.name }}
+              path: {{ .Values.readinessProbe.path }}
           env:
             - name: KEYCLOAK_ADMIN
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.name }}
+                  name: {{ .Values.secrets.keycloaksecretname }}
                   key:  admin-user
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.name }}
-                  key:  admin-password
+                  name: {{ .Values.secrets.keycloaksecretname }}
+                  key:  keycloak-adminSecret
             - name: KC_PROXY
               value: "edge"
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.name }}
+                  name: {{ .Values.secrets.keycloaksecretname }}
                   key: db-host
             - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: {{ .Values.configmap.name }}
+                  name: {{ .Values.database.name }}
                   key: db-name
             - name: KC_DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.name }}
+                  name: {{ .Values.secrets.keycloaksecretname }}
                   key: db-username
             - name: KC_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.name }}
+                  name: {{ .Values.secrets.keycloaksecretname }}
                   key: db-password
             - name: KC_DB_URL
               value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
             - name: KC_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.name }}
+                  name: {{ .Values.secrets.keycloaksecretname }}
                   key: keycloak-clientSecret
             - name: KC_ADMIN_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.name }}
+                  name: {{ .Values.secrets.keycloaksecretname }}
                   key: keycloak-adminSecret
             - name: KC_ROOT_URL
-              value: "https://{{.Values.frontendHostname}}"
-          volumeMounts:
-           - mountPath: "/opt/keycloak/data/import"
-             name: "realm-config"
-             readOnly: true
-      restartPolicy: Always
-      volumes:
-        - name: realm-config
-          secret:
-            secretName: realm-config-secret
+              value: "https://{{ .Values.ingress.hostname }}"
