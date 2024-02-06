@@ -5,6 +5,8 @@ image:
   imagepullpolicy: IfNotPresent
   allowPrivilegeEscalation: false
 
+restartPolicy: Always
+
 database:
   name: ""
 

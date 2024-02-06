@@ -91,3 +91,12 @@ spec:
                   key: keycloak-adminSecret
             - name: KC_ROOT_URL
               value: "https://{{ .Values.ingress.hostname }}"
+          volumeMounts:
+          - mountPath: "/opt/keycloak/data/import"
+            name: "realm-config"
+            readOnly: true
+      restartPolicy: {{ .Values.restartPolicy }}
+      volumes:
+        - name: realm-config
+          secret:
+            secretName: realm-config-secret
