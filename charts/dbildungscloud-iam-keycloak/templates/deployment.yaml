@@ -54,7 +54,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.secrets.keycloaksecretname }}
-                  key:  keycloak-adminSecret
+                  key: admin-password
             - name: KC_PROXY
               value: "edge"
             - name: DB_HOST
