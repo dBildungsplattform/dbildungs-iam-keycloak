@@ -5,6 +5,9 @@ metadata:
   labels: 
     app.kubernetes.io/name: {{ template "common.names.releasename" . }}
 spec:
+  tls:
+    - hosts:
+        - {{ .Values.ingress.hostname  }}
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
     - host: {{ .Values.ingress.hostname  }}

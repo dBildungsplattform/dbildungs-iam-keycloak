@@ -33,7 +33,7 @@ spec:
           startupProbe:
             httpGet:
               port: {{ .Values.service.name }}
-              path: {{ .Values.httpRelativePath }}
+              path: {{ .Values.startupProbe.httpRelativePath }}
             failureThreshold: {{ .Values.startupProbe.failureThreshold }}
             periodSeconds: {{ .Values.startupProbe.periodSeconds }}
           livenessProbe:
