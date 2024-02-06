@@ -5,5 +5,4 @@ metadata:
   labels: 
     app.kubernetes.io/name: {{ template "common.names.releasename" . }}
 data:
-  database:
-    name: {{ .Values.database.name }}
+  db-name: {{ .Values.database.name }}
