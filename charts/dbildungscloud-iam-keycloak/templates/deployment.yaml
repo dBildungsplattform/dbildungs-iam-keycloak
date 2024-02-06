@@ -65,7 +65,7 @@ spec:
             - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: {{ .Values.database.name }}
+                  name: {{ template "common.names.configmap" . }}
                   key: db-name
             - name: KC_DB_USERNAME
               valueFrom:
