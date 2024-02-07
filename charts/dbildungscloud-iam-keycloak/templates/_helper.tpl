@@ -38,3 +38,20 @@ Deployment
 {{- printf "%s-deployment" (include "common.names.releasename" .) -}}
 {{- end -}}
 
+{{/*
+Secret
+*/}}
+{{- define "common.names.secret" -}}
+{{- printf "%s-realm-secret" (include "common.names.releasename" .) -}}
+{{- end -}}
+
+{{/*
+Secret
+*/}}
+{{- define "common.names.imageName" -}}
+{{- printf "%s-image" (include "common.names.releasename" .) -}}
+{{- end -}}
+
+
+
+

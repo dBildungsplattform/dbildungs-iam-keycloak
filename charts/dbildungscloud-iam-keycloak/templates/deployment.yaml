@@ -2,65 +2,71 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "common.names.deployment" . }}
+  namespace: {{ .Values.namespace }}
   labels:
-    app.kubernetes.io/name: {{ template "common.names.releasename" . }}
+    app.kubernetes.io/name: {{ .Values.commonLabels.name }}
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/layer: {{ template "common.names.releasename" . }}
+      app.kubernetes.io/layer: {{ .Values.selector.layer }}
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
-      app.kubernetes.io/name: {{ template "common.names.releasename" . }}
+      app.kubernetes.io/name: {{ .Values.commonLabels.name }}
       labels:
-        app.kubernetes.io/layer: {{ template "common.names.releasename" . }}
+        app.kubernetes.io/layer: {{ .Values.selector.layer }}
     spec:
       containers:
-        - name: {{ template "common.names.releasename" . }}
+        - name: {{ .Values.commonLabels.name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          securityContext:
-            allowPrivilegeEscalation: {{ .Values.image.allowPrivilegeEscalation }}
+          imagePullPolicy:  {{ .Values.image.pullPolicy }}
+
+          {{- if .Values.enabledcontainerSecurityContext }}
+          securityContext: {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+          {{- end }}
+          
+          {{- if .Values.volumePermissions.resources }}
+          resources: {{- toYaml .Values.volumePermissions.resources | nindent 12 }}
+          {{- end }}
+          # Workaround until we figure out the correct parameters  
           args:            
             - "--cache"
             - "local"
             - "--hostname"
-            - "{{ .Values.ingress.hostname }}"
+            - "{{ .Values.ingress.keycloakHostname }}"
             - "--import-realm"
-          imagePullPolicy:  {{ .Values.image.imagepullpolicy }}
           ports:
             - name: {{ .Values.service.name }}
               containerPort:  {{ .Values.containerPorts.http }}
-          startupProbe:
-            httpGet:
-              port: {{ .Values.service.name }}
-              path: {{ .Values.startupProbe.httpRelativePath }}
-            failureThreshold: {{ .Values.startupProbe.failureThreshold }}
-            periodSeconds: {{ .Values.startupProbe.periodSeconds }}
-          livenessProbe:
-            httpGet:
-              port: {{ .Values.service.name }}
-              path:  {{ .Values.livenessProbe.path }}
-          readinessProbe:
-            httpGet:
-              port: {{ .Values.service.name }}
-              path: {{ .Values.readinessProbe.path }}
+
+          {{- if .Values.enabledStartupProbe }}
+          startupProbe: {{- toYaml .Values.startupProbe | nindent 12 }}
+          {{- end }}
+
+          {{- if .Values.enabledlivenessProbe }}
+          livenessProbe: {{- toYaml .Values.livenessProbe | nindent 12 }}
+          {{- end }}
+
+          {{- if .Values.enabledreadinessProbe }}
+          readinessProbe: {{- toYaml .Values.readinessProbe | nindent 12 }}
+          {{- end }}
           env:
             - name: KEYCLOAK_ADMIN
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.keycloaksecretname }}
+                  name: {{ .Values.secrets.name }}
                   key:  admin-user
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.keycloaksecretname }}
-                  key: admin-password
+                  name: {{ .Values.secrets.name }}
+                  key:  admin-password
             - name: KC_PROXY
               value: "edge"
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.keycloaksecretname }}
+                  name: {{ .Values.secrets.name }}
                   key: db-host
             - name: DB_NAME
               valueFrom:
@@ -70,33 +76,33 @@ spec:
             - name: KC_DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.keycloaksecretname }}
+                  name: {{ .Values.secrets.name }}
                   key: db-username
             - name: KC_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.keycloaksecretname }}
+                  name: {{ .Values.secrets.name }}
                   key: db-password
             - name: KC_DB_URL
               value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
             - name: KC_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.keycloaksecretname }}
+                  name: {{ .Values.secrets.name }}
                   key: keycloak-clientSecret
             - name: KC_ADMIN_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secrets.keycloaksecretname }}
+                  name: {{ .Values.secrets.name }}
                   key: keycloak-adminSecret
             - name: KC_ROOT_URL
-              value: "https://{{ .Values.ingress.hostname }}"
+              value: "https://{{.Values.frontendHostname}}"
           volumeMounts:
-          - mountPath: "/opt/keycloak/data/import"
-            name: "realm-config"
-            readOnly: true
-      restartPolicy: {{ .Values.restartPolicy }}
+           - mountPath: {{ .Values.volumeConfig.mountPath }}
+             name: {{ .Values.volumeConfig.name }}
+             readOnly: {{ .Values.volumeConfig.readOnly }}
+      restartPolicy: {{ default "Always" .Values.restartPolicy }}
       volumes:
-        - name: realm-config
+        - name: {{ .Values.volumeConfig.name }}
           secret:
-            secretName: realm-config-secret
+            secretName:  {{ template "common.names.secret" . }}

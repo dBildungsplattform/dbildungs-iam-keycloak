@@ -1,40 +1,108 @@
 replicaCount: 1
+namespace: ""
 image:
   repository: ghcr.io/dbildungsplattform/dbildungs-iam
   tag: ""
-  imagepullpolicy: IfNotPresent
-  allowPrivilegeEscalation: false
+  pullPolicy: IfNotPresent 
 
-database:
+
+restartPolicy: Always
+
+enabledcontainerSecurityContext: true
+containerSecurityContext:
+  runAsNonRoot: true
+  privileged: false
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  seccompProfile:
+    type: "RuntimeDefault"
+
+volumeConfig:
+  name: realm-config
+  mountPath: "/opt/keycloak/data/import"
+  readOnly: true
+
+
+  
+volumePermissions:
+  enabled: true
+  resources:
+    limits: { memory: "128Mi", cpu: "500m" }
+    requests: { memory: "64Mi", cpu: "250m" }
+
+enabledStartupProbe: true
+startupProbe:
+  httpGet:
+    path: "/health/started"
+    port: web
+  periodSeconds: 10
+  failureThreshold: 30
+
+enabledlivenessProbe: true
+livenessProbe:
+  httpGet:
+    path: /health/live
+    port: web
+
+enabledreadinessProbe: true
+readinessProbe:
+  httpGet:
+    path: "/health/ready"
+    port: web
+
+database: 
   name: ""
 
 containerPorts:
   http: 8080
 
-service:
-  type: ClusterIP
-  name: web
-  ports:
-    http: 80
-
 ingress:
   ingressClassName: nginx
   pathType: Prefix
-  hostname: "keycloak.dev.spsh.dbildungsplattform.de"
+  keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
+  frontendHostname: ""
   httpRelativePath: "/"
-  port:
-    number: 80
-
-startupProbe:
-  httpRelativePath: "/health/started"
-  periodSeconds: 10
-  failureThreshold: 30
-
-livenessProbe:
-  path: "/health/live"
-
-readinessProbe:
-  path: "/health/ready"
+  portnumber: 80
 
 secrets:
-  keycloaksecretname: keycloak
+  name: keycloak
+
+enabledserviceport:  true
+ports:
+  name: web
+  protocol: TCP
+  port: 80
+  targetPort: web
+servicetype: ClusterIP
+
+
+
+
+service:
+  type: ClusterIP
+  port: 80
+
+  nodePorts:
+    http: ""
+    https: ""
+
+
+
+
+
+
+database:
+  name: ""
+
+commonLabels:
+  name: dbildungs-iam-keyclok
+
+namespace: ""
+
+selector:
+  layer: dbildungs-iam-keyclok
+
+
+
