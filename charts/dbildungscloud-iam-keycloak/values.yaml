@@ -7,6 +7,7 @@ image:
 
 
 restartPolicy: Always
+automountServiceAccountToken: false
 
 enabledcontainerSecurityContext: true
 containerSecurityContext:
@@ -87,11 +88,6 @@ service:
   nodePorts:
     http: ""
     https: ""
-
-
-
-
-
 
 database:
   name: ""

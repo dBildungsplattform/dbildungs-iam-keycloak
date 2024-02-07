@@ -16,10 +16,11 @@ spec:
       labels:
         app.kubernetes.io/layer: {{ .Values.selector.layer }}
     spec:
+      automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}                                    
       containers:
         - name: {{ .Values.commonLabels.name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy:  {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
 
           {{- if .Values.enabledcontainerSecurityContext }}
           securityContext: {{- toYaml .Values.containerSecurityContext | nindent 12 }}
