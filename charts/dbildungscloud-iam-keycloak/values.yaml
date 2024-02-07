@@ -11,6 +11,7 @@ automountServiceAccountToken: false
 
 enabledcontainerSecurityContext: true
 containerSecurityContext:
+  runAsUser: 1001
   runAsNonRoot: true
   privileged: false
   readOnlyRootFilesystem: true
