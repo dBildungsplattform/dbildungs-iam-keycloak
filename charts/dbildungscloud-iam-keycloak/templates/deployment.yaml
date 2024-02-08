@@ -22,9 +22,9 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }} 
 
-          {{- if .Values.enabledcontainerSecurityContext }}
-          securityContext: {{- toYaml .Values.containerSecurityContext | nindent 12 }}
-          {{- end }}
+          #{{- if .Values.enabledcontainerSecurityContext }}
+          #securityContext: {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+          #{{- end }}
           
           
           {{- if .Values.volumePermissions.resources }}
