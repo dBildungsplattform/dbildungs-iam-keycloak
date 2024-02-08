@@ -3,9 +3,24 @@ namespace: ""
 image:
   repository: ghcr.io/dbildungsplattform/dbildungs-iam
   tag: ""
-  pullPolicy: IfNotPresent 
+  pullPolicy: Always 
 
-namespace: " "
+namespace: ""
+
+commonLabels:
+  name: dbildungs-iam-keyclok
+
+selector:
+  layer: dbildungs-iam-keyclok
+
+database: 
+  name: ""
+
+containerPorts:
+  http: 8080
+
+secrets:
+  name: keycloak
 
 restartPolicy: Always
 automountServiceAccountToken: false
@@ -53,12 +68,6 @@ readinessProbe:
     path: "/health/ready"
     port: web
 
-database: 
-  name: ""
-
-containerPorts:
-  http: 8080
-
 ingress:
   ingressClassName: nginx
   pathType: Prefix
@@ -66,9 +75,6 @@ ingress:
   frontendHostname: ""
   httpRelativePath: "/"
   portnumber: 80
-
-secrets:
-  name: keycloak
 
 enabledserviceport:  true
 ports:
@@ -78,12 +84,3 @@ ports:
   targetPort: web
 servicetype: ClusterIP
 serviceName: web
-
-database:
-  name: ""
-
-commonLabels:
-  name: dbildungs-iam-keyclok
-
-selector:
-  layer: dbildungs-iam-keyclok
