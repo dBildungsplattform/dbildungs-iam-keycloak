@@ -6,6 +6,7 @@ image:
   pullPolicy: Always 
 
 namespace: ""
+frontendHostname: ""
 
 commonLabels:
   name: dbildungs-iam-keyclok
