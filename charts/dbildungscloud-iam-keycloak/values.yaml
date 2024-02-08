@@ -5,7 +5,7 @@ image:
   tag: ""
   pullPolicy: IfNotPresent 
 
-namespace: ""
+namespace: " "
 
 restartPolicy: Always
 automountServiceAccountToken: false
