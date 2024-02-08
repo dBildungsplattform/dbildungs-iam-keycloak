@@ -24,7 +24,7 @@ secrets:
   name: keycloak
 
 restartPolicy: Always
-automountServiceAccountToken: false
+automountServiceAccountToken: true
 
 enabledcontainerSecurityContext: true
 containerSecurityContext:
