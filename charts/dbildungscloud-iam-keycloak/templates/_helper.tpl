@@ -14,7 +14,7 @@ Create  release name.
 service name.
 */}}
 {{- define "common.names.service" -}}
-{{- printf "%s-service" (include "common.names.releasename" .) -}}
+{{- printf "%s" (include "common.names.releasename" .) -}}
 {{- end -}}
 
 {{/*
@@ -45,12 +45,6 @@ Secret
 {{- printf "%s-secret" (include "common.names.releasename" .) -}}
 {{- end -}}
 
-{{/*
-Secret
-*/}}
-{{- define "common.names.imageName" -}}
-{{- printf "%s-image" (include "common.names.releasename" .) -}}
-{{- end -}}
 
 
 
