@@ -46,8 +46,8 @@ volumeConfig:
 volumePermissions:
   enabled: true
   resources:
-    limits: { memory: "128Mi", cpu: "500m" }
-    requests: { memory: "128Mi", cpu: "500m" }
+    limits: { memory: "1Gi", cpu: "500m" }
+    requests: { memory: "1Gi", cpu: "500m" }
 
 enabledStartupProbe: true
 startupProbe:
