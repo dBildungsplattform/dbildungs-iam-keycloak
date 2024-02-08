@@ -51,6 +51,7 @@ spec:
           {{- if .Values.enabledreadinessProbe }}
           readinessProbe: {{- toYaml .Values.readinessProbe | nindent 12 }}
           {{- end }}
+          
           env:
             - name: KEYCLOAK_ADMIN
               valueFrom:

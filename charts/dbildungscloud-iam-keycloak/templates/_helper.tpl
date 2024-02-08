@@ -4,42 +4,42 @@ SPDX-License-Identifier: APACHE-2.0
 */}}
 
 {{/*
-Create  release name.
+Create  release name
 */}}
 {{- define "common.names.releasename" -}}
 {{- .Release.Name -}}
 {{- end -}}
 
 {{/*
-service name.
+Service name
 */}}
 {{- define "common.names.service" -}}
 {{- printf "%s-service" (include "common.names.releasename" .) -}}
 {{- end -}}
 
 {{/*
-ingress
+Ingress name
 */}}
 {{- define "common.names.ingress" -}}
 {{- printf "%s-ingress" (include "common.names.releasename" .) -}}
 {{- end -}}
 
 {{/*
-configmap
+Configmap name
 */}}
 {{- define "common.names.configmap" -}}
 {{- printf "%s-configmap" (include "common.names.releasename" .) -}}
 {{- end -}}
 
 {{/*
-Deployment
+Deployment name
 */}}
 {{- define "common.names.deployment" -}}
 {{- printf "%s-deployment" (include "common.names.releasename" .) -}}
 {{- end -}}
 
 {{/*
-Secret
+Secret name
 */}}
 {{- define "common.names.secret" -}}
 {{- printf "%s-secret" (include "common.names.releasename" .) -}}
