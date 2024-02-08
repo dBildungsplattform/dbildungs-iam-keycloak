@@ -14,7 +14,7 @@ commonLabels:
 selector:
   layer: dbildungs-iam-keyclok
 
-database: 
+db:
   name: ""
 
 containerPorts:

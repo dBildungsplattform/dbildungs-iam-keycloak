@@ -6,4 +6,4 @@ metadata:
   labels: 
     app.kubernetes.io/name: {{ .Values.commonLabels.name }}
 data:
-  db-name: {{ .Values.database.name }}
+  db-name: {{ .Values.db.name }}

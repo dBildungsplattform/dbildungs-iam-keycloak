@@ -26,7 +26,6 @@ spec:
           securityContext: {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           {{- end }}
           
-          
           {{- if .Values.volumePermissions.resources }}
           resources: {{- toYaml .Values.volumePermissions.resources | nindent 12 }}
           {{- end }}
