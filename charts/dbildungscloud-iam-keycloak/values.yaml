@@ -24,14 +24,14 @@ secrets:
   name: keycloak
 
 restartPolicy: Always
-automountServiceAccountToken: true
+automountServiceAccountToken: false
 
 enabledcontainerSecurityContext: true
 containerSecurityContext:
   runAsUser: 10001
   runAsNonRoot: true
   privileged: false
-  readOnlyRootFilesystem: true
+  readOnlyRootFilesystem: false
   allowPrivilegeEscalation: false
   capabilities:
     drop: ["ALL"]
