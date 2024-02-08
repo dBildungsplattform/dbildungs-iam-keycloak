@@ -78,9 +78,10 @@ ingress:
 
 enabledserviceport:  true
 ports:
-  name: web
-  protocol: TCP
-  port: 80
-  targetPort: web
+  - protocol: TCP
+    name: web
+    port: 80
+    targetPort: web
+    
 servicetype: ClusterIP
 serviceName: web

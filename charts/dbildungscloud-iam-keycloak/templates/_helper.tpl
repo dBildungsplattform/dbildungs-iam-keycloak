@@ -42,7 +42,7 @@ Deployment
 Secret
 */}}
 {{- define "common.names.secret" -}}
-{{- printf "%s-realm-secret" (include "common.names.releasename" .) -}}
+{{- printf "%s-secret" (include "common.names.releasename" .) -}}
 {{- end -}}
 
 {{/*
