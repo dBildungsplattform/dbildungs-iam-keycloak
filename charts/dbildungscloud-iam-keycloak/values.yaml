@@ -5,7 +5,6 @@ image:
   tag: ""
   pullPolicy: Always 
 
-namespace: ""
 frontendHostname: ""
 keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
 
