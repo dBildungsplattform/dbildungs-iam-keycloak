@@ -41,7 +41,7 @@ FROM base AS deployment-build
 ENV KC_HEALTH_ENABLED=true \
     KC_METRICS_ENABLED=true \
     KC_DB=postgres \
-    KC_FEATURES_DISABLED=impersonation,ciba,par,web-authn \
+    KC_FEATURES_DISABLED=impersonation,par \
     KC_CACHE=ispn \
     KC_CACHE_STACK=kubernetes
 
