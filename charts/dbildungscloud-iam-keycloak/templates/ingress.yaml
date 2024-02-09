@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "common.names.ingress" . }}
+  name: {{ include "common.names.releasename" . }}
   namespace: {{ .Values.namespace }}
   labels: 
     app.kubernetes.io/name: {{ .Values.commonLabels.name }}
@@ -18,6 +18,6 @@ spec:
             pathType: {{ .Values.ingress.pathType }}
             backend: 
               service:
-                name: {{ template "common.names.service" . }}
+                name: {{ template "common.names.releasename" . }}
                 port:
                   number: {{ .Values.ingress.portnumber }}

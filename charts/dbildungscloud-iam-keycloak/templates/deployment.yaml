@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "common.names.deployment" . }}
+  name: {{ template "common.names.releasename" . }}
   namespace: {{ .Values.namespace }}
   labels:
     app.kubernetes.io/name: {{ .Values.commonLabels.name }}
@@ -73,7 +73,7 @@ spec:
             - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "common.names.configmap" . }}
+                  name: {{ template "common.names.releasename" . }}
                   key: db-name
             - name: KC_DB_USERNAME
               valueFrom:
@@ -107,4 +107,4 @@ spec:
       volumes:
         - name: {{ .Values.volumeConfig.name }}
           secret:
-            secretName:  {{ template "common.names.secret" . }}
+            secretName:  {{ template "common.names.releasename" . }}
