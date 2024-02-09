@@ -34,7 +34,7 @@ spec:
             - "--cache"
             - "local"
             - "--hostname"
-            - "{{ .Values.ingress.keycloakHostname }}" 
+            - "{{ .Values.keycloakHostname }}" 
             - "--import-realm"
           ports:
             - name: {{ .Values.serviceName }} 
