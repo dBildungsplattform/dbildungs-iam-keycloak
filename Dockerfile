@@ -12,7 +12,7 @@ ENV KC_HEALTH_ENABLED=true \
     KC_METRICS_ENABLED=true \
     KC_DB=dev-file \
     KC_CACHE=local \
-    KC_FEATURES_DISABLED=impersonation,ciba,par,web-authn
+    KC_FEATURES_DISABLED=impersonation,par
 
 # Build Keycloak
 RUN /opt/keycloak/bin/kc.sh build
