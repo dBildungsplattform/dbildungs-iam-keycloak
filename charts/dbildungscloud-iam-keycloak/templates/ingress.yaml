@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: keycloak-ingress
   annotations:
-    nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
     nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
 spec:
   tls:
