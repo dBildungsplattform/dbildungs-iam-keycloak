@@ -1,9 +1,20 @@
+
+enabledcontainerSecurityContext: true
+enabledreadinessProbe: true
+enabledlivenessProbe: true
+enabledStartupProbe: true
+enabledserviceport:  true
+
 replicaCount: 1
-namespace: ""
 image:
   repository: ghcr.io/dbildungsplattform/dbildungs-iam
   tag: ""
   pullPolicy: Always 
+
+database:
+  name: ""
+
+namespace: ""
 
 frontendHostname: ""
 keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
@@ -14,9 +25,6 @@ commonLabels:
 selector:
   layer: dbildungs-iam-keyclok
 
-database:
-  name: ""
-  
 containerPorts:
   http: 8080
 
@@ -26,9 +34,11 @@ secrets:
 restartPolicy: Always
 automountServiceAccountToken: false
 
-enabledcontainerSecurityContext: true
+servicetype: ClusterIP
+serviceName: web
+
 containerSecurityContext:
-  runAsUser: 10001
+  runAsUser: 1000
   runAsNonRoot: true
   privileged: false
   readOnlyRootFilesystem: false
@@ -53,7 +63,6 @@ volumePermissions:
       memory: "1Gi"
       cpu: "500m"
 
-enabledStartupProbe: true
 startupProbe:
   httpGet:
     path: "/health/started"
@@ -61,13 +70,12 @@ startupProbe:
   periodSeconds: 10
   failureThreshold: 30
 
-enabledlivenessProbe: true
+
 livenessProbe:
   httpGet:
     path: /health/live
     port: web
 
-enabledreadinessProbe: true
 readinessProbe:
   httpGet:
     path: "/health/ready"
@@ -80,12 +88,8 @@ ingress:
   httpRelativePath: "/"
   portnumber: 80
 
-enabledserviceport:  true
 ports:
   - protocol: TCP
     name: web
     port: 80
     targetPort: web
-
-servicetype: ClusterIP
-serviceName: web
