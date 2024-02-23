@@ -37,7 +37,7 @@ jobs:
     permissions:
       packages: read
       security-events: write
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-trivy.yaml@5.0.0
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-trivy.yaml@5
     with:
       image_ref: 'ghcr.io/${{ github.repository_owner }}/dbildungs-iam-keycloak:latest'
       fail_on_vulnerabilites: false
@@ -45,7 +45,7 @@ jobs:
 
   scan_helm:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@5.0.0
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@5
     permissions:
       contents: read
 
@@ -72,7 +72,7 @@ jobs:
     needs:
       - select_helm_version_generation_and_image_tag_generation
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@5.0.0
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@5
     secrets: inherit
     with:
       chart_name: dbildungscloud-iam-keycloak
