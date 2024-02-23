@@ -70,7 +70,6 @@ startupProbe:
   periodSeconds: 10
   failureThreshold: 30
 
-
 livenessProbe:
   httpGet:
     path: /health/live
