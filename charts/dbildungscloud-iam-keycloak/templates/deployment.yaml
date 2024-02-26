@@ -74,7 +74,7 @@ spec:
                   {{- end }}
                   key:  admin-password
             - name: KC_PROXY
-              value: "edge"
+              value: {{ .Values.keycloak_proxy }}
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
