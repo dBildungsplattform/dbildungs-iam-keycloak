@@ -16,6 +16,18 @@ database:
 
 namespace: ""
 
+auth:
+  # existingSecret: Refers to a secret already present in the cluster, which is required for the authentication and configuration of the database setup tasks.
+  existingSecret: ""
+  name: keycloak
+  admin_password: ""
+  admin_user: ""
+  db_host: ""
+  db_password: ""
+  db_username: ""
+  keycloak_adminSecret: ""
+  keycloak_clientSecret: ""
+
 frontendHostname: ""
 keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
 
@@ -27,9 +39,6 @@ selector:
 
 containerPorts:
   http: 8080
-
-secrets:
-  name: keycloak
 
 restartPolicy: Always
 automountServiceAccountToken: false
