@@ -13,6 +13,9 @@ image:
 
 database:
   name: ""
+  db_host: ""
+  db_password: ""
+  db_username: ""
 
 namespace: ""
 
@@ -22,9 +25,6 @@ auth:
   name: keycloak
   admin_password: ""
   admin_user: ""
-  db_host: ""
-  db_password: ""
-  db_username: ""
   keycloak_adminSecret: ""
   keycloak_clientSecret: ""
 
