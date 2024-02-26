@@ -1,11 +1,94 @@
+
+enabledcontainerSecurityContext: true
+enabledreadinessProbe: true
+enabledlivenessProbe: true
+enabledStartupProbe: true
+enabledserviceport:  true
+
+replicaCount: 1
+image:
+  repository: ghcr.io/dbildungsplattform/dbildungs-iam-keycloak
+  tag: ""
+  pullPolicy: Always 
+
+database:
+  name: ""
+
+namespace: ""
+
+frontendHostname: ""
 keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
+
+commonLabels:
+  name: dbildungs-iam-keyclok
+
+selector:
+  layer: dbildungs-iam-keyclok
+
+containerPorts:
+  http: 8080
+
 secrets:
   name: keycloak
-configmap:
-  name: keycloak
-image:
-  repository: ghcr.io/dbildungsplattform/dbildungs-iam
-  tag: ""
-db:
-  name: ""
-frontendHostname: ""
+
+restartPolicy: Always
+automountServiceAccountToken: false
+
+servicetype: ClusterIP
+serviceName: web
+
+containerSecurityContext:
+  runAsUser: 1000
+  runAsNonRoot: true
+  privileged: false
+  readOnlyRootFilesystem: false
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  seccompProfile:
+    type: "RuntimeDefault"
+
+volumeConfig:
+  name: realm-config
+  mountPath: "/opt/keycloak/data/import"
+  readOnly: true
+
+volumePermissions:
+  enabled: true
+  resources:
+    limits: 
+      memory: "1Gi"
+      cpu: "500m"
+    requests: 
+      memory: "1Gi"
+      cpu: "500m"
+
+startupProbe:
+  httpGet:
+    path: "/health/started"
+    port: web
+  periodSeconds: 10
+  failureThreshold: 30
+
+livenessProbe:
+  httpGet:
+    path: /health/live
+    port: web
+
+readinessProbe:
+  httpGet:
+    path: "/health/ready"
+    port: web
+
+ingress:
+  ingressClassName: nginx
+  pathType: Prefix
+  
+  httpRelativePath: "/"
+  portnumber: 80
+
+ports:
+  - protocol: TCP
+    name: web
+    port: 80
+    targetPort: web
