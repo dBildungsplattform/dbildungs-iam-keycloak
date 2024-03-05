@@ -23,7 +23,7 @@ jobs:
       contents: read
   release:
     needs: scan
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@DBP-647-fix-gha-release-helm-chart
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@5
     secrets: inherit
     with:
       chart_name: dbildungs-iam-keycloak
