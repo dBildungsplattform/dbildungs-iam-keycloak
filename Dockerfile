@@ -1,7 +1,7 @@
-# Keycloak base image with dbildungs-iam extensions
-FROM quay.io/keycloak/keycloak:23.0.4 AS base
+# Keycloak base image with dbildungs-iam-keycloak extensions
+FROM quay.io/keycloak/keycloak:23.0.7 AS base
 
-# Copy dbildungs-iam specific extensions (providers, themes, etc.)
+# Copy dbildungs-iam-keycloak specific extensions (providers, themes, etc.)
 COPY src/providers/ /opt/keycloak/providers/
 
 #  Build Stage
@@ -28,7 +28,7 @@ COPY --from=build /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 
 # Generate auto-generated keys for HTTPS in developer mode
 RUN keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysize 2048 \
-    -dname "CN=dbildungs-iam-server" -alias dbildungs-iam \
+    -dname "CN=dbildungs-iam-server" -alias dbildungs-iam-server \
     -ext "SAN:c=DNS:localhost,IP:127.0.0.1" -validity 365 -keystore conf/server.keystore
 
 # Set entrypoint for development mode
