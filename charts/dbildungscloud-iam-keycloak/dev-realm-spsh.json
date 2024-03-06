@@ -1569,6 +1569,7 @@
       "strictTransportSecurity": "max-age=31536000; includeSubDomains"
     },
     "smtpServer": {},
+    "loginTheme": "schulportal",
     "eventsEnabled": false,
     "eventsListeners": [
       "jboss-logging"
