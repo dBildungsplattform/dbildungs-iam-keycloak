@@ -22,7 +22,7 @@ namespace: ""
 auth:
   # existingSecret: Refers to a secret already present in the cluster, which is required for the authentication and configuration of the database setup tasks.
   existingSecret: ""
-  name: keycloak
+  name: dbildungs-iam-keycloak
   admin_password: ""
   admin_user: ""
   keycloak_adminSecret: ""
