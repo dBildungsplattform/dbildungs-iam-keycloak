@@ -142,4 +142,4 @@ spec:
       volumes:
         - name: {{ .Values.volumeConfig.name }}
           secret:
-            secretName:  {{ template "common.names.releasename" . }}
+            secretName:  {{ template "common.names.releasename" . }}-realm
