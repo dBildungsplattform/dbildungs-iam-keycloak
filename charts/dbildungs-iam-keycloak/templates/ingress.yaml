@@ -5,6 +5,9 @@ metadata:
   namespace: {{ .Values.namespace }}
   labels: 
     app.kubernetes.io/name: {{ .Values.commonLabels.name }}
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+    nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
 spec:
   tls:
     - hosts:
