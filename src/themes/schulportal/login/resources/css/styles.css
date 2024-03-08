@@ -1,0 +1,65 @@
+.login-pf body {
+  background: #ffffff;
+  color: #001e49;
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+}
+
+.login-pf-page {
+  padding-top: 90px;
+}
+
+.dark-header {
+  background: #001e49;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  display: flex;
+  height: 60px;
+  justify-content: space-between;
+  left: 0;
+  padding-left: 16px;
+  padding-right: 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1008;
+}
+
+.dark-header a {
+  color: #ffffff;
+  font-size: 18px;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+.light-header {
+  background: #e5eaef;
+  height: 40px;
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  z-index: 1006;
+}
+
+.title-logo {
+  margin-top: 45px;
+  text-align: center;
+}
+
+.login-pf-header {
+  font-size: 22px;
+  font-weight: bold;
+  max-width: 500px;
+  min-width: 360px;
+}
+
+.login-pf-page .login-pf-header h1 {
+  text-align: left;
+}
+
+.card-pf {
+  box-shadow: none;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 500px;
+  min-width: 360px;
+}

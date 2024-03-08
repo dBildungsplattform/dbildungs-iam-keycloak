@@ -39,9 +39,25 @@
 <body class="${properties.kcBodyClass!}">
 <div class="${properties.kcLoginClass!}">
     <div id="kc-header" class="${properties.kcHeaderClass!}">
-        <div id="kc-header-wrapper"
-            class="${properties.kcHeaderWrapperClass!}">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}
+            <div id="kc-header-wrapper" class="${properties.kcHeaderWrapperClass!}">
+                <a href="https://test.dev.spsh.dbildungsplattform.de">
+                    <img
+                        src="${url.resourcesPath}/img/Schulportal_SH_Wort_Bildmarke_RGB_Anwendung_HG_Blau.svg"
+                        alt="Logo Schulportal"
+                        width="354"
+                        height="60"
+                    />
+                </a>
+                <a href="https://medienberatung.iqsh.de/schulportal-sh.html">${msg("help")}</a>
+            </div>
+            <div class="light-header"></div>
         </div>
+        <div class="title-logo">
+            <img
+                src="${url.resourcesPath}/img/Schulportal_SH_Wort_Bildmarke_RGB_Anwendung_HG_Weiss.svg"
+                alt="Logo Schulportal"
+                width="540"
+            />
     </div>
     <div class="${properties.kcFormCardClass!}">
         <header class="${properties.kcFormHeaderClass!}">
