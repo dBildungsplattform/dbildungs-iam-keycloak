@@ -37,8 +37,8 @@
 </head>
 
 <body class="${properties.kcBodyClass!}">
-<div class="${properties.kcLoginClass!}">
-    <div id="kc-header" class="${properties.kcHeaderClass!}">
+    <div class="${properties.kcLoginClass!}">
+        <div id="kc-header" class="${properties.kcHeaderClass!}">
             <div id="kc-header-wrapper" class="${properties.kcHeaderWrapperClass!}">
                 <a href="https://test.dev.spsh.dbildungsplattform.de">
                     <img
@@ -58,45 +58,58 @@
                 alt="Logo Schulportal"
                 width="540"
             />
-    </div>
-    <div class="${properties.kcFormCardClass!}">
-        <header class="${properties.kcFormHeaderClass!}">
-            <#if realm.internationalizationEnabled  && locale.supported?size gt 1>
-                <div class="${properties.kcLocaleMainClass!}" id="kc-locale">
-                    <div id="kc-locale-wrapper" class="${properties.kcLocaleWrapperClass!}">
-                        <div id="kc-locale-dropdown" class="${properties.kcLocaleDropDownClass!}">
-                            <a href="#" id="kc-current-locale-link">${locale.current}</a>
-                            <ul class="${properties.kcLocaleListClass!}">
-                                <#list locale.supported as l>
-                                    <li class="${properties.kcLocaleListItemClass!}">
-                                        <a class="${properties.kcLocaleItemClass!}" href="${l.url}">${l.label}</a>
-                                    </li>
-                                </#list>
-                            </ul>
+        </div>
+        <div class="${properties.kcFormCardClass!}">
+            <header class="${properties.kcFormHeaderClass!}">
+                <#if realm.internationalizationEnabled  && locale.supported?size gt 1>
+                    <div class="${properties.kcLocaleMainClass!}" id="kc-locale">
+                        <div id="kc-locale-wrapper" class="${properties.kcLocaleWrapperClass!}">
+                            <div id="kc-locale-dropdown" class="${properties.kcLocaleDropDownClass!}">
+                                <a href="#" id="kc-current-locale-link">${locale.current}</a>
+                                <ul class="${properties.kcLocaleListClass!}">
+                                    <#list locale.supported as l>
+                                        <li class="${properties.kcLocaleListItemClass!}">
+                                            <a class="${properties.kcLocaleItemClass!}" href="${l.url}">${l.label}</a>
+                                        </li>
+                                    </#list>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </#if>
-        <#if !(auth?has_content && auth.showUsername() && !auth.showResetCredentials())>
-            <#if displayRequiredFields>
-                <div class="${properties.kcContentWrapperClass!}">
-                    <div class="${properties.kcLabelWrapperClass!} subtitle">
-                        <span class="subtitle"><span class="required">*</span> ${msg("requiredFields")}</span>
-                    </div>
-                    <div class="col-md-10">
+                </#if>
+                <#if !(auth?has_content && auth.showUsername() && !auth.showResetCredentials())>
+                    <#if displayRequiredFields>
+                        <div class="${properties.kcContentWrapperClass!}">
+                            <div class="${properties.kcLabelWrapperClass!} subtitle">
+                                <span class="subtitle"><span class="required">*</span> ${msg("requiredFields")}</span>
+                            </div>
+                            <div class="col-md-10">
+                                <h1 id="kc-page-title"><#nested "header"></h1>
+                            </div>
+                        </div>
+                    <#else>
                         <h1 id="kc-page-title"><#nested "header"></h1>
-                    </div>
-                </div>
-            <#else>
-                <h1 id="kc-page-title"><#nested "header"></h1>
-            </#if>
-        <#else>
-            <#if displayRequiredFields>
-                <div class="${properties.kcContentWrapperClass!}">
-                    <div class="${properties.kcLabelWrapperClass!} subtitle">
-                        <span class="subtitle"><span class="required">*</span> ${msg("requiredFields")}</span>
-                    </div>
-                    <div class="col-md-10">
+                    </#if>
+                <#else>
+                    <#if displayRequiredFields>
+                        <div class="${properties.kcContentWrapperClass!}">
+                            <div class="${properties.kcLabelWrapperClass!} subtitle">
+                                <span class="subtitle"><span class="required">*</span> ${msg("requiredFields")}</span>
+                            </div>
+                            <div class="col-md-10">
+                                <#nested "show-username">
+                                <div id="kc-username" class="${properties.kcFormGroupClass!}">
+                                    <label id="kc-attempted-username">${auth.attemptedUsername}</label>
+                                    <a id="reset-login" href="${url.loginRestartFlowUrl}" aria-label="${msg("restartLoginTooltip")}">
+                                        <div class="kc-login-tooltip">
+                                            <i class="${properties.kcResetFlowIcon!}"></i>
+                                            <span class="kc-tooltip-text">${msg("restartLoginTooltip")}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <#else>
                         <#nested "show-username">
                         <div id="kc-username" class="${properties.kcFormGroupClass!}">
                             <label id="kc-attempted-username">${auth.attemptedUsername}</label>
@@ -107,65 +120,115 @@
                                 </div>
                             </a>
                         </div>
-                    </div>
-                </div>
-            <#else>
-                <#nested "show-username">
-                <div id="kc-username" class="${properties.kcFormGroupClass!}">
-                    <label id="kc-attempted-username">${auth.attemptedUsername}</label>
-                    <a id="reset-login" href="${url.loginRestartFlowUrl}" aria-label="${msg("restartLoginTooltip")}">
-                        <div class="kc-login-tooltip">
-                            <i class="${properties.kcResetFlowIcon!}"></i>
-                            <span class="kc-tooltip-text">${msg("restartLoginTooltip")}</span>
+                    </#if>
+                </#if>
+            </header>
+            <div id="kc-content">
+                <div id="kc-content-wrapper">
+
+                <#-- App-initiated actions should not see warning messages about the need to complete the action -->
+                <#-- during login.                                                                               -->
+                <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
+                    <div class="alert-${message.type} ${properties.kcAlertClass!} pf-m-<#if message.type = 'error'>danger<#else>${message.type}</#if>">
+                        <div class="pf-c-alert__icon">
+                            <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
+                            <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
+                            <#if message.type = 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
+                            <#if message.type = 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
                         </div>
-                    </a>
+                            <span class="${properties.kcAlertTitleClass!}">${kcSanitize(message.summary)?no_esc}</span>
+                    </div>
+                </#if>
+
+                <#nested "form">
+
+                <#if auth?has_content && auth.showTryAnotherWayLink()>
+                    <form id="kc-select-try-another-way-form" action="${url.loginAction}" method="post">
+                        <div class="${properties.kcFormGroupClass!}">
+                            <input type="hidden" name="tryAnotherWay" value="on"/>
+                            <a href="#" id="try-another-way"
+                                onclick="document.forms['kc-select-try-another-way-form'].submit();return false;">${msg("doTryAnotherWay")}</a>
+                        </div>
+                    </form>
+                </#if>
+
+                <#nested "socialProviders">
+
+                <#if displayInfo>
+                    <div id="kc-info" class="${properties.kcSignUpClass!}">
+                        <div id="kc-info-wrapper" class="${properties.kcInfoAreaWrapperClass!}">
+                            <#nested "info">
+                        </div>
+                    </div>
+                </#if>
                 </div>
-            </#if>
-        </#if>
-      </header>
-      <div id="kc-content">
-        <div id="kc-content-wrapper">
-
-          <#-- App-initiated actions should not see warning messages about the need to complete the action -->
-          <#-- during login.                                                                               -->
-          <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
-              <div class="alert-${message.type} ${properties.kcAlertClass!} pf-m-<#if message.type = 'error'>danger<#else>${message.type}</#if>">
-                  <div class="pf-c-alert__icon">
-                      <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
-                      <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
-                      <#if message.type = 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
-                      <#if message.type = 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
-                  </div>
-                      <span class="${properties.kcAlertTitleClass!}">${kcSanitize(message.summary)?no_esc}</span>
-              </div>
-          </#if>
-
-          <#nested "form">
-
-          <#if auth?has_content && auth.showTryAnotherWayLink()>
-              <form id="kc-select-try-another-way-form" action="${url.loginAction}" method="post">
-                  <div class="${properties.kcFormGroupClass!}">
-                      <input type="hidden" name="tryAnotherWay" value="on"/>
-                      <a href="#" id="try-another-way"
-                         onclick="document.forms['kc-select-try-another-way-form'].submit();return false;">${msg("doTryAnotherWay")}</a>
-                  </div>
-              </form>
-          </#if>
-
-          <#nested "socialProviders">
-
-          <#if displayInfo>
-              <div id="kc-info" class="${properties.kcSignUpClass!}">
-                  <div id="kc-info-wrapper" class="${properties.kcInfoAreaWrapperClass!}">
-                      <#nested "info">
-                  </div>
-              </div>
-          </#if>
+            </div>
         </div>
-      </div>
-
+        <div id="schulportal-footer" class="light-footer">
+            <div class="footer-items">
+                <a
+                    class="footer-item"
+                    href="https://www.secure-lernnetz.de/helpdesk"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                    ${msg("contact")}
+                </a>
+                <a
+                    class="footer-item"
+                    href="https://medienberatung.iqsh.de/schulportal-sh.html"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                    ${msg("help")}
+                </a>
+                <a
+                    class="footer-item"
+                    href="https://test.dev.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html"
+                >
+                    ${msg("legalNotice")}
+                </a>
+                <a
+                    class="footer-item"
+                    href="https://test.dev.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html#privacy_policy"
+                >
+                    ${msg("privacyPolicy")}
+                </a>
+                <a
+                    class="footer-item"
+                    href="https://test.dev.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html#accessibility"
+                >
+                    ${msg("accessibility")}
+                </a>
+            </div>
+            <div class="footer-logos">
+                <a
+                    href="https://www.digitalpaktschule.de/de/schleswig-holstein-1800.html"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                    <img
+                        alt="Logo Digitalpakt"
+                        class="footer-logo"
+                        src="${url.resourcesPath}/img/digitalPakt.svg"
+                    />
+                </a>
+                <div class="footer-logo-divider"></div>
+                <a
+                    href="https://www.schleswig-holstein.de/DE/landesportal/landesportal_node.html"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                    <img
+                        alt="Logo Schleswig-Holstein"
+                        class="footer-logo"
+                        src="${url.resourcesPath}/img/landesdachmarke_01_KORR.svg"
+                    />
+              </a>
+            </div>
+        </div>
+        <div class="dark-footer"></div>
     </div>
-  </div>
 </body>
 </html>
 </#macro>
