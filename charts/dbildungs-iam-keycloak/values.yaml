@@ -70,7 +70,7 @@ volumePermissions:
       cpu: "500m"
     requests: 
       memory: "1Gi"
-      cpu: "500m"
+      cpu: "150m"
 
 startupProbe:
   httpGet:
