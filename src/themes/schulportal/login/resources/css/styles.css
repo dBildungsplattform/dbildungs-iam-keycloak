@@ -1,11 +1,14 @@
 .login-pf body {
   background: #ffffff;
   color: #001e49;
+  display: flex;
+  flex-direction: column;
   font-family: Arial, sans-serif;
   font-weight: normal;
 }
 
 .login-pf-page {
+  flex: 1;
   padding-top: 90px;
 }
 
@@ -31,6 +34,12 @@
   margin-top: auto;
 }
 
+.header-logo {
+  box-sizing: border-box;
+  display: block;
+  -moz-box-sizing: border-box;
+}
+
 .light-header {
   background: #e5eaef;
   height: 40px;
@@ -38,11 +47,6 @@
   top: 60px;
   width: 100%;
   z-index: 1006;
-}
-
-.title-logo {
-  margin-top: 45px;
-  text-align: center;
 }
 
 .login-pf-header {
@@ -60,8 +64,14 @@
   box-shadow: none;
   margin-left: auto;
   margin-right: auto;
-  max-width: 500px;
+  max-width: 540px;
   min-width: 320px;
+}
+
+.title-logo {
+  margin-top: 45px;
+  text-align: center;
+  width: 540px;
 }
 
 .light-footer {
@@ -78,7 +88,6 @@
   bottom: 0;
   display: flex;
   justify-content: space-around;
-  position: fixed;
   min-height: 240px; /* Avoid footer shrinking vertically on smaller screen sizes*/
   width: 100%;
   width: -moz-available; /* WebKit-based browsers will ignore this. */
@@ -86,6 +95,9 @@
 }
 
 .footer-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding-bottom: 50px;
 }
 
@@ -136,7 +148,6 @@
     background-size:
       200% 50%,
       100% 100%;
-    position: relative;
   }
 
   .footer-item {
@@ -160,5 +171,40 @@
   .footer-logo-divider {
     bottom: 160px;
     height: 100px;
+  }
+}
+
+@media (max-width: 767px) {
+  .header-logo {
+    background: url(../img/Schulportal_SH_Bildmarke_RGB_Anwendung_HG_Blau.svg) no-repeat;
+    height: 33px;
+    /* this padding is necessary to move the old image out of the viewport */
+    padding-left: 33px;
+    width: 33px;
+  }
+
+  .login-pf-page .card-pf {
+    max-width: 320px;
+    padding: 6.25rem 0;
+  }
+
+  .title-logo {
+    width: 320px;
+  }
+
+  .footer-items {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .footer-item {
+    font-size: 16px;
+    padding: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .login-pf-page .card-pf {
+    padding: 6.25rem 0;
   }
 }

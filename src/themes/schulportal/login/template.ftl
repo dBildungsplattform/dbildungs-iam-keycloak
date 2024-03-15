@@ -44,6 +44,7 @@
                     <img
                         src="${url.resourcesPath}/img/Schulportal_SH_Wort_Bildmarke_RGB_Anwendung_HG_Blau.svg"
                         alt="Logo Schulportal"
+                        class="header-logo"
                         width="354"
                         height="60"
                     />
@@ -52,14 +53,13 @@
             </div>
             <div class="light-header"></div>
         </div>
-        <div class="title-logo">
-            <img
-                src="${url.resourcesPath}/img/Schulportal_SH_Wort_Bildmarke_RGB_Anwendung_HG_Weiss.svg"
-                alt="Logo Schulportal"
-                width="540"
-            />
-        </div>
         <div class="${properties.kcFormCardClass!}">
+            <div class="title-logo">
+                <img
+                    src="${url.resourcesPath}/img/Schulportal_SH_Wort_Bildmarke_RGB_Anwendung_HG_Weiss.svg"
+                    alt="Logo Schulportal"
+                />
+            </div>
             <header class="${properties.kcFormHeaderClass!}">
                 <#if realm.internationalizationEnabled  && locale.supported?size gt 1>
                     <div class="${properties.kcLocaleMainClass!}" id="kc-locale">
@@ -164,71 +164,71 @@
                 </div>
             </div>
         </div>
-        <div id="schulportal-footer" class="light-footer">
-            <div class="footer-items">
-                <a
-                    class="footer-item"
-                    href="https://www.secure-lernnetz.de/helpdesk"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                >
-                    ${msg("contact")}
-                </a>
-                <a
-                    class="footer-item"
-                    href="https://medienberatung.iqsh.de/schulportal-sh.html"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                >
-                    ${msg("help")}
-                </a>
-                <a
-                    class="footer-item"
-                    href="https://test.dev.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html"
-                >
-                    ${msg("legalNotice")}
-                </a>
-                <a
-                    class="footer-item"
-                    href="https://test.dev.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html#privacy_policy"
-                >
-                    ${msg("privacyPolicy")}
-                </a>
-                <a
-                    class="footer-item"
-                    href="https://test.dev.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html#accessibility"
-                >
-                    ${msg("accessibility")}
-                </a>
-            </div>
-            <div class="footer-logos">
-                <a
-                    href="https://www.digitalpaktschule.de/de/schleswig-holstein-1800.html"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                >
-                    <img
-                        alt="Logo Digitalpakt"
-                        class="footer-logo"
-                        src="${url.resourcesPath}/img/digitalPakt.svg"
-                    />
-                </a>
-                <div class="footer-logo-divider"></div>
-                <a
-                    href="https://www.schleswig-holstein.de/DE/landesportal/landesportal_node.html"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                >
-                    <img
-                        alt="Logo Schleswig-Holstein"
-                        class="footer-logo"
-                        src="${url.resourcesPath}/img/landesdachmarke_01_KORR.svg"
-                    />
-              </a>
-            </div>
-        </div>
-        <div class="dark-footer"></div>
     </div>
+    <div id="schulportal-footer" class="light-footer">
+        <div class="footer-items">
+            <a
+                class="footer-item"
+                href="https://www.secure-lernnetz.de/helpdesk"
+                rel="noopener noreferrer"
+                target="_blank"
+            >
+                ${msg("contact")}
+            </a>
+            <a
+                class="footer-item"
+                href="https://medienberatung.iqsh.de/schulportal-sh.html"
+                rel="noopener noreferrer"
+                target="_blank"
+            >
+                ${msg("help")}
+            </a>
+            <a
+                class="footer-item"
+                href="https://test.dev.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html"
+            >
+                ${msg("legalNotice")}
+            </a>
+            <a
+                class="footer-item"
+                href="https://test.dev.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html#privacy_policy"
+            >
+                ${msg("privacyPolicy")}
+            </a>
+            <a
+                class="footer-item"
+                href="https://test.dev.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html#accessibility"
+            >
+                ${msg("accessibility")}
+            </a>
+        </div>
+        <div class="footer-logos">
+            <a
+                href="https://www.digitalpaktschule.de/de/schleswig-holstein-1800.html"
+                rel="noopener noreferrer"
+                target="_blank"
+            >
+                <img
+                    alt="Logo Digitalpakt"
+                    class="footer-logo"
+                    src="${url.resourcesPath}/img/digitalPakt.svg"
+                />
+            </a>
+            <div class="footer-logo-divider"></div>
+            <a
+                href="https://www.schleswig-holstein.de/DE/landesportal/landesportal_node.html"
+                rel="noopener noreferrer"
+                target="_blank"
+            >
+                <img
+                    alt="Logo Schleswig-Holstein"
+                    class="footer-logo"
+                    src="${url.resourcesPath}/img/landesdachmarke_01_KORR.svg"
+                />
+            </a>
+        </div>
+    </div>
+    <div class="dark-footer"></div>
 </body>
 </html>
 </#macro>
