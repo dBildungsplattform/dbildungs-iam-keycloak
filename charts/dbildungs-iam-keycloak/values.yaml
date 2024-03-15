@@ -1,23 +1,12 @@
-
-enabledcontainerSecurityContext: true
-enabledreadinessProbe: true
-enabledlivenessProbe: true
-enabledStartupProbe: true
-enabledserviceport:  true
+nameOverride: ""
+fullnameOverride: ""
+namespaceOverride: "aimee"
 
 replicaCount: 1
 image:
   repository: ghcr.io/dbildungsplattform/dbildungs-iam-keycloak
   tag: ""
   pullPolicy: Always 
-
-database:
-  name: ""
-  db_host: ""
-  db_password: ""
-  db_username: ""
-
-namespace: ""
 
 auth:
   # existingSecret: Refers to a secret already present in the cluster, which is required for the authentication and configuration of the database setup tasks.
@@ -28,23 +17,41 @@ auth:
   keycloak_adminSecret: ""
   keycloak_clientSecret: ""
 
-frontendHostname: ""
-keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
+command: []
+args:             
+  - "--cache"
+  - "local"
+  - "--hostname"
+  - "{{ .Values.keycloakHostname }}" 
+  - "--import-realm"
 
-commonLabels:
-  name: dbildungs-iam-keyclok
+extraEnvVars: []
+  #  - name: foo
+  #    value: bar
 
-selector:
-  layer: dbildungs-iam-keyclok
+# We have to change some Variable in the Dev Pipeline for this 
+# Discuss what should be secret and what should be a configmap
+configMapData:
+  KEYCLOAK_ADMIN: admin
+  DB_NAME: "{{ .Values.database.name }}"
+  KC_DB_USERNAME: "{{ .Values.database.name }}"
+  KC_DB_URL: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
+  KC_ROOT_URL: "https://{{ .Values.keycloakHostname }}"
+  KC_PROXY: "edge"
 
-containerPorts:
-  http: 8080
+database:
+  name: ""
+  db_host: ""
+  db_password: ""
+  db_username: ""
+
+realm: 
+  name: dbilduns-iam-keycloak-realm
+  filepath: "dev-realm-spsh.json"
+
+keycloakHostname: ""
 
 restartPolicy: Always
-automountServiceAccountToken: false
-
-servicetype: ClusterIP
-serviceName: web
 
 containerSecurityContext:
   runAsUser: 1000
@@ -57,22 +64,16 @@ containerSecurityContext:
   seccompProfile:
     type: "RuntimeDefault"
 
-volumeConfig:
-  name: realm-config
-  mountPath: "/opt/keycloak/data/import"
-  readOnly: true
-
-volumePermissions:
-  enabled: true
-  resources:
-    limits: 
-      memory: "1Gi"
-      cpu: "500m"
-    requests: 
-      memory: "1Gi"
-      cpu: "150m"
+resources:
+  limits: 
+    memory: "1Gi"
+    cpu: "500m"
+  requests: 
+    memory: "1Gi"
+    cpu: "150m"
 
 startupProbe:
+  enabeld: true
   httpGet:
     path: "/health/started"
     port: web
@@ -80,11 +81,13 @@ startupProbe:
   failureThreshold: 30
 
 livenessProbe:
+  enabeld: true
   httpGet:
     path: /health/live
     port: web
 
 readinessProbe:
+  enabeld: true
   httpGet:
     path: "/health/ready"
     port: web
@@ -92,14 +95,14 @@ readinessProbe:
 ingress:
   ingressClassName: nginx
   pathType: Prefix
-  
-  httpRelativePath: "/"
-  portnumber: 80
 
-ports:
-  - protocol: TCP
-    name: web
-    port: 80
-    targetPort: web
+containerPorts:
+  name: web
+  http: 8080
 
-keycloak_proxy: "edge"
+service:
+  type: ClusterIP
+  http:
+    enabled: true
+  ports:
+    http: 80
