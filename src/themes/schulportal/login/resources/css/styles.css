@@ -28,8 +28,6 @@
 }
 
 .dark-header a {
-  color: #ffffff;
-  font-size: 18px;
   margin-bottom: auto;
   margin-top: auto;
 }
@@ -37,6 +35,15 @@
 .header-logo {
   box-sizing: border-box;
   display: block;
+  -moz-box-sizing: border-box;
+  margin-bottom: 7px;
+}
+
+.header-help {
+  box-sizing: border-box;
+  color: #ffffff;
+  display: block;
+  font-size: 20px;
   -moz-box-sizing: border-box;
 }
 
@@ -181,6 +188,14 @@
     /* this padding is necessary to move the old image out of the viewport */
     padding-left: 33px;
     width: 33px;
+  }
+
+  .header-help {
+    background: url(../img/help-circle-outline.svg) 0 0 no-repeat;
+    height: 24px;
+    margin-right: 8px;
+    text-indent:-99999em;
+    width: 24px;
   }
 
   .login-pf-page .card-pf {

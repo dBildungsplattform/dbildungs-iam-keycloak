@@ -49,7 +49,7 @@
                         height="60"
                     />
                 </a>
-                <a href="https://medienberatung.iqsh.de/schulportal-sh.html">${msg("help")}</a>
+                <a class="header-help" href="https://medienberatung.iqsh.de/schulportal-sh.html">${msg("help")}</a>
             </div>
             <div class="light-header"></div>
         </div>
