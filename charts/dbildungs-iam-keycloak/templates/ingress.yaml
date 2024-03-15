@@ -6,9 +6,10 @@ metadata:
   labels: 
     {{- include "common.labels" . | nindent 4 }}
   annotations:
-    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
-    nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
-    # theyshould be variable
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   tls:
     - hosts:
@@ -18,7 +19,7 @@ spec:
     - host: {{ .Values.keycloakHostname  }}
       http:
         paths:
-          - path: {{ default "/" .path }}
+          - path: {{ .Values.ingress.path }}
             pathType: {{ .Values.ingress.pathType }}
             backend: 
               service:

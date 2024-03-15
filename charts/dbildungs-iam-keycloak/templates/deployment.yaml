@@ -45,7 +45,7 @@ spec:
           {{- else if ne .Values.resourcesPreset "none" }}
 
           ports:
-            - name: {{ .Values.containerPorts.web }} 
+            - name: {{ .Values.containerPorts.name }} 
               containerPort:  {{ .Values.containerPorts.http }} 
 
           {{- if .Values.startupProbe.enabled }}
