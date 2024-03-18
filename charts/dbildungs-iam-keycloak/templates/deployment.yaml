@@ -4,7 +4,7 @@ metadata:
   name: {{ template "common.names.name" . }}
   namespace: {{ template "common.names.name" . }}
   labels:
-    {{- include "common.labels" . | nindent 4 }}
+  {{- include "common.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "common.labels" . | nindent 4 }}
+        {{- include "common.labels" . | nindent 8 }}
         app.kubernetes.io/component: keycloak
     spec:
       automountServiceAccountToken: false
@@ -45,9 +45,8 @@ spec:
           {{- else if ne .Values.resourcesPreset "none" }}
 
           ports:
-            - name: {{ .Values.containerPorts.name }} 
-              containerPort:  {{ .Values.containerPorts.http }} 
-
+            - name: {{ .Values.containerPorts.name }}
+              containerPort: {{ .Values.containerPorts.http }}
           {{- if .Values.startupProbe.enabled }}
           startupProbe: {{- omit .Values.startupProbe "enabled" | toYaml | nindent 12 }}
             httpGet:
@@ -61,7 +60,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.name }}
-                  key:  admin-password
+                  key: admin-password
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
@@ -83,15 +82,15 @@ spec:
                   name: {{ default .Values.auth.existingSecret .Values.auth.name }}
                   key: keycloak-adminSecret
             {{- if .Values.extraEnvVars }}
-            {{ toYaml .Values.extraEnvVars }}
+            {{ toYaml .Values.extraEnvVars | nindent 12 }}
             {{- end }}
-            envFrom: # All key-value pairs of the dbildungs-iam-keycloak ConfigMap are referenced
+          envFrom:
             - configMapRef:
                 name: {{ template "common.names.name" . }}
           volumeMounts:
-           - mountPath: "/opt/keycloak/data/import"
-             name: realm-config
-             readOnly: true
+            - mountPath: "/opt/keycloak/data/import"
+              name: realm-config
+              readOnly: true
       restartPolicy: {{ default "Always" .Values.restartPolicy }}
       volumes:
         - name: realm-config
