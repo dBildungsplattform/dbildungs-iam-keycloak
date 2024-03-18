@@ -6,6 +6,10 @@ metadata:
   labels: 
     {{- include "common.labels" . | nindent 4 }}
 data:
+  DB_NAME: "{{ .Values.database.name }}"
+  KC_DB_USERNAME: "$(DB_NAME)"
+  KC_DB_URL: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
+  KC_ROOT_URL: "https://{{ .Values.keycloakHostname }}"
 {{- range $key, $value := .Values.configMapData }}
   {{ $key }}: {{ quote $value }}
 {{- end }}

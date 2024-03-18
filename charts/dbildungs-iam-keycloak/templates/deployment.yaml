@@ -33,7 +33,11 @@ spec:
           {{- end }}
           {{- with .args }}
           args:
-            {{- toYaml . | nindent 16 }}
+              - "--cache"
+              - "local"
+              - "--hostname"
+              - "{{ tpl .Values.keycloakHostname . }}" 
+              - "--import-realm"
           {{- end }}
 
           {{- if .Values.containerSecurityContext.enabled }}
