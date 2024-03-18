@@ -55,6 +55,7 @@ frontendHostname: ""
 restartPolicy: Always
 
 containerSecurityContext:
+  enabled: true
   runAsUser: 1000
   runAsNonRoot: true
   privileged: false
