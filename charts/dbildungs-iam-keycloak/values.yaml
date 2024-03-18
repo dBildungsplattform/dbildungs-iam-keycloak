@@ -1,6 +1,6 @@
 nameOverride: ""
 fullnameOverride: ""
-namespaceOverride: "aimee"
+namespaceOverride: ""
 
 replicaCount: 1
 image:
@@ -75,7 +75,7 @@ resources:
     cpu: "150m"
 
 startupProbe:
-  enabeld: true
+  enabeled: true
   httpGet:
     path: "/health/started"
     port: web
@@ -83,13 +83,13 @@ startupProbe:
   failureThreshold: 30
 
 livenessProbe:
-  enabeld: true
+  enabeled: true
   httpGet:
     path: /health/live
     port: web
 
 readinessProbe:
-  enabeld: true
+  enabeled: true
   httpGet:
     path: "/health/ready"
     port: web
