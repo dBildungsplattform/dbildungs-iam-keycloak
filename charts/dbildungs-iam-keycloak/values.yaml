@@ -33,10 +33,10 @@ extraEnvVars: []
 # Discuss what should be secret and what should be a configmap
 configMapData:
   KEYCLOAK_ADMIN: admin
-  DB_NAME: "{{ .Values.database.name }}"
-  KC_DB_USERNAME: "{{ .Values.database.name }}"
+  DB_NAME: "{{ tpl .Values.database.name . }}"
+  KC_DB_USERNAME: "{{ tpl .Values.database.name . }}"
   KC_DB_URL: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
-  KC_ROOT_URL: "https://{{ .Values.keycloakHostname }}"
+  KC_ROOT_URL: "https://{{ tpl .Values.keycloakHostname . }}"
   KC_PROXY: "edge"
 
 database:
