@@ -22,7 +22,7 @@ args:
   - "--cache"
   - "local"
   - "--hostname"
-  - "{{ .Values.keycloakHostname }}" 
+  - "{{ tpl .Values.keycloakHostname . }}" 
   - "--import-realm"
 
 extraEnvVars: []
