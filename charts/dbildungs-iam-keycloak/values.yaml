@@ -50,6 +50,7 @@ realm:
   filepath: "dev-realm-spsh.json"
 
 keycloakHostname: ""
+frontendHostname: ""
 
 restartPolicy: Always
 

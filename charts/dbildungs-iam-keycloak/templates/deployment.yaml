@@ -95,5 +95,5 @@ spec:
       restartPolicy: {{ default "Always" .Values.restartPolicy }}
       volumes:
         - name: realm-config
-          secret:
-            secretName:  {{ .Values.realm.name }}
+          configMap:
+            name: {{ .Values.realm.name }}
