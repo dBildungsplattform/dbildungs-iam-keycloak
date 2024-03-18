@@ -7,7 +7,8 @@ metadata:
     {{- include "common.labels" . | nindent 4 }}
 spec:
   selector:
-    app.kubernetes.io/layer: {{ .Values.selector.layer }}
+      app.kubernetes.io/name: {{ template "common.names.name" . }}
+      app.kubernetes.io/component: keycloak
   type: {{ .Values.service.type }}
   ports:
     {{- if .Values.service.http.enabled }}

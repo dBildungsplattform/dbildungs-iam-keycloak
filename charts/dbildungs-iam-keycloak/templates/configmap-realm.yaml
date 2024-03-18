@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.realm.name }}
   namespace: {{ template "common.names.namespace" . }}
   labels:
-{{ include "common.labels" . | nindent 4 }}
+  {{ include "common.labels" . | nindent 4 }}
 data:
   realm-spsh.json: |-
-{{ .Files.Get .Values.realm.filepath }}
+    {{ .Files.Get .Values.realm.filepath | b64enc }}
