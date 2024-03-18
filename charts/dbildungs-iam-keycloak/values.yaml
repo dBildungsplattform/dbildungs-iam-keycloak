@@ -75,7 +75,7 @@ resources:
     cpu: "150m"
 
 startupProbe:
-  enabeled: true
+  enabled: true
   httpGet:
     path: "/health/started"
     port: web
@@ -83,13 +83,13 @@ startupProbe:
   failureThreshold: 30
 
 livenessProbe:
-  enabeled: true
+  enabled: true
   httpGet:
     path: /health/live
     port: web
 
 readinessProbe:
-  enabeled: true
+  enabled: true
   httpGet:
     path: "/health/ready"
     port: web
