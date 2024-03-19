@@ -94,8 +94,10 @@
 
   bottom: 0;
   display: flex;
+  flex-direction: row;
   justify-content: space-around;
   min-height: 240px; /* Avoid footer shrinking vertically on smaller screen sizes*/
+  padding: 8px 48px 32px 48px;
   width: 100%;
   width: -moz-available; /* WebKit-based browsers will ignore this. */
   width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
@@ -105,12 +107,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding-bottom: 50px;
+  padding: 12px 32px;
+  width: 50%;
 }
 
 .footer-item {
   color: #001e49;
-  font-size: 18px;
+  font-size: 20px;
   margin-right: 30px;
   text-decoration: none;
 }
@@ -119,10 +122,8 @@
   display: flex;
   flex: 1;
   justify-content: space-evenly;
-  padding-bottom: 60px;
-  padding-left: 20px;
-  padding-right: 20px;
-  width: 100%;
+  padding: 20px 32px;
+  width: 50%;
 }
 
 .footer-logo {
@@ -150,29 +151,33 @@
 
 @media (max-width: 1279px) {
   .light-footer {
-    flex-direction: column-reverse;
-    min-height: 280px;
     background-size:
       200% 50%,
       100% 100%;
+    flex-direction: column-reverse;
+    min-height: 280px;
+    padding-bottom: 32px;
+  }
+
+  .footer-items {
+    width: 100%;
   }
 
   .footer-item {
+    font-size: 18px;
     margin-right: 0;
     padding-left: 30px;
     padding-right: 30px;
   }
 
   .footer-logos {
-    padding-bottom: 0;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 80px;
+    justify-content: flex-end;
+    padding: 80px 30px 0 30px;
+    width: 100%;
   }
 
   .footer-logo {
-    height: 100px;
-    width: 170px;
+    width: 220px;
   }
 
   .footer-logo-divider {
@@ -181,7 +186,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 959px) {
   .header-logo {
     background: url(../img/Schulportal_SH_Bildmarke_RGB_Anwendung_HG_Blau.svg) no-repeat;
     height: 33px;
@@ -198,6 +203,32 @@
     width: 24px;
   }
 
+  .light-footer {
+    padding: 0 16px 52px 16px;
+  }
+
+  .footer-logos {
+    padding-right: 16px;
+  }
+
+  .footer-items {
+    padding: 0 16px;
+  }
+
+  .footer-item {
+    margin-right: 10px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .login-pf-page .card-pf {
+    padding: 6.25rem 0;
+  }
+}
+
+@media (max-width: 767px) {
   .login-pf-page .card-pf {
     max-width: 320px;
     padding: 6.25rem 0;
@@ -207,19 +238,15 @@
     width: 320px;
   }
 
-  .footer-items {
-    padding-left: 30px;
-    padding-right: 30px;
+  .light-footer {
+    min-height: 260px;
+    background-size:
+      200% 30%,
+      100% 100%;
   }
 
   .footer-item {
     font-size: 16px;
     padding: 0;
-  }
-}
-
-@media (min-width: 768px) {
-  .login-pf-page .card-pf {
-    padding: 6.25rem 0;
   }
 }
