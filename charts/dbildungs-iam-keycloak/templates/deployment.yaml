@@ -89,6 +89,88 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.name }}
                   key: db-username
+            # this is extra added
+            - name: KEYCLOAK_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.existingSecret }}
+                  {{- end }}
+                  {{- if not .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.name }}
+                  {{- end }}
+                  key:  admin-user
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.existingSecret }}
+                  {{- end }}
+                  {{- if not .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.name }}
+                  {{- end }}
+                  key:  admin-password
+            - name: KC_PROXY
+              value: {{ .Values.keycloak_proxy }}
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.existingSecret }}
+                  {{- end }}
+                  {{- if not .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.name }}
+                  {{- end }}
+                  key: db-host
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "common.names.name" . }}
+                  key: db-name
+            - name: KC_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.existingSecret }}
+                  {{- end }}
+                  {{- if not .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.name }}
+                  {{- end }}
+                  key: db-username
+            - name: KC_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.existingSecret }}
+                  {{- end }}
+                  {{- if not .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.name }}
+                  {{- end }}
+                  key: db-password
+            - name: KC_DB_URL
+              value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
+            - name: KC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.existingSecret }}
+                  {{- end }}
+                  {{- if not .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.name }}
+                  {{- end }}
+                  key: keycloak-clientSecret
+            - name: KC_ADMIN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.existingSecret }}
+                  {{- end }}
+                  {{- if not .Values.auth.existingSecret }}
+                  name: {{ .Values.auth.name }}
+                  {{- end }}
+                  key: keycloak-adminSecret
+            - name: KC_ROOT_URL
+              value: "https://{{.Values.frontendHostname}}"
             {{- if .Values.extraEnvVars }}
             {{ toYaml .Values.extraEnvVars | nindent 12 }}
             {{- end }}
