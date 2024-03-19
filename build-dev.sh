@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build --target development -t schulcloud/dbildungs-iam-keycloak/dev .
+docker build --target development -t  ghcr.io/dbildungsplattform/dbildungs-iam-keycloak .
