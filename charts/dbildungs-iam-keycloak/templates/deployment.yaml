@@ -100,13 +100,13 @@ spec:
                   name: {{ .Values.auth.name }}
                   {{- end }}
                   key:  admin-user
-            - name: KC_PROXY
-              value: "edge"
-            - name: DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "common.names.name" . }}
-                  key: DB_NAME
+            # - name: KC_PROXY
+            #   value: "edge"
+            # - name: DB_NAME
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: {{ template "common.names.name" . }}
+            #       key: DB_NAME
             - name: KC_DB_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -119,9 +119,9 @@ spec:
             {{- if .Values.extraEnvVars }}
             {{ toYaml .Values.extraEnvVars | nindent 12 }}
             {{- end }}
-          # envFrom:
-          #   - configMapRef:
-          #       name: {{ template "common.names.name" . }}
+          envFrom:
+            - configMapRef:
+                name: {{ template "common.names.name" . }}
           volumeMounts:
             - mountPath: "/opt/keycloak/data/import"
               name: realm-config
