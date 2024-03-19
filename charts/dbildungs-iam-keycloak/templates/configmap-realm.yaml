@@ -7,4 +7,4 @@ metadata:
   {{ include "common.labels" . | nindent 4 }}
 data:
   realm-spsh.json: |-
-    {{ .Files.Get .Values.realm.filepath | toPrettyJson }}
+{{ .Files.Get .Values.realm.filepath | indent 4 }}
