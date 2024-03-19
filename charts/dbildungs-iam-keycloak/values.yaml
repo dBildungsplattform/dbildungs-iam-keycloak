@@ -18,21 +18,10 @@ auth:
   keycloak_clientSecret: ""
 
 command: []
-# args:
-#   - "--cache"
-#   - "local"
-#   - "--hostname"
-#   - "{{ tpl .Values.keycloakHostname . }}" 
-#   - "--import-realm"
 
 extraEnvVars: []
   #  - name: foo
   #    value: bar
- 
-# Discuss what should be secret and what should be a configmap
-configMapData:
-  KEYCLOAK_ADMIN: admin
-  KC_PROXY: "edge"
 
 database:
   name: ""
