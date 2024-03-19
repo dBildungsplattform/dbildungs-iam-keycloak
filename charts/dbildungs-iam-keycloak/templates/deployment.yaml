@@ -84,6 +84,11 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.name }}
                   key: keycloak-adminSecret
+            - name: KC_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.name }}
+                  key: db-username
             {{- if .Values.extraEnvVars }}
             {{ toYaml .Values.extraEnvVars | nindent 12 }}
             {{- end }}
