@@ -90,28 +90,16 @@ spec:
                   name: {{ default .Values.auth.existingSecret .Values.auth.name }}
                   key: db-username
             # this is extra added
-            # - name: KEYCLOAK_ADMIN
+            # - name: DB_NAME
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: {{ template "common.names.name" . }}
+            #       key: DB_NAME
+            # - name: KC_DB_USERNAME
             #   valueFrom:
             #     secretKeyRef:
-            #       {{- if .Values.auth.existingSecret }}
-            #       name: {{ .Values.auth.existingSecret }}
-            #       {{- end }}
-            #       {{- if not .Values.auth.existingSecret }}
-            #       name: {{ .Values.auth.name }}
-            #       {{- end }}
-            #       key:  admin-user
-            # - name: KC_PROXY
-            #   value: "edge"
-            - name: DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "common.names.name" . }}
-                  key: DB_NAME
-            - name: KC_DB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ default .Values.auth.existingSecret .Values.auth.name }}
-                  key: db-username
+            #       name: {{ default .Values.auth.existingSecret .Values.auth.name }}
+            #       key: db-username
             - name: KC_DB_URL
               value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
             - name: KC_ROOT_URL
@@ -119,9 +107,9 @@ spec:
             {{- if .Values.extraEnvVars }}
             {{ toYaml .Values.extraEnvVars | nindent 12 }}
             {{- end }}
-          # envFrom:
-          #   - configMapRef:
-          #       name: {{ template "common.names.name" . }}
+          envFrom:
+            - configMapRef:
+                name: {{ template "common.names.name" . }}
           volumeMounts:
             - mountPath: "/opt/keycloak/data/import"
               name: realm-config
