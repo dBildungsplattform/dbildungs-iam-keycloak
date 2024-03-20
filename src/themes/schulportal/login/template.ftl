@@ -53,13 +53,13 @@
             </div>
             <div class="light-header"></div>
         </div>
+        <div class="title-logo">
+            <img
+                src="${url.resourcesPath}/img/Schulportal_SH_Wort_Bildmarke_RGB_Anwendung_HG_Weiss.svg"
+                alt="Logo Schulportal"
+            />
+        </div>
         <div class="${properties.kcFormCardClass!}">
-            <div class="title-logo">
-                <img
-                    src="${url.resourcesPath}/img/Schulportal_SH_Wort_Bildmarke_RGB_Anwendung_HG_Weiss.svg"
-                    alt="Logo Schulportal"
-                />
-            </div>
             <header class="${properties.kcFormHeaderClass!}">
                 <#if realm.internationalizationEnabled  && locale.supported?size gt 1>
                     <div class="${properties.kcLocaleMainClass!}" id="kc-locale">
@@ -89,6 +89,7 @@
                         </div>
                     <#else>
                         <h1 id="kc-page-title"><#nested "header"></h1>
+                        <div class="card-divider"></div>
                     </#if>
                 <#else>
                     <#if displayRequiredFields>
