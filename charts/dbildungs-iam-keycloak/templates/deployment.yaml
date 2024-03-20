@@ -100,10 +100,10 @@ spec:
             #     secretKeyRef:
             #       name: {{ default .Values.auth.existingSecret .Values.auth.name }}
             #       key: db-username
-            - name: KC_DB_URL
-              value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
-            - name: KC_ROOT_URL
-              value: "https://{{ .Values.frontendHostname }}"
+            # - name: KC_DB_URL
+            #   value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
+            # - name: KC_ROOT_URL
+            #   value: "https://{{ .Values.frontendHostname }}"
             {{- if .Values.extraEnvVars }}
             {{ toYaml .Values.extraEnvVars | nindent 12 }}
             {{- end }}

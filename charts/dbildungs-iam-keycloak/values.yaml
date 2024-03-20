@@ -27,7 +27,7 @@ database:
   name: ""
   db_host: ""
   db_password: ""
-  db_username: ""
+  db_username: "spshdeveloper"
 
 realm: 
   name: dbilduns-iam-keycloak-realm
