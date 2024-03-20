@@ -84,7 +84,6 @@ jobs:
   release_helm:
     needs:
       - select_helm_version_generation_and_image_tag_generation
-      # - build_image_on_push
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@5
     secrets: inherit
