@@ -8,7 +8,6 @@ metadata:
 data:
   DB_NAME: "{{ .Values.database.name }}"
   KC_DB_USERNAME: "{{ .Values.database.username }}" # this is only true for staging
-  KC_DB_URL: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
   KC_ROOT_URL: "https://{{ .Values.frontendHostname }}"
   KC_PROXY: "edge"
   KEYCLOAK_ADMIN: admin
