@@ -84,26 +84,8 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.name }}
                   key: keycloak-adminSecret
-            # - name: KC_DB_USERNAME
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: {{ default .Values.auth.existingSecret .Values.auth.name }}
-            #       key: db-username
-            # this is extra added
-            # - name: DB_NAME
-            #   valueFrom:
-            #     configMapKeyRef:
-            #       name: {{ template "common.names.name" . }}
-            #       key: DB_NAME
-            # - name: KC_DB_USERNAME
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: {{ default .Values.auth.existingSecret .Values.auth.name }}
-            #       key: db-username
             - name: KC_DB_URL
               value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
-            # - name: KC_ROOT_URL
-            #   value: "https://{{ .Values.frontendHostname }}"
             {{- if .Values.extraEnvVars }}
             {{ toYaml .Values.extraEnvVars | nindent 12 }}
             {{- end }}
