@@ -3,7 +3,7 @@
     <#if section = "header">
         ${msg("loginAccountTitle")}
     <#elseif section = "form">
-        <p class="login-prompt">${msg("enterLoginData")}</p>
+        <p class="login-prompt" data-testid="login-prompt-text">${msg("enterLoginData")}</p>
         <div id="kc-form">
           <div id="kc-form-wrapper">
             <#if realm.password>
@@ -12,7 +12,7 @@
                         <div class="${properties.kcFormGroupClass!}">
                             <label for="username" class="${properties.kcLabelClass!}"><#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if></label>
 
-                            <input tabindex="2" id="username" class="${properties.kcInputClass!}" name="username" placeholder="${msg("username")}" value="${(login.username!'')}"  type="text" autofocus autocomplete="username"
+                            <input tabindex="2" id="username" class="${properties.kcInputClass!}" name="username" placeholder="${msg("username")}" value="${(login.username!'')}"  type="text" autofocus autocomplete="username" data-testid="username-input"
                                    aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                             />
 
@@ -29,7 +29,7 @@
                         <label for="password" class="${properties.kcLabelClass!}">${msg("password")}</label>
 
                         <div class="${properties.kcInputGroup!}">
-                            <input tabindex="3" id="password" class="${properties.kcInputClass!}" name="password" placeholder="${msg("password")}" type="password" autocomplete="current-password"
+                            <input tabindex="3" id="password" class="${properties.kcInputClass!}" name="password" placeholder="${msg("password")}" type="password" autocomplete="current-password" data-testid="password-input"
                                    aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                             />
                             <button class="${properties.kcFormPasswordVisibilityButtonClass!}" type="button" aria-label="${msg("showPassword")}"
@@ -48,7 +48,7 @@
 
                     </div>
 
-                    <p class="password-help-text">${kcSanitize(msg("passwordHelpText"))?no_esc}</p>
+                    <p class="password-help-text" data-testid="password-help-text">${kcSanitize(msg("passwordHelpText"))?no_esc}</p>
 
                     <div class="${properties.kcFormGroupClass!} ${properties.kcFormSettingClass!}">
                         <div id="kc-form-options">
@@ -74,7 +74,7 @@
 
                       <div id="kc-form-buttons" class="${properties.kcFormGroupClass!}">
                           <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
-                          <input tabindex="7" class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}" name="login" id="kc-login" type="submit" value="${msg("doLogIn")}"/>
+                          <input tabindex="7" class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}" name="login" id="kc-login" data-testid="login-button" type="submit" value="${msg("doLogIn")}"/>
                       </div>
                 </form>
             </#if>

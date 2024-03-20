@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     <#else>
-                        <h1 id="kc-page-title"><#nested "header"></h1>
+                        <h1 id="kc-page-title" data-testid="login-page-title"><#nested "header"></h1>
                         <div class="card-divider"></div>
                     </#if>
                 <#else>
