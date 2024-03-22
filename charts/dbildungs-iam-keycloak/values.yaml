@@ -11,7 +11,7 @@ image:
 auth:
   # existingSecret: Refers to a secret already present in the cluster, which is required for the authentication and configuration of the database setup tasks.
   existingSecret: ""
-  name: dbildungs-iam-keycloak
+  secretName: dbildungs-iam-keycloak
   admin_password: ""
   admin_user: ""
   keycloak_adminSecret: ""
@@ -20,8 +20,8 @@ auth:
 command: []
 
 extraEnvVars: []
-  #  - name: foo
-  #    value: bar
+extraVolumes: []
+extraVolumeMounts: []
 
 database:
   name: ""
@@ -33,10 +33,10 @@ realm:
   name: dbilduns-iam-keycloak-realm
   filepath: "dev-realm-spsh.json"
 
+restartPolicy: Always
+
 keycloakHostname: ""
 frontendHostname: ""
-
-restartPolicy: Always
 
 containerSecurityContext:
   enabled: true
