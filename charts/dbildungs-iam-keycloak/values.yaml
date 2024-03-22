@@ -1,9 +1,6 @@
-
-enabledcontainerSecurityContext: true
-enabledreadinessProbe: true
-enabledlivenessProbe: true
-enabledStartupProbe: true
-enabledserviceport:  true
+nameOverride: ""
+fullnameOverride: ""
+namespaceOverride: ""
 
 replicaCount: 1
 image:
@@ -11,42 +8,38 @@ image:
   tag: ""
   pullPolicy: Always 
 
-database:
-  name: ""
-  db_host: ""
-  db_password: ""
-  db_username: ""
-
-namespace: ""
-
 auth:
   # existingSecret: Refers to a secret already present in the cluster, which is required for the authentication and configuration of the database setup tasks.
   existingSecret: ""
-  name: dbildungs-iam-keycloak
+  secretName: dbildungs-iam-keycloak
   admin_password: ""
   admin_user: ""
   keycloak_adminSecret: ""
   keycloak_clientSecret: ""
 
-frontendHostname: ""
-keycloakHostname: "keycloak.dev.spsh.dbildungsplattform.de"
+command: []
 
-commonLabels:
-  name: dbildungs-iam-keyclok
+extraEnvVars: []
+extraVolumes: []
+extraVolumeMounts: []
 
-selector:
-  layer: dbildungs-iam-keyclok
+database:
+  name: ""
+  host: ""
+  password: ""
+  username: "spshdeveloper"
 
-containerPorts:
-  http: 8080
+realm: 
+  name: dbilduns-iam-keycloak-realm
+  filepath: "dev-realm-spsh.json"
 
 restartPolicy: Always
-automountServiceAccountToken: false
 
-servicetype: ClusterIP
-serviceName: web
+keycloakHostname: ""
+frontendHostname: ""
 
 containerSecurityContext:
+  enabled: true
   runAsUser: 1000
   runAsNonRoot: true
   privileged: false
@@ -57,22 +50,16 @@ containerSecurityContext:
   seccompProfile:
     type: "RuntimeDefault"
 
-volumeConfig:
-  name: realm-config
-  mountPath: "/opt/keycloak/data/import"
-  readOnly: true
-
-volumePermissions:
-  enabled: true
-  resources:
-    limits: 
-      memory: "1Gi"
-      cpu: "500m"
-    requests: 
-      memory: "1Gi"
-      cpu: "150m"
+resources:
+  limits:
+    memory: "1Gi"
+    cpu: "500m"
+  requests:
+    memory: "1Gi"
+    cpu: "150m"
 
 startupProbe:
+  enabled: true
   httpGet:
     path: "/health/started"
     port: web
@@ -80,26 +67,32 @@ startupProbe:
   failureThreshold: 30
 
 livenessProbe:
+  enabled: true
   httpGet:
     path: /health/live
     port: web
 
 readinessProbe:
+  enabled: true
   httpGet:
     path: "/health/ready"
     port: web
 
 ingress:
   ingressClassName: nginx
+  path: /
   pathType: Prefix
-  
-  httpRelativePath: "/"
-  portnumber: 80
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+    nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
 
-ports:
-  - protocol: TCP
-    name: web
-    port: 80
-    targetPort: web
+containerPorts:
+  name: web
+  http: 8080
 
-keycloak_proxy: "edge"
+service:
+  type: ClusterIP
+  http:
+    enabled: true
+  ports:
+    http: 80

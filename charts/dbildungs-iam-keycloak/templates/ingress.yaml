@@ -1,13 +1,14 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "common.names.releasename" . }}
-  namespace: {{ .Values.namespace }}
+  name: {{ template "common.names.name" . }}
+  namespace: {{ template "common.names.namespace" . }}
   labels: 
-    app.kubernetes.io/name: {{ .Values.commonLabels.name }}
+    {{- include "common.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
   annotations:
-    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
-    nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   tls:
     - hosts:
@@ -17,10 +18,10 @@ spec:
     - host: {{ .Values.keycloakHostname  }}
       http:
         paths:
-          - path:  {{ .Values.ingress.httpRelativePath  }}
+          - path: {{ .Values.ingress.path }}
             pathType: {{ .Values.ingress.pathType }}
             backend: 
               service:
-                name: {{ template "common.names.releasename" . }}
+                name: {{ template "common.names.name" . }}
                 port:
-                  number: {{ .Values.ingress.portnumber }}
+                  number: {{ .Values.service.ports.http }}
