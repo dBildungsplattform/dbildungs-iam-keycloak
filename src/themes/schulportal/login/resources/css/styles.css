@@ -184,6 +184,10 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
   height: 50px;
 }
 
+.pf-c-button.pf-m-primary:hover {
+  background: #325e91;
+}
+
 .light-footer {
   align-items: end;
   background-image: linear-gradient(to bottom right, #ffffff 25%, transparent 25%),
@@ -341,6 +345,10 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
   .card-divider {
     margin-left: -20px;
     margin-right: -20px;
+  }
+
+  .pf-c-button.pf-m-primary:hover {
+    transform: scaleX(0.95);
   }
 
   .light-footer {
