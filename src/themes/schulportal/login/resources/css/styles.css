@@ -135,10 +135,17 @@ h1#kc-page-title {
   border-radius: 5px;
   height: 50px;
   padding: 16px;
+  --pf-c-form-control--Color: #001E49;
+  --pf-c-form-control--placeholder--child--Color: #001E49;
 }
 
 .pf-c-form-control:focus {
   padding-bottom: 16px;
+  border-bottom-width: 1px;
+}
+
+.pf-c-form-control:focus-visible {
+  outline-color: #001E49;
 }
 
 .pf-c-form-control:not(textarea)[aria-invalid=true] {
