@@ -1,15 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "common.names.releasename" . }}
-  namespace: {{ .Values.namespace }}
+  name: {{ template "common.names.name" . }}
+  namespace: {{ template "common.names.namespace" . }}
   labels: 
-    app.kubernetes.io/name: {{ .Values.commonLabels.name }}
+    {{- include "common.labels" . | nindent 4 }}
 spec:
   selector:
-    app.kubernetes.io/layer: {{ .Values.selector.layer }}
-  type: {{ .Values.servicetype }}
-  
-  {{- if .Values.enabledserviceport }}
-  ports: {{- toYaml .Values.ports | nindent 6 }}
-  {{- end }}
+    app.kubernetes.io/name: {{ template "common.names.name" . }}
+    app.kubernetes.io/component: keycloak
+  type: {{ .Values.service.type }}
+  ports:
+    {{- if .Values.service.http.enabled }}
+    - name: http
+      port: {{  .Values.service.ports.http }}
+      targetPort: web
+    {{- end }}
