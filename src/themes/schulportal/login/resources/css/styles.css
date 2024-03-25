@@ -176,16 +176,24 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
   text-align: center;
 }
 
-.pf-c-button.pf-m-primary {
-  background: #001E49;
+.pf-c-button {
   border: 2px solid #001E49;
   border-radius: 4px;
   font-size: 16px;
+  font-weight: bold;
   height: 50px;
+  transform-origin: left center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pf-c-button.pf-m-primary {
+  background: #001E49;
+  color: #fff;
 }
 
 .pf-c-button.pf-m-primary:hover {
   background: #325e91;
+  color: #fff;
 }
 
 .light-footer {
