@@ -111,3 +111,16 @@ To make use of BCrypt hashed passwords, the [`keycloak-bcrypt`](https://github.c
 - `./Dockerfile`: The multi-staged Dockerfile for develop or production build.
 - `./build-dev.sh`: Builds the Keycloak image for local development.
 - `./create-dev.sh`: Creates the Keycloak container for local development.
+
+
+
+
+## Manual Helm Chart Rollout
+1. Make sure a DB exists
+2. Create Secret in Cluster beforehand
+3. Run Helm Install command
+
+
+```
+helm install --kubeconfig <path-to-kubeconfig> --namespace <namespace> dbildungs-iam-keycloak ./charts/dbildungs-iam-keycloak -f DB_NAME <db-name> -f KC_DB_USERNAME <kc-db-username>
+```

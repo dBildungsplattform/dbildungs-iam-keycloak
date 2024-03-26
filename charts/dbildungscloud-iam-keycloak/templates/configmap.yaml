@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ template "common.names.releasename" . }}
-  namespace: {{ .Values.namespace }}
-  labels: 
-    app.kubernetes.io/name: {{ .Values.commonLabels.name }}
-data:
-  db-name: {{ .Values.database.name }}

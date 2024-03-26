@@ -5,6 +5,8 @@ name: "Dev Pipeline"
 # See DBP-340
 on:
   push:
+    branches:
+      - "*"
   schedule:
     - cron:  '0 2 * * *'
   delete:
@@ -14,9 +16,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  codeql_analyze:
+    name: "CodeQL"
+    if: ${{ github.event_name == 'push' }}
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-codeql.yaml@5
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
   build_image_on_push:
     name: "Publish image and scan with trivy"
     if: ${{ github.event_name == 'push' }}
+    needs:
+      - codeql_analyze
     permissions:
       packages: write
       security-events: write
@@ -75,19 +88,19 @@ jobs:
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@5
     secrets: inherit
     with:
-      chart_name: dbildungscloud-iam-keycloak
+      chart_name: dbildungs-iam-keycloak
       image_tag_generation: ${{ needs.select_helm_version_generation_and_image_tag_generation.outputs.SELECT_IMAGE_TAG_GENERATION  }}
       helm_chart_version_generation: ${{ needs.select_helm_version_generation_and_image_tag_generation.outputs.SELECT_HELM_VERION_GENERATION  }}
 
   branch_meta:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
-    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/get-branch-meta.yml@1
+    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/get-branch-meta.yml@2
 
   create_branch_identifier:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
     needs: 
       - branch_meta
-    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/branch-to-namespace.yml@1
+    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/deploy-branch-to-namespace.yml@2
     with:
       branch: ${{ needs.branch_meta.outputs.branch }}
 
@@ -98,18 +111,17 @@ jobs:
       - create_branch_identifier
       - release_helm
       - build_image_on_push
-    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/deploy.yml@1
+    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/deploy.yml@2
     with:
-      dbildungs_iam_server_branch: main
-      dbildungs_iam_client_branch: main
+      dbildungs_iam_server_branch: ${{ needs.branch_meta.outputs.ticket }}
+      schulportal_client_branch: ${{ needs.branch_meta.outputs.ticket }}
       dbildungs_iam_keycloak_branch: ${{ needs.branch_meta.outputs.ticket }}
       namespace: ${{ needs.create_branch_identifier.outputs.namespace_from_branch }}
-    secrets:
-      SPSH_DEV_KUBECONFIG: ${{ secrets.SPSH_DEV_KUBECONFIG }}
+    secrets: inherit
 
   create_branch_identifier_for_deletion:
     if: ${{ github.event_name == 'delete' && github.event.ref_type == 'branch' }}
-    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/branch-to-namespace.yml@1
+    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/deploy-branch-to-namespace.yml@2
     with:
       branch: ${{ github.event.ref }}
 
@@ -117,7 +129,7 @@ jobs:
     if: ${{ github.event_name == 'delete' && github.event.ref_type == 'branch'}}
     needs:
       - create_branch_identifier_for_deletion
-    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/delete-namespace.yml@1
+    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/delete-namespace.yml@2
     with:
       namespace: ${{ needs.create_branch_identifier_for_deletion.outputs.namespace_from_branch }}
     secrets:
