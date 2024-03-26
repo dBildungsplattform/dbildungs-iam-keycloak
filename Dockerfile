@@ -3,6 +3,7 @@ FROM quay.io/keycloak/keycloak:23.0.7 AS base
 
 # Copy dbildungs-iam-keycloak specific extensions (providers, themes, etc.)
 COPY src/providers/ /opt/keycloak/providers/
+COPY src/themes/ /opt/keycloak/themes/
 
 #  Build Stage
 FROM base AS build
