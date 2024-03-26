@@ -1,3 +1,7 @@
+.login-pf {
+  background: #ffffff;
+}
+
 .login-pf body {
   background: #ffffff;
   color: #001e49;
@@ -10,6 +14,7 @@
 .login-pf-page {
   flex: 1;
   padding-top: 90px;
+  margin-bottom: 40px;
 }
 
 .dark-header {
@@ -130,10 +135,17 @@ h1#kc-page-title {
   border-radius: 5px;
   height: 50px;
   padding: 16px;
+  --pf-c-form-control--Color: #001E49;
+  --pf-c-form-control--placeholder--child--Color: #001E49;
 }
 
 .pf-c-form-control:focus {
   padding-bottom: 16px;
+  border-bottom-width: 1px;
+}
+
+.pf-c-form-control:focus-visible {
+  outline-color: #001E49;
 }
 
 .pf-c-form-control:not(textarea)[aria-invalid=true] {
@@ -164,12 +176,24 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
   text-align: center;
 }
 
-.pf-c-button.pf-m-primary {
-  background: #001E49;
+.pf-c-button {
   border: 2px solid #001E49;
   border-radius: 4px;
   font-size: 16px;
+  font-weight: bold;
   height: 50px;
+  transform-origin: left center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pf-c-button.pf-m-primary {
+  background: #001E49;
+  color: #fff;
+}
+
+.pf-c-button.pf-m-primary:hover {
+  background: #325e91;
+  color: #fff;
 }
 
 .password-update-prompt {
@@ -337,6 +361,10 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
   .card-divider {
     margin-left: -20px;
     margin-right: -20px;
+  }
+
+  .pf-c-button.pf-m-primary:hover {
+    transform: scaleX(0.95);
   }
 
   .light-footer {
