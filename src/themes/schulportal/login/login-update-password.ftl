@@ -2,10 +2,10 @@
 <#import "password-commons.ftl" as passwordCommons>
 <@layout.registrationLayout displayMessage=!messagesPerField.existsError('password','password-confirm'); section>
     <#if section = "header">
-        ${msg("updatePasswordTitle")}
+        <span data-testid="update-password-title">${msg("updatePasswordTitle")}</span>
     <#elseif section = "form">
         <div>
-            <p class="password-update-prompt">${msg("passwordUpdateHint")}</p>
+            <p class="password-update-prompt">${msg("passwordUpdatePrompt")}</p>
         </div>
         <form id="kc-passwd-update-form" class="${properties.kcFormClass!}" action="${url.loginAction}" method="post">
             <input type="text" id="username" name="username" value="${username}" autocomplete="username"
@@ -17,7 +17,7 @@
                     <label for="password-new" class="${properties.kcLabelClass!}">${msg("passwordNew")}</label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
-                    <input type="password" id="password-new" name="password-new" class="${properties.kcInputClass!}"
+                    <input type="password" id="password-new" name="password-new" data-testid="new-password-input" class="${properties.kcInputClass!}"
                            autofocus autocomplete="new-password"
                            aria-invalid="<#if messagesPerField.existsError('password','password-confirm')>true</#if>"
                     />
@@ -35,7 +35,7 @@
                     <label for="password-confirm" class="${properties.kcLabelClass!}">${msg("passwordConfirm")}</label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
-                    <input type="password" id="password-confirm" name="password-confirm"
+                    <input type="password" id="password-confirm" name="password-confirm" data-testid="new-password-confirm-input"
                            class="${properties.kcInputClass!}"
                            autocomplete="new-password"
                            aria-invalid="<#if messagesPerField.existsError('password-confirm')>true</#if>"
@@ -56,7 +56,7 @@
                         <input class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonLargeClass!}" type="submit" value="${msg("doSubmit")}" />
                         <button class="${properties.kcButtonClass!} ${properties.kcButtonDefaultClass!} ${properties.kcButtonLargeClass!}" type="submit" name="cancel-aia" value="true" />${msg("doCancel")}</button>
                     <#else>
-                        <input class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}" type="submit" value="${msg("setPassword")}" />
+                        <input class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}" type="submit" value="${msg("setPassword")}" data-testid="set-password-button" />
                     </#if>
                 </div>
             </div>
