@@ -196,6 +196,14 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
   color: #fff;
 }
 
+.password-update-prompt {
+  color: #001E49;
+  font-size: 16px;
+  font-weight: normal;
+  margin-bottom: 16px;
+  margin-top: 28px;
+}
+
 .light-footer {
   align-items: end;
   background-image: linear-gradient(to bottom right, #ffffff 25%, transparent 25%),

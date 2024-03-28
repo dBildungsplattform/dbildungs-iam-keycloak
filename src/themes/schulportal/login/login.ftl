@@ -1,7 +1,7 @@
 <#import "template.ftl" as layout>
 <@layout.registrationLayout displayMessage=!messagesPerField.existsError('username','password') displayInfo=realm.password && realm.registrationAllowed && !registrationDisabled??; section>
     <#if section = "header">
-        ${msg("loginAccountTitle")}
+         <span data-testid="update-password-title">${msg("loginAccountTitle")}</span>
     <#elseif section = "form">
         <p class="login-prompt" data-testid="login-prompt-text">${msg("enterLoginData")}</p>
         <div id="kc-form">
