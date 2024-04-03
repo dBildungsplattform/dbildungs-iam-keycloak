@@ -94,13 +94,13 @@ jobs:
 
   branch_meta:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
-    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/get-branch-meta.yml@3
+    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/get-branch-meta.yml@2
 
   create_branch_identifier:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
     needs: 
       - branch_meta
-    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/deploy-branch-to-namespace.yml@3
+    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/deploy-branch-to-namespace.yml@2
     with:
       branch: ${{ needs.branch_meta.outputs.branch }}
 
@@ -121,7 +121,7 @@ jobs:
 
   create_branch_identifier_for_deletion:
     if: ${{ github.event_name == 'delete' && github.event.ref_type == 'branch' }}
-    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/deploy-branch-to-namespace.yml@3
+    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/deploy-branch-to-namespace.yml@2
     with:
       branch: ${{ github.event.ref }}
 
@@ -129,7 +129,7 @@ jobs:
     if: ${{ github.event_name == 'delete' && github.event.ref_type == 'branch'}}
     needs:
       - create_branch_identifier_for_deletion
-    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/delete-namespace.yml@3
+    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/delete-namespace.yml@2
     with:
       namespace: ${{ needs.create_branch_identifier_for_deletion.outputs.namespace_from_branch }}
     secrets:
