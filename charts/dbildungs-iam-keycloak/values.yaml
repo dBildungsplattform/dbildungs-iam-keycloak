@@ -27,7 +27,7 @@ database:
   name: "dbildungs_iam_keycloak"
   host: ""
   password: ""
-  username: "dbildungs_iam_keycloak"
+  username: ""
 
 realm: 
   name: dbilduns-iam-keycloak-realm
