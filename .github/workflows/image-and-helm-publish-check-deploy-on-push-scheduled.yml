@@ -25,6 +25,7 @@ jobs:
       contents: read
       security-events: write
 
+
   build_image_on_push:
     name: "Publish image and scan with trivy"
     if: ${{ github.event_name == 'push' }}
