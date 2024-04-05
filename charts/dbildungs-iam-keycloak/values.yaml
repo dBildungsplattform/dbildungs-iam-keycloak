@@ -27,7 +27,7 @@ database:
   name: "dbildungs_iam_keycloak"
   host: ""
   password: ""
-  username: ""
+  username: "spshdeveloper"
 
 realm: 
   name: dbilduns-iam-keycloak-realm
