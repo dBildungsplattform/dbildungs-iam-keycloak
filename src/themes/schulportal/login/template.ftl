@@ -129,7 +129,8 @@
 
                 <#-- App-initiated actions should not see warning messages about the need to complete the action -->
                 <#-- during login.                                                                               -->
-                <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
+                <#-- SPSH: commented the following block to customize warning messages                          -->
+                <#-- #if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
                     <div class="alert-${message.type} ${properties.kcAlertClass!} pf-m-<#if message.type = 'error'>danger<#else>${message.type}</#if>">
                         <div class="pf-c-alert__icon">
                             <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
@@ -139,7 +140,7 @@
                         </div>
                             <span class="${properties.kcAlertTitleClass!}">${kcSanitize(message.summary)?no_esc}</span>
                     </div>
-                </#if>
+                </#if -->
 
                 <#nested "form">
 

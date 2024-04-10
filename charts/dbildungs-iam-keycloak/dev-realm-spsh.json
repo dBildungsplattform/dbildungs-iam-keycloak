@@ -813,7 +813,8 @@
           "/*"
         ],
         "webOrigins": [
-          "/*"
+          "/*",
+          "+"
         ],
         "notBefore": 0,
         "bearerOnly": false,
