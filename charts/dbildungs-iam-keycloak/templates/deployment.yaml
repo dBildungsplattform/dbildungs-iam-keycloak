@@ -52,6 +52,11 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: db-host
+            - name: KC_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: db-username
             - name: KC_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
