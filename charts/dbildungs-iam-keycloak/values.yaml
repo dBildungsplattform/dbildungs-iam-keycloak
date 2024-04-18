@@ -24,10 +24,10 @@ extraVolumes: []
 extraVolumeMounts: []
 
 database:
-  name: "dbildungs_iam_keycloak"
+  name: ""
   host: ""
   password: ""
-  username: "dbildungs_iam_keycloak"
+  username: ""
 
 realm: 
   name: dbilduns-iam-keycloak-realm
