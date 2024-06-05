@@ -832,7 +832,9 @@
           "backchannel.logout.session.required": "true",
           "oauth2.device.authorization.grant.enabled": "false",
           "display.on.consent.screen": "false",
-          "backchannel.logout.revoke.offline.tokens": "false"
+          "backchannel.logout.revoke.offline.tokens": "false",
+          "acr.loa.map": "{\"silver\":\"10\",\"gold\":\"20\"}",
+          "default.acr.values": "0"
         },
         "authenticationFlowBindingOverrides": {
           "browser": "2e19a392-6bf3-4ea4-a599-ac39bcdfd827"
