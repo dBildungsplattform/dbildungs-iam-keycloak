@@ -26,7 +26,7 @@ docker build --target development -t dbildungsplattform/dbildungs-iam-keycloak/d
 To create the container execute following command:
 
 ```bash
-docker create --name dbildungs-iam-keycloak -p 8080:8080 -p 8443:8443 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin dbildungsplattform/dbildungs-iam-keycloud/dev:latest
+docker create --name dbildungs-iam-keycloak -p 8080:8080 -p 8443:8443 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin dbildungsplattform/dbildungs-iam-keycloak/dev:latest
 ```
 
 To start (or stop) the container execute following command:
