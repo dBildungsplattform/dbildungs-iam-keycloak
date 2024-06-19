@@ -483,7 +483,8 @@
         ],
         "clientRoles": {
           "realm-management": [
-            "manage-users"
+            "manage-users",
+            "manage-realm"
           ]
         },
         "notBefore": 0,
