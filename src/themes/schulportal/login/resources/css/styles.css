@@ -379,3 +379,14 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
     padding: 0;
   }
 }
+
+.kc-form-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kc-form-buttons button,
+.kc-form-buttons input[type="submit"] {
+  flex: 0 1 auto; 
+}
