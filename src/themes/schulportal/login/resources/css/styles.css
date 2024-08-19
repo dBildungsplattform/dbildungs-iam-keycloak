@@ -272,6 +272,33 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
   width: 100%;
 }
 
+.kc-form-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; 
+}
+
+.kc-form-buttons button,
+.kc-form-buttons input[type="submit"] {
+  flex: 1; 
+  padding: 10px 20px;
+  border-radius: 4px;
+  max-width: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.kc-form-buttons button:first-child,
+.kc-form-buttons input[type="submit"]:first-child {
+  margin-right: 10px;
+}
+
+.kc-form-buttons button:hover,
+.kc-form-buttons input[type="submit"]:hover {
+  background-color: #c4c9ce;
+}
+
 @media (max-width: 1279px) {
   .light-footer {
     background-size:
@@ -378,15 +405,30 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
     font-size: 16px;
     padding: 0;
   }
+
+  .kc-form-buttons {
+    flex-direction: column; 
+    align-items: stretch; 
+  }
+
+  .kc-form-buttons button:first-child,
+  .kc-form-buttons input[type="submit"]:first-child {
+  margin-right: 0px;
+}
+  
+  .kc-form-buttons button,
+  .kc-form-buttons input[type="submit"] {
+    max-width: 100%; 
+    margin-right: 0; 
+    margin-bottom: 10px; 
+  }
+
+  .kc-form-buttons button:last-child,
+  .kc-form-buttons input[type="submit"]:last-child {
+    margin-bottom: 0; 
+  }
 }
 
-.kc-form-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.kc-form-buttons button,
-.kc-form-buttons input[type="submit"] {
-  flex: 0 1 auto; 
-}
+
+
