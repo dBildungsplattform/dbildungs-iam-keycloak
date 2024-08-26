@@ -12,9 +12,11 @@
                         <div class="${properties.kcFormGroupClass!}">
                             <label for="username" class="${properties.kcLabelClass!}"><#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if></label>
 
-                            <input tabindex="2" id="username" class="${properties.kcInputClass!}" name="username" placeholder="${msg("username")}" value="${(login.username!'')}"  type="text" autofocus autocomplete="username" data-testid="username-input"
-                                   aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                            />
+                            <input tabindex="2" id="username" class="${properties.kcInputClass!}" name="username" placeholder="${msg("username")}" value="${(login.username!'')}" type="text" autocomplete="username" data-testid="username-input"
+                                aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
+                                <#if !(login.username?? && login.username != '')>autofocus
+                                <#else> readonly</#if> />
+
 
                             <#if messagesPerField.existsError('username','password')>
                                 <span id="input-error" class="${properties.kcInputErrorMessageClass!}" aria-live="polite">
@@ -30,8 +32,8 @@
 
                         <div class="${properties.kcInputGroup!}">
                             <input tabindex="3" id="password" class="${properties.kcInputClass!}" name="password" placeholder="${msg("password")}" type="password" autocomplete="current-password" data-testid="password-input"
-                                   aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                            />
+                                aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
+                                <#if login.username?? && login.username != ''>autofocus</#if> />
                             <button class="${properties.kcFormPasswordVisibilityButtonClass!}" type="button" aria-label="${msg("showPassword")}"
                                     aria-controls="password" data-password-toggle tabindex="4"
                                     data-icon-show="${properties.kcFormPasswordVisibilityIconShow!}" data-icon-hide="${properties.kcFormPasswordVisibilityIconHide!}"
