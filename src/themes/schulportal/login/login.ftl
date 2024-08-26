@@ -14,8 +14,14 @@
 
                             <input tabindex="2" id="username" class="${properties.kcInputClass!}" name="username" placeholder="${msg("username")}" value="${(login.username!'')}" type="text" autocomplete="username" data-testid="username-input"
                                 aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                                <#if !(login.username?? && login.username != '')>autofocus
-                                <#else> readonly</#if> />
+                                <#if !(login.username?? && login.username != '')>autofocus</#if>
+                            />
+                                <script>
+                                    const params = new URLSearchParams(document.location.search);
+                                    const hint = params.get("login_hint");
+                                    if (hint)
+                                        document.getElementById('username').setAttribute('readonly', '')
+                                </script>
 
 
                             <#if messagesPerField.existsError('username','password')>
