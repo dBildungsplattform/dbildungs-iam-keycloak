@@ -16,13 +16,6 @@
                                 aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                                 <#if !(login.username?? && login.username != '')>autofocus</#if>
                             />
-                                <script>
-                                    const params = new URLSearchParams(document.location.search);
-                                    const hint = params.get("login_hint");
-                                    if (hint)
-                                        document.getElementById('username').setAttribute('readonly', '')
-                                </script>
-
 
                             <#if messagesPerField.existsError('username','password')>
                                 <span id="input-error" class="${properties.kcInputErrorMessageClass!}" aria-live="polite">
