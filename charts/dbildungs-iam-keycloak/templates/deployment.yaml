@@ -72,6 +72,11 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: keycloak-adminSecret
+            - name: KC_ITSLEARNING_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-itslearning-clientSecret
             - name: KC_DB_URL
               value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
             {{- if .Values.extraEnvVars }}
