@@ -36,7 +36,7 @@ spec:
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           ports:
-            {{- range := .Values.containerPort }}
+            {{- range .Values.containerPort }}
             - name: {{ .name }}
               containerPort: {{ .port }}
               Protocol: {{ .protocol }}
