@@ -11,3 +11,6 @@ data:
   KC_ROOT_URL: "https://{{ .Values.frontendHostname }}"
   KC_PROXY: "edge"
   KEYCLOAK_ADMIN: admin
+  KC_HTTP_MANAGEMENT_PORT: "8090"
+  IDENTITY_MANAGEMENT__INTERNAL_URI: "http://{{ template "common.names.name" . }}:8090"
+  IDENTITY_MANAGEMENT__EXTERNAL_URI: "https://{{ .Values.frontendHostname }}"
