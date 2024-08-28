@@ -14,9 +14,8 @@
 
                             <input tabindex="2" id="username" class="${properties.kcInputClass!}" name="username" placeholder="${msg("username")}" value="${(login.username!'')}" type="text" autocomplete="username" data-testid="username-input"
                                 aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                                <#if !(login.username?? && login.username != '')>autofocus
-                                <#else> readonly</#if> />
-
+                                <#if !(login.username?? && login.username != '')>autofocus</#if>
+                            />
 
                             <#if messagesPerField.existsError('username','password')>
                                 <span id="input-error" class="${properties.kcInputErrorMessageClass!}" aria-live="polite">
