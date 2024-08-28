@@ -36,10 +36,10 @@ spec:
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           ports:
-            {{- range .Values.containerPort }}
+            {{- range .Values.containerPorts }}
             - name: {{ .name }}
               containerPort: {{ .port }}
-              Protocol: {{ .protocol }}
+              protocol: {{ .protocol }}
             {{- end }}
           startupProbe: {{- omit .Values.startupProbe "enabled" | toYaml | nindent 12 }}
           livenessProbe: {{- omit .Values.livenessProbe "enabled" | toYaml | nindent 12 }}
