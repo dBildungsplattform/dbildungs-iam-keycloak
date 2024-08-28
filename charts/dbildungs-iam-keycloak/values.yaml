@@ -88,10 +88,11 @@ ingress:
 
 containerPorts:
   - name: web
-    http: 8080
-  - name: mgmt
+    port: 8080
     protocol: TCP
+  - name: mgmt
     port: 8090
+    protocol: TCP
 
 service:
   type: ClusterIP
