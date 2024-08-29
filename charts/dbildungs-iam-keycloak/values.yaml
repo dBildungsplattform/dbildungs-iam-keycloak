@@ -70,7 +70,7 @@ livenessProbe:
   enabled: true
   httpGet:
     path: /health/live
-    port: web
+    port: mgmt
 
 readinessProbe:
   enabled: true
