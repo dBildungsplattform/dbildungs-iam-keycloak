@@ -16,3 +16,7 @@ spec:
       port: {{  .Values.service.ports.http }}
       targetPort: web
     {{- end }}
+    - port: 8090
+      targetPort: 8090
+      protocol: TCP
+      name: mgmt
