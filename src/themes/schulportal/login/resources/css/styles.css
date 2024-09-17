@@ -1,3 +1,14 @@
+.alert-error {
+  background-color: #ffffff;
+  color: #001e49;
+  border: 3px solid #d4004b;
+  border-radius: 3px;
+}
+
+.alert-error .pf-c-alert__title {
+  color: #001e49;
+}
+
 .login-pf {
   background: #ffffff;
 }
