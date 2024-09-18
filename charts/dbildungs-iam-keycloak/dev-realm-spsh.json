@@ -416,6 +416,7 @@
     "requiredCredentials": [
       "password"
     ],
+    "passwordPolicy" : "maxAuthAge(0)",
     "otpPolicyType": "totp",
     "otpPolicyAlgorithm": "HmacSHA1",
     "otpPolicyInitialCounter": 0,
@@ -2022,14 +2023,15 @@
             "priority": 0,
             "autheticatorFlow": false,
             "userSetupAllowed": false
-          },
+          }, 
           {
-            "authenticator": "auth-otp-form",
-            "authenticatorFlow": false,
-            "requirement": "REQUIRED",
-            "priority": 1,
-            "autheticatorFlow": false,
-            "userSetupAllowed": false
+            "authenticatorConfig" : "pi",
+            "authenticator" : "privacyidea-authenticator",
+            "authenticatorFlow" : false,
+            "requirement" : "REQUIRED",
+            "priority" : 2,
+            "autheticatorFlow" : false,
+            "userSetupAllowed" : false
           }
         ]
       },
@@ -2618,6 +2620,22 @@
         "config": {
           "loa-condition-level": "20",
           "loa-max-age": "10000"
+        }
+      }, 
+      {
+        "id" : "a289ca13-92ef-4ac8-9544-bbff68c93147",
+        "alias" : "pi",
+        "config" : {
+          "pienrolltokentype" : "TOTP",
+          "pipollinbrowser" : "false",
+          "piservicerealm" : "${PI_REALM}",
+          "piservicepass" : "${PI_ADMIN_PASSWORD}",
+          "piserver" : "${PI_BASE_URL}",
+          "piserviceaccount" : "${PI_ADMIN_USER}",
+          "preftokentype" : "OTP",
+          "pirealm" : "${PI_REALM}",
+          "pidolog" : "true",
+          "pienrolltoken" : "false"
         }
       },
       {
