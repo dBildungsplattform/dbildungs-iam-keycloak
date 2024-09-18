@@ -3,7 +3,8 @@
     <#if section = "header">
          <span data-testid="update-password-title">${msg("loginAccountTitle")}</span>
     <#elseif section = "form">
-        <p class="login-prompt" data-testid="login-prompt-text">${msg("enterLoginData")}</p>
+
+        <p class="login-prompt" data-testid="login-prompt-text">${msg("enterLoginData")}</p>     
         <div id="kc-form">
           <div id="kc-form-wrapper">
             <#if realm.password>
@@ -117,3 +118,14 @@
     </#if>
 
 </@layout.registrationLayout>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const kc_action = urlParams.get('kc_action');
+
+    if (kc_action === "UPDATE_PASSWORD") {
+        document.querySelector(".login-prompt").textContent = "${msg("enterOldPassword")}";
+    } else {
+        document.querySelector(".login-prompt").textContent = "${msg("enterLoginData")}";
+    }
+</script>

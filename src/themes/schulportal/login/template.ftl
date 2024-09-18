@@ -100,37 +100,24 @@
                             <div class="col-md-10">
                                 <#nested "show-username">
                                 <div id="kc-username" class="${properties.kcFormGroupClass!}">
-                                    <label id="kc-attempted-username">${auth.attemptedUsername}</label>
-                                    <a id="reset-login" href="${url.loginRestartFlowUrl}" aria-label="${msg("restartLoginTooltip")}">
-                                        <div class="kc-login-tooltip">
-                                            <i class="${properties.kcResetFlowIcon!}"></i>
-                                            <span class="kc-tooltip-text">${msg("restartLoginTooltip")}</span>
-                                        </div>
-                                    </a>
+                                    <label id="kc-attempted-username">${auth.attemptedUsername}</label>                                    
                                 </div>
                             </div>
                         </div>
                     <#else>
                         <#nested "show-username">
                         <div id="kc-username" class="${properties.kcFormGroupClass!}">
-                            <label id="kc-attempted-username">${auth.attemptedUsername}</label>
-                            <a id="reset-login" href="${url.loginRestartFlowUrl}" aria-label="${msg("restartLoginTooltip")}">
-                                <div class="kc-login-tooltip">
-                                    <i class="${properties.kcResetFlowIcon!}"></i>
-                                    <span class="kc-tooltip-text">${msg("restartLoginTooltip")}</span>
-                                </div>
-                            </a>
+                            <label id="kc-attempted-username">${auth.attemptedUsername}</label>                            
                         </div>
                     </#if>
                 </#if>
             </header>
             <div id="kc-content">
                 <div id="kc-content-wrapper">
-
                 <#-- App-initiated actions should not see warning messages about the need to complete the action -->
                 <#-- during login.                                                                               -->
                 <#-- SPSH: commented the following block to customize warning messages                          -->
-                <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
+                <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??) && message.type != 'info'>
                     <div class="alert-${message.type} ${properties.kcAlertClass!} pf-m-<#if message.type = 'error'>danger<#else>${message.type}</#if>">
                         <div class="pf-c-alert__icon">
                             <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
