@@ -2589,6 +2589,14 @@
         "builtIn": false,
         "authenticationExecutions": [
           {
+          "authenticator" : "auth-cookie",
+          "authenticatorFlow" : false,
+          "requirement" : "ALTERNATIVE",
+          "priority" : 0,
+          "autheticatorFlow" : false,
+          "userSetupAllowed" : false
+        },
+          {
             "authenticatorFlow": true,
             "requirement": "ALTERNATIVE",
             "priority": 0,
