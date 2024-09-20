@@ -112,20 +112,42 @@
                     </#if>
                 </#if>
             </header>
+
+            <#-- SPSH: custom messages for failed OTP authentication -->
+            <#-- Remove all whitespaces and linebreaks from the message key to-->
+            <#assign customMessages = {
+                "Authenticationfailed.falscherOTP-Wert": msg("authentifactionOtpFailedMessage"),
+                "Authenticationfailed.falscherOTP-Pin": msg("authentifactionOtpFailedMessage"),
+                "Authenticationfailed.wrongotpvalue": msg("authentifactionOtpFailedMessage"),
+                "Authenticationfailed.wrongotppin": msg("authentifactionOtpFailedMessage")
+            }>
+    
             <div id="kc-content">
                 <div id="kc-content-wrapper">
                 <#-- App-initiated actions should not see warning messages about the need to complete the action -->
                 <#-- during login.                                                                               -->
-                <#-- SPSH: commented the following block to customize warning messages                          -->
+                <#-- SPSH: commented the following block to customize warning messages                           -->
                 <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??) && message.type != 'info'>
-                    <div class="alert-${message.type} ${properties.kcAlertClass!} pf-m-<#if message.type = 'error'>danger<#else>${message.type}</#if>">
+                    <div class="alert-${message.type} ${properties.kcAlertClass!} pf-m-<#if message.type == 'error'>danger<#else>${message.type}</#if>">
                         <div class="pf-c-alert__icon">
-                            <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
-                            <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
-                            <#if message.type = 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
-                            <#if message.type = 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
+                            <#if message.type == 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
+                            <#if message.type == 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
+                            <#if message.type == 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
+                            <#if message.type == 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
                         </div>
-                        <span class="${properties.kcAlertTitleClass!}">${kcSanitize(message.summary)?no_esc}</span>
+                        <#if message?? && message.summary??>
+                            <#assign key = message.summary?replace(" ", "")?replace("\n", "")?replace("\t", "")>
+                            <#if customMessages[key]??>
+                                <#assign customMessage = customMessages[key]>
+                            </#if>
+                        </#if>           
+                        <#if customMessage??>
+                            <!-- Verwende die angepasste Nachricht -->
+                            <span class="${properties.kcAlertTitleClass!}">${customMessage}</span>
+                        <#else>
+                            <!-- Fallback auf die ursprüngliche Nachricht -->
+                            <span class="${properties.kcAlertTitleClass!}">${kcSanitize(message.summary)?no_esc}</span>
+                        </#if>
                     </div>
                 </#if>
 
