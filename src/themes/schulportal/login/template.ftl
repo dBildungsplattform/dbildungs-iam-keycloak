@@ -116,10 +116,10 @@
             <#-- SPSH: custom messages for failed OTP authentication -->
             <#-- Remove all whitespaces and linebreaks from the message key to-->
             <#assign customMessages = {
-                "Authenticationfailed.falscherOTP-Wert": msg("authentifactionOtpFailedMessage"),
-                "Authenticationfailed.falscherOTP-Pin": msg("authentifactionOtpFailedMessage"),
-                "Authenticationfailed.wrongotpvalue": msg("authentifactionOtpFailedMessage"),
-                "Authenticationfailed.wrongotppin": msg("authentifactionOtpFailedMessage")
+                "Authenticationfailed.falscherOTP-Wert": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.falscherOTP-Pin": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.wrongotpvalue": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.wrongotppin": msg("authenticationOtpFailedMessage")
             }>
     
             <div id="kc-content">
