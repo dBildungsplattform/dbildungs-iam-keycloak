@@ -1,3 +1,14 @@
+.alert-error {
+  background-color: #ffffff;
+  color: #001e49;
+  border: 3px solid #d4004b;
+  border-radius: 3px;
+}
+
+.alert-error .pf-c-alert__title {
+  color: #001e49;
+}
+
 .login-pf {
   background: #ffffff;
 }
@@ -19,7 +30,8 @@
 
 .dark-header {
   background: #001e49;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
+    rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
   display: flex;
   height: 60px;
   justify-content: space-between;
@@ -81,7 +93,7 @@
 
 .card-pf {
   border-radius: 4px;
-  box-shadow: 0px 3px 10px #E5EAEF;
+  box-shadow: 0px 3px 10px #e5eaef;
   margin-left: auto;
   margin-right: auto;
   max-width: 540px;
@@ -95,7 +107,7 @@ h1#kc-page-title {
 }
 
 .card-divider {
-  background: #1EAE9C;
+  background: #1eae9c;
   border-radius: 4px;
   height: 4px;
   margin-left: -40px;
@@ -103,7 +115,7 @@ h1#kc-page-title {
 }
 
 .login-pf-page .card-pf p {
-  color: #001E49;
+  color: #001e49;
 }
 
 .login-prompt {
@@ -118,7 +130,7 @@ h1#kc-page-title {
 }
 
 .pf-c-input-group {
-  border: 1px solid #001E49;
+  border: 1px solid #001e49;
   border-radius: 5px;
 }
 
@@ -126,17 +138,17 @@ h1#kc-page-title {
   border: none;
 }
 
-.pf-c-input-group:has(> .pf-c-form-control[aria-invalid=true]) {
-  border-color: #D4004B;
+.pf-c-input-group:has(> .pf-c-form-control[aria-invalid="true"]) {
+  border-color: #d4004b;
 }
 
 .pf-c-form-control:not(textarea) {
-  border: 1px solid #001E49;
+  border: 1px solid #001e49;
   border-radius: 5px;
   height: 50px;
   padding: 16px;
-  --pf-c-form-control--Color: #001E49;
-  --pf-c-form-control--placeholder--child--Color: #001E49;
+  --pf-c-form-control--Color: #001e49;
+  --pf-c-form-control--placeholder--child--Color: #001e49;
 }
 
 .pf-c-form-control:focus {
@@ -145,19 +157,19 @@ h1#kc-page-title {
 }
 
 .pf-c-form-control:focus-visible {
-  outline-color: #001E49;
+  outline-color: #001e49;
 }
 
-.pf-c-form-control:not(textarea)[aria-invalid=true] {
+.pf-c-form-control:not(textarea)[aria-invalid="true"] {
   border-bottom-width: 1px;
-  border-color: #D4004B;
+  border-color: #d4004b;
   padding-bottom: 16px;
-  --pf-c-form-control--invalid--BackgroundUrl: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23D4004B' d='M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z'/%3E%3C/svg%3E")
+  --pf-c-form-control--invalid--BackgroundUrl: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23D4004B' d='M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z'/%3E%3C/svg%3E");
 }
 
-label:has(+ .pf-c-form-control:not(textarea)[aria-invalid=true]),
-label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
-  color: #D4004B;
+label:has(+ .pf-c-form-control:not(textarea)[aria-invalid="true"]),
+label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid="true"]) {
+  color: #d4004b;
   font-weight: bold;
 }
 
@@ -168,7 +180,7 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
 }
 
 .pf-c-form__helper-text.pf-m-error {
-  color: #D4004B;
+  color: #d4004b;
 }
 
 .password-help-text {
@@ -177,7 +189,7 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
 }
 
 .pf-c-button {
-  border: 2px solid #001E49;
+  border: 2px solid #001e49;
   border-radius: 4px;
   font-size: 16px;
   font-weight: bold;
@@ -187,7 +199,7 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
 }
 
 .pf-c-button.pf-m-primary {
-  background: #001E49;
+  background: #001e49;
   color: #fff;
 }
 
@@ -197,7 +209,7 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
 }
 
 .password-update-prompt {
-  color: #001E49;
+  color: #001e49;
   font-size: 16px;
   font-weight: normal;
   margin-bottom: 16px;
@@ -206,14 +218,16 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
 
 .light-footer {
   align-items: end;
-  background-image: linear-gradient(to bottom right, #ffffff 25%, transparent 25%),
+  background-image: linear-gradient(
+      to bottom right,
+      #ffffff 25%,
+      transparent 25%
+    ),
     linear-gradient(180deg, rgba(229, 234, 239, 1) 100%, transparent 100%);
 
   background-repeat: no-repeat, no-repeat;
 
-  background-size:
-    200% 80%,
-    100% 100%;
+  background-size: 200% 80%, 100% 100%;
 
   bottom: 0;
   display: flex;
@@ -276,22 +290,17 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; 
+  width: 100%;
 }
 
 .kc-form-buttons button,
 .kc-form-buttons input[type="submit"] {
-  flex: 1; 
+  flex: 1;
   padding: 10px 20px;
   border-radius: 4px;
-  max-width: 50%;
+  max-width: 49%;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-.kc-form-buttons button:first-child,
-.kc-form-buttons input[type="submit"]:first-child {
-  margin-right: 10px;
 }
 
 .kc-form-buttons button:hover,
@@ -301,9 +310,7 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
 
 @media (max-width: 1279px) {
   .light-footer {
-    background-size:
-      200% 50%,
-      100% 100%;
+    background-size: 200% 50%, 100% 100%;
     flex-direction: column-reverse;
     min-height: 280px;
     padding-bottom: 32px;
@@ -338,7 +345,8 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
 
 @media (max-width: 959px) {
   .header-logo {
-    background: url(../img/Schulportal_SH_Bildmarke_RGB_Anwendung_HG_Blau.svg) no-repeat;
+    background: url(../img/Schulportal_SH_Bildmarke_RGB_Anwendung_HG_Blau.svg)
+      no-repeat;
     height: 33px;
     /* this padding is necessary to move the old image out of the viewport */
     padding-left: 33px;
@@ -349,7 +357,7 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
     background: url(../img/help-circle-outline.svg) 0 0 no-repeat;
     height: 24px;
     margin-right: 8px;
-    text-indent:-99999em;
+    text-indent: -99999em;
     width: 24px;
   }
 
@@ -396,9 +404,7 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
 
   .light-footer {
     min-height: 260px;
-    background-size:
-      200% 30%,
-      100% 100%;
+    background-size: 200% 30%, 100% 100%;
   }
 
   .footer-item {
@@ -407,28 +413,32 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid=true]) {
   }
 
   .kc-form-buttons {
-    flex-direction: column; 
-    align-items: stretch; 
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .kc-form-buttons button:first-child,
   .kc-form-buttons input[type="submit"]:first-child {
-  margin-right: 0px;
-}
-  
+    margin-right: 0px;
+  }
+
   .kc-form-buttons button,
   .kc-form-buttons input[type="submit"] {
-    max-width: 100%; 
-    margin-right: 0; 
-    margin-bottom: 10px; 
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
   }
 
   .kc-form-buttons button:last-child,
   .kc-form-buttons input[type="submit"]:last-child {
-    margin-bottom: 0; 
+    margin-bottom: 0;
   }
 }
 
+#CancelButton {
+  order: 1;
+}
 
-
-
+#SubmitButton {
+  order: 2;
+}
