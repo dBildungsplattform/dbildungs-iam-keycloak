@@ -119,7 +119,8 @@
                 "Authenticationfailed.falscherOTP-Wert": msg("authenticationOtpFailedMessage"),
                 "Authenticationfailed.falscherOTP-Pin": msg("authenticationOtpFailedMessage"),
                 "Authenticationfailed.wrongotpvalue": msg("authenticationOtpFailedMessage"),
-                "Authenticationfailed.wrongotppin": msg("authenticationOtpFailedMessage")
+                "Authenticationfailed.wrongotppin": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.": msg("authenticationFailedMessage")
             }>
     
             <div id="kc-content">
