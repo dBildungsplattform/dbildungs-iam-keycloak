@@ -467,7 +467,7 @@
         "requiredActions": [],
         "clientRoles": {
           "realm-management": [
-            "manage-realm"
+            "manage-clients"
           ]
         },
         "notBefore": 0,
@@ -830,7 +830,7 @@
         "enabled": true,
         "alwaysDisplayInConsole": false,
         "clientAuthenticatorType": "client-jwt",
-        "secret": "**********",
+        "secret": "spsh-service-client-secret",
         "redirectUris": [
           "/*"
         ],
