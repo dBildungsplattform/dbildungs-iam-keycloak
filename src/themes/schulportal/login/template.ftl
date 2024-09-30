@@ -120,7 +120,9 @@
                 "Authenticationfailed.falscherOTP-Pin": msg("authenticationOtpFailedMessage"),
                 "Authenticationfailed.wrongotpvalue": msg("authenticationOtpFailedMessage"),
                 "Authenticationfailed.wrongotppin": msg("authenticationOtpFailedMessage"),
-                "Authenticationfailed.": msg("authenticationFailedMessage")
+                "Authenticationfailed.": msg("authenticationFailedMessage"),
+                "Authenticationfailed.falscherOTP-WertfrühererOTP-Wertwiederverwendet": msg("authenticationOtpUsedAgainFailedMessage"),                
+                "Authenticationfailed.wrongotpvalue.previousotpusedagain": msg("authenticationOtpUsedAgainFailedMessage")
             }>
     
             <div id="kc-content">
