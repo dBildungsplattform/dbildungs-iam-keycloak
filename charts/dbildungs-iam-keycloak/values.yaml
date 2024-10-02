@@ -18,6 +18,8 @@ auth:
   keycloak_clientSecret: ""
   keycloak_itslearning_clientSecret: ""
   keycloak_ox_clientSecret: ""
+  keycloak_nextcloud_clientId: ""
+  keycloak_nextcloud_clientSecret: ""
 
 command: []
 
