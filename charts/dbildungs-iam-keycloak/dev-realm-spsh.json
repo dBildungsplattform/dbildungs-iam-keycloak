@@ -86,7 +86,7 @@
         }
       ],
       "client": {
-        "nextcloud-bildungsablage-test": [],
+        "${KC_NEXTCLOUD_CLIENT_ID}": [],
         "realm-management": [
           {
             "id": "24a98f94-221b-497d-95af-9f75c232410c",
