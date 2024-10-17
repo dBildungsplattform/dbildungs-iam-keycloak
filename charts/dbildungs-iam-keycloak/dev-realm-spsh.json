@@ -1357,7 +1357,7 @@
         "nodeReRegistrationTimeout": -1,
         "protocolMappers": [
           {
-            "name": "Subject Mapper",
+            "name": "E-Mail Mapper",
             "protocol": "openid-connect",
             "protocolMapper": "oidc-usermodel-attribute-mapper",
             "consentRequired": false,
@@ -1367,7 +1367,7 @@
               "user.attribute": "ID_OX",
               "id.token.claim": "true",
               "access.token.claim": "true",
-              "claim.name": "sub",
+              "claim.name": "email",
               "jsonType.label": "String"
             }
           }
