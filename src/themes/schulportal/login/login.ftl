@@ -7,7 +7,7 @@
         <div id="kc-form">
           <div id="kc-form-wrapper">
             <#if realm.password>
-                <form id="kc-form-login" onsubmit="login.disabled = true; removeFocusFromInputs(); return true;" action="${url.loginAction}" method="post">
+                <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
                     <#if !usernameHidden??>
                         <div class="${properties.kcFormGroupClass!}">
                             <label for="username" class="${properties.kcLabelClass!}"><#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if></label>
@@ -28,7 +28,8 @@
                         <label for="password" class="${properties.kcLabelClass!}">${msg("password")}</label>
                         <div class="${properties.kcInputGroup!}">
                             <input tabindex="3" id="password" class="${properties.kcInputClass!}" name="password" placeholder="${msg("password")}" type="password" autocomplete="current-password" data-testid="password-input"
-                                aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>" />
+                                aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
+                                <#if login.username?? && login.username != ''>autofocus</#if> />
                             <button class="${properties.kcFormPasswordVisibilityButtonClass!}" type="button" aria-label="${msg("showPassword")}"
                                     aria-controls="password" data-password-toggle tabindex="4"
                                     data-icon-show="${properties.kcFormPasswordVisibilityIconShow!}" data-icon-hide="${properties.kcFormPasswordVisibilityIconHide!}"
