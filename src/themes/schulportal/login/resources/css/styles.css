@@ -419,7 +419,7 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid="true"]) {
 
   .kc-form-buttons button:first-child,
   .kc-form-buttons input[type="submit"]:first-child {
-    margin-right: 0px;
+    margin-right: 0px;    
   }
 
   .kc-form-buttons button,
@@ -431,7 +431,7 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid="true"]) {
 
   .kc-form-buttons button:last-child,
   .kc-form-buttons input[type="submit"]:last-child {
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
 }
 
@@ -441,4 +441,8 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid="true"]) {
 
 #SubmitButton {
   order: 2;
+}
+
+input:focus {
+  outline: none;
 }
