@@ -11,7 +11,6 @@
                     <#if !usernameHidden??>
                         <div class="${properties.kcFormGroupClass!}">
                             <label for="username" class="${properties.kcLabelClass!}"><#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if></label>
-
                             <input tabindex="2" id="username" class="${properties.kcInputClass!}" name="username" placeholder="${msg("username")}" value="${(login.username!'')}" type="text" autocomplete="username" data-testid="username-input"
                                 aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                                 <#if !(login.username?? && login.username != '')>autofocus</#if>
@@ -22,17 +21,14 @@
                                         ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
                                 </span>
                             </#if>
-
                         </div>
                     </#if>
 
                     <div class="${properties.kcFormGroupClass!}">
                         <label for="password" class="${properties.kcLabelClass!}">${msg("password")}</label>
-
                         <div class="${properties.kcInputGroup!}">
                             <input tabindex="3" id="password" class="${properties.kcInputClass!}" name="password" placeholder="${msg("password")}" type="password" autocomplete="current-password" data-testid="password-input"
-                                aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                                <#if login.username?? && login.username != ''>autofocus</#if> />
+                                aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>" />
                             <button class="${properties.kcFormPasswordVisibilityButtonClass!}" type="button" aria-label="${msg("showPassword")}"
                                     aria-controls="password" data-password-toggle tabindex="4"
                                     data-icon-show="${properties.kcFormPasswordVisibilityIconShow!}" data-icon-hide="${properties.kcFormPasswordVisibilityIconHide!}"
@@ -46,7 +42,6 @@
                                     ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
                             </span>
                         </#if>
-
                     </div>
 
                     <p class="password-help-text" data-testid="password-help-text">${kcSanitize(msg("passwordHelpText"))?no_esc}</p>
@@ -70,7 +65,6 @@
                                     <span><a tabindex="6" href="${url.loginResetCredentialsUrl}">${msg("doForgotPassword")}</a></span>
                                 </#if>
                             </div>
-
                       </div>
 
                       <div id="kc-form-buttons" class="${properties.kcFormGroupClass!}">
@@ -96,7 +90,6 @@
             <div id="kc-social-providers" class="${properties.kcFormSocialAccountSectionClass!}">
                 <hr/>
                 <h2>${msg("identity-provider-login-label")}</h2>
-
                 <ul class="${properties.kcFormSocialAccountListClass!} <#if social.providers?size gt 3>${properties.kcFormSocialAccountListGridClass!}</#if>">
                     <#list social.providers as p>
                         <li>
@@ -115,12 +108,4 @@
             </div>
         </#if>
     </#if>
-
-    <script type="module">
-        function removeFocusFromInputs() {    
-            const inputs = document.querySelectorAll('#kc-form-login input');
-            inputs.forEach(input => input.blur());
-        }
-    </script>
-
 </@layout.registrationLayout>
