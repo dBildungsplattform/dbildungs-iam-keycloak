@@ -123,6 +123,8 @@
                 "Authenticationfailed.": msg("authenticationFailedMessage"),
                 "Authenticationfailed.falscherOTP-WertfrühererOTP-Wertwiederverwendet": msg("authenticationOtpUsedAgainFailedMessage"),                
                 "Authenticationfailed.wrongotpvalue.previousotpusedagain": msg("authenticationOtpUsedAgainFailedMessage")
+                "Authenticationfailed.1passendeToken,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage"),
+                "Authenticationfailed.matching1tokens,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage"),
             }>
     
             <div id="kc-content">
