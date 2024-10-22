@@ -117,7 +117,7 @@
             <#-- Remove all whitespaces and linebreaks from the message key to-->
             <#assign customMessages = {
                 "Authenticationfailed.falscherOTP-Wert": msg("authenticationOtpFailedMessage"),
-                "Authenticationfailed.falscherOTP-Pin": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.falscheOTP-Pin": msg("authenticationOtpFailedMessage"),
                 "Authenticationfailed.wrongotpvalue": msg("authenticationOtpFailedMessage"),
                 "Authenticationfailed.wrongotppin": msg("authenticationOtpFailedMessage"),
                 "Authenticationfailed.": msg("authenticationFailedMessage"),
