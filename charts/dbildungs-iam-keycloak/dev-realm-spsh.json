@@ -1255,7 +1255,7 @@
         "clientAuthenticatorType": "client-secret",
         "secret": "${KC_NEXTCLOUD_CLIENT_SECRET}",
         "redirectUris": [
-          "/*"
+          "/apps/user_oidc/code"
         ],
         "webOrigins": [
           "/*"
