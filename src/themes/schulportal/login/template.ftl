@@ -34,6 +34,12 @@
             <script src="${script}" type="text/javascript"></script>
         </#list>
     </#if>
+    <style>
+        input::-ms-reveal,
+        input::-ms-clear {
+          display: none;
+        }
+    </style>
 </head>
 
 <body class="${properties.kcBodyClass!}">
@@ -49,7 +55,7 @@
                         height="60"
                     />
                 </a>
-                <a class="header-help" href="https://medienberatung.iqsh.de/schulportal-sh.html">${msg("help")}</a>
+                <a class="header-help" target="_blank" href="https://medienberatung.iqsh.de/schulportal-sh.html">${msg("help")}</a>
             </div>
             <div class="light-header"></div>
         </div>
