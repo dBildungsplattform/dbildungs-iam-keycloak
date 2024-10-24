@@ -34,6 +34,12 @@
             <script src="${script}" type="text/javascript"></script>
         </#list>
     </#if>
+    <style>
+        input::-ms-reveal,
+        input::-ms-clear {
+          display: none;
+        }
+    </style>
 </head>
 
 <body class="${properties.kcBodyClass!}">
@@ -49,7 +55,7 @@
                         height="60"
                     />
                 </a>
-                <a class="header-help" href="https://medienberatung.iqsh.de/schulportal-sh.html">${msg("help")}</a>
+                <a class="header-help" target="_blank" href="https://medienberatung.iqsh.de/schulportal-sh.html">${msg("help")}</a>
             </div>
             <div class="light-header"></div>
         </div>
@@ -100,45 +106,59 @@
                             <div class="col-md-10">
                                 <#nested "show-username">
                                 <div id="kc-username" class="${properties.kcFormGroupClass!}">
-                                    <label id="kc-attempted-username">${auth.attemptedUsername}</label>
-                                    <a id="reset-login" href="${url.loginRestartFlowUrl}" aria-label="${msg("restartLoginTooltip")}">
-                                        <div class="kc-login-tooltip">
-                                            <i class="${properties.kcResetFlowIcon!}"></i>
-                                            <span class="kc-tooltip-text">${msg("restartLoginTooltip")}</span>
-                                        </div>
-                                    </a>
+                                    <label id="kc-attempted-username">${auth.attemptedUsername}</label>                                    
                                 </div>
                             </div>
                         </div>
                     <#else>
                         <#nested "show-username">
                         <div id="kc-username" class="${properties.kcFormGroupClass!}">
-                            <label id="kc-attempted-username">${auth.attemptedUsername}</label>
-                            <a id="reset-login" href="${url.loginRestartFlowUrl}" aria-label="${msg("restartLoginTooltip")}">
-                                <div class="kc-login-tooltip">
-                                    <i class="${properties.kcResetFlowIcon!}"></i>
-                                    <span class="kc-tooltip-text">${msg("restartLoginTooltip")}</span>
-                                </div>
-                            </a>
+                            <label id="kc-attempted-username">${auth.attemptedUsername}</label>                            
                         </div>
                     </#if>
                 </#if>
             </header>
+
+            <#-- SPSH: custom messages for failed OTP authentication -->
+            <#-- Remove all whitespaces and linebreaks from the message key to-->
+            <#assign customMessages = {
+                "Authenticationfailed.falscherOTP-Wert": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.falscheOTP-Pin": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.wrongotpvalue": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.wrongotppin": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.": msg("authenticationFailedMessage"),
+                "Authenticationfailed.falscherOTP-WertfrühererOTP-Wertwiederverwendet": msg("authenticationOtpUsedAgainFailedMessage"),                
+                "Authenticationfailed.wrongotpvalue.previousotpusedagain": msg("authenticationOtpUsedAgainFailedMessage"),
+                "Authenticationfailed.1passendeToken,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage"),
+                "Authenticationfailed.matching1tokens,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage")
+            }>
+    
             <div id="kc-content">
                 <div id="kc-content-wrapper">
-
                 <#-- App-initiated actions should not see warning messages about the need to complete the action -->
                 <#-- during login.                                                                               -->
-                <#-- SPSH: commented the following block to customize warning messages                          -->
-                <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
-                    <div class="alert-${message.type} ${properties.kcAlertClass!} pf-m-<#if message.type = 'error'>danger<#else>${message.type}</#if>">
+                <#-- SPSH: commented the following block to customize warning messages                           -->
+                <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??) && message.type != 'info'>
+                    <div class="alert-${message.type} ${properties.kcAlertClass!} pf-m-<#if message.type == 'error'>danger<#else>${message.type}</#if>">
                         <div class="pf-c-alert__icon">
-                            <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
-                            <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
-                            <#if message.type = 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
-                            <#if message.type = 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
+                            <#if message.type == 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
+                            <#if message.type == 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
+                            <#if message.type == 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
+                            <#if message.type == 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
                         </div>
-                        <span class="${properties.kcAlertTitleClass!}">${kcSanitize(message.summary)?no_esc}</span>
+                        <#if message?? && message.summary??>
+                            <#assign key = message.summary?replace(" ", "")?replace("\n", "")?replace("\t", "")>
+                            <#if customMessages[key]??>
+                                <#assign customMessage = customMessages[key]>
+                            </#if>
+                        </#if>           
+                        <#if customMessage??>
+                            <!-- Verwende die angepasste Nachricht -->
+                            <span class="${properties.kcAlertTitleClass!}">${customMessage}</span>
+                        <#else>
+                            <!-- Fallback auf die ursprüngliche Nachricht -->
+                            <span class="${properties.kcAlertTitleClass!}">${kcSanitize(message.summary)?no_esc}</span>
+                        </#if>
                     </div>
                 </#if>
 
