@@ -920,7 +920,7 @@
           "offline_access",
           "microprofile-jwt"
         ]
-      },
+      },     
       {
         "id": "f45add8b-ab22-4742-afb4-cefa9bc12331",
         "clientId": "spsh",
@@ -958,7 +958,7 @@
           "oauth2.device.authorization.grant.enabled": "false",
           "display.on.consent.screen": "false",
           "backchannel.logout.revoke.offline.tokens": "false",
-          "acr.loa.map": "{\"silver\":\"10\",\"gold\":\"20\"}",
+          "acr.loa.map": "{\"gold\":\"10\"}",
           "default.acr.values": "0"
         },
         "authenticationFlowBindingOverrides": {
@@ -2145,14 +2145,15 @@
             "priority": 0,
             "autheticatorFlow": false,
             "userSetupAllowed": false
-          },
+          }, 
           {
-            "authenticator": "auth-otp-form",
-            "authenticatorFlow": false,
-            "requirement": "REQUIRED",
-            "priority": 1,
-            "autheticatorFlow": false,
-            "userSetupAllowed": false
+            "authenticatorConfig" : "pi",
+            "authenticator" : "privacyidea-authenticator",
+            "authenticatorFlow" : false,
+            "requirement" : "REQUIRED",
+            "priority" : 2,
+            "autheticatorFlow" : false,
+            "userSetupAllowed" : false
           }
         ]
       },
@@ -2710,6 +2711,14 @@
         "builtIn": false,
         "authenticationExecutions": [
           {
+          "authenticator" : "auth-cookie",
+          "authenticatorFlow" : false,
+          "requirement" : "ALTERNATIVE",
+          "priority" : 0,
+          "autheticatorFlow" : false,
+          "userSetupAllowed" : false
+        },
+          {
             "authenticatorFlow": true,
             "requirement": "ALTERNATIVE",
             "priority": 0,
@@ -2741,6 +2750,23 @@
         "config": {
           "loa-condition-level": "20",
           "loa-max-age": "10000"
+        }
+      }, 
+      {
+        "id" : "a289ca13-92ef-4ac8-9544-bbff68c93147",
+        "alias" : "pi",
+        "config" : {
+          "pienrolltokentype" : "TOTP",
+          "pipollinbrowser" : "false",
+          "piservicerealm" : "${PI_REALM}",
+          "piservicepass" : "${PI_ADMIN_PASSWORD}",
+          "piserver" : "${PI_BASE_URL}",
+          "piserviceaccount" : "${PI_ADMIN_USER}",
+          "pidefaultmessage" : "Diese Aktion setzt eine Zwei-Faktor-Authentifizierung voraus. Bitte geben Sie das Einmalpasswort von Ihrem Security-Token ein.",
+          "preftokentype" : "OTP",
+          "pirealm" : "${PI_REALM}",
+          "pidolog" : "true",
+          "pienrolltoken" : "false"
         }
       },
       {
