@@ -110,6 +110,16 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: keycloak-ox-clientSecret
+            - name: KC_NEXTCLOUD_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-nextcloud-clientId
+            - name: KC_NEXTCLOUD_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-nextcloud-clientSecret
             - name: KC_DB_URL
               value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
             {{- if .Values.extraEnvVars }}
