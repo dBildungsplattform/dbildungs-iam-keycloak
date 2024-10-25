@@ -194,8 +194,6 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid="true"]) {
   font-size: 16px;
   font-weight: bold;
   height: 50px;
-  transform-origin: left center;
-  transition: transform 0.3s ease-in-out;
 }
 
 .pf-c-button.pf-m-primary {
@@ -396,10 +394,6 @@ label:has(+ .pf-c-input-group > .pf-c-form-control[aria-invalid="true"]) {
   .card-divider {
     margin-left: -20px;
     margin-right: -20px;
-  }
-
-  .pf-c-button.pf-m-primary:hover {
-    transform: scaleX(0.95);
   }
 
   .light-footer {
