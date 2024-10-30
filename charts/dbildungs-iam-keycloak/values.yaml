@@ -18,6 +18,11 @@ auth:
   keycloak_clientSecret: ""
   keycloak_itslearning_clientSecret: ""
   keycloak_ox_clientSecret: ""
+  pi_base_url: ""
+  pi_admin_user: ""
+  pi_admin_password: ""
+  pi_user_resolver: ""
+  pi_user_realm: ""
 
 command: []
 
