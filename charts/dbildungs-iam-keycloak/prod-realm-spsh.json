@@ -2641,7 +2641,7 @@
         "alias": "gold",
         "config": {
           "loa-condition-level": "20",
-          "loa-max-age": "10000"
+          "loa-max-age": "0"
         }
       },
       {
