@@ -114,6 +114,7 @@ jobs:
     secrets: inherit
 
   all_tests_successfull:
+    if: ${{ always() && success() }}
     needs:
       - deploy
       - scan_helm
