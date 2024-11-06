@@ -208,18 +208,21 @@
             <a
                 class="footer-item"
                 href="https://spsh.staging.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html"
+                target="_blank"
             >
                 ${msg("legalNotice")}
             </a>
             <a
                 class="footer-item"
                 href="https://spsh.staging.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html#privacy_policy"
+                target="_blank"
             >
                 ${msg("privacyPolicy")}
             </a>
             <a
                 class="footer-item"
                 href="https://spsh.staging.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html#accessibility"
+                target="_blank"
             >
                 ${msg("accessibility")}
             </a>
