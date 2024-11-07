@@ -209,6 +209,7 @@
                 class="footer-item"
                 href="${client.baseUrl}/impressum_datenschutzerklaerung.html"
                 target="_blank"
+                rel="noopener noreferrer"
             >
                 ${msg("legalNotice")}
             </a>
@@ -216,6 +217,7 @@
                 class="footer-item"
                 href="${client.baseUrl}/impressum_datenschutzerklaerung.html#privacy_policy"
                 target="_blank"
+                rel="noopener noreferrer"
             >
                 ${msg("privacyPolicy")}
             </a>
@@ -223,6 +225,7 @@
                 class="footer-item"
                 href="${client.baseUrl}/impressum_datenschutzerklaerung.html#accessibility"
                 target="_blank"
+                rel="noopener noreferrer"
             >
                 ${msg("accessibility")}
             </a>
