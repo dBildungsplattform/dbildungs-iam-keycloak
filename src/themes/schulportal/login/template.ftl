@@ -46,7 +46,7 @@
     <div class="${properties.kcLoginClass!}">
         <div id="kc-header" class="${properties.kcHeaderClass!}">
             <div id="kc-header-wrapper" class="${properties.kcHeaderWrapperClass!}">
-                <a href="${client.rootUrl}">
+                <a href="${client.baseUrl}">
                     <img
                         src="${url.resourcesPath}/img/Schulportal_SH_Wort_Bildmarke_RGB_Anwendung_HG_Blau.svg"
                         alt="Logo Schulportal"
@@ -207,7 +207,7 @@
             </a>
             <a
                 class="footer-item"
-                href="${client.rootUrl}/impressum_datenschutzerklaerung.html"
+                href="${client.baseUrl}/impressum_datenschutzerklaerung.html"
                 target="_blank"
                 rel="noopener noreferrer"
             >
@@ -215,7 +215,7 @@
             </a>
             <a
                 class="footer-item"
-                href="${client.rootUrl}/impressum_datenschutzerklaerung.html#privacy_policy"
+                href="${client.baseUrl}/impressum_datenschutzerklaerung.html#privacy_policy"
                 target="_blank"
                 rel="noopener noreferrer"
             >
@@ -223,7 +223,7 @@
             </a>
             <a
                 class="footer-item"
-                href="${client.rootUrl}/impressum_datenschutzerklaerung.html#accessibility"
+                href="${client.baseUrl}/impressum_datenschutzerklaerung.html#accessibility"
                 target="_blank"
                 rel="noopener noreferrer"
             >
