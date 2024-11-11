@@ -17,6 +17,6 @@ spec:
       app.kubernetes.io/component: keycloak
   endpoints:
     - port: {{ .Values.keycloak.serviceMonitor.port | default "http-metrics" }}
-      path: "/realms/SPSH/metrics"
+      path: {{ .Values.keycloak.serviceMonitor.path }}
       interval: {{ .Values.keycloak.serviceMonitor.interval | default "30s" }}
 {{- end }}

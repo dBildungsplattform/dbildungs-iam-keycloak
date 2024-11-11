@@ -109,8 +109,10 @@ service:
     enabled: true
   ports:
     http: 80
-
-serviceMonitor:
-  enabled: true
-  endpoints:
-    - port: 'web'
+    
+keycloak:
+  serviceMonitor:
+    enabled: true
+    path: "/realms/SPSH/metrics"
+    endpoints:
+      - port: 'web'
