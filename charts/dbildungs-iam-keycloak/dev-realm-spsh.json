@@ -929,7 +929,7 @@
         "description": "",
         "rootUrl": "${KC_ROOT_URL}",
         "adminUrl": "",
-        "baseUrl": "",
+        "baseUrl": "${KC_ROOT_URL}",
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
