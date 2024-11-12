@@ -104,8 +104,7 @@ service:
     http: 80
 
 autoscaling:
-  enabled: true
+  enabled: false
   minReplicas: 1
   maxReplicas: 5
   targetCPUUtilizationPercentage: 60
-  targetMemoryUtilizationPercentage: 60
