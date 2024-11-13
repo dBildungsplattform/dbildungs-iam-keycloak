@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build --target development -t  dbildungs-iam-keycloak --load .
+docker build --target development -t  ghcr.io/dbildungsplattform/dbildungs-iam-keycloak .
