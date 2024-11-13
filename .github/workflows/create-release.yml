@@ -34,6 +34,7 @@ jobs:
       container_registry: "ghcr.io"
       fail_on_vulnerabilites: false
       report_location: "Dockerfile"
+      target: "deployment"
   
   # Helm Chart
   scan_helm:
