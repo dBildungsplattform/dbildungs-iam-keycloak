@@ -48,6 +48,8 @@ spec:
           livenessProbe: {{- omit .Values.livenessProbe "enabled" | toYaml | nindent 12 }}
           readinessProbe: {{- omit .Values.readinessProbe "enabled" | toYaml | nindent 12 }}
           env:
+            - name: JAVA_OPTS_APPEND
+              value: "-Djgroups.dns.query=dbildungs-iam-keycloak.spsh-1158-test-loadtest-drivers" 
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
