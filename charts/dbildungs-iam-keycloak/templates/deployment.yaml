@@ -30,8 +30,9 @@ spec:
             {{- toYaml .command | nindent 16 }}
           {{- end }}
           args:
-            - "--cache"
-            - "local"
+            # - "--cache"
+            # - "local"
+            - "--optimized"
             - "--hostname"
             - "{{ tpl .Values.keycloakHostname . }}" 
             - "--import-realm"
