@@ -116,5 +116,5 @@ autoscaling:
   maxReplicas: 5
   targetCPUUtilizationPercentage: 60
 
-env:
-  statusLink: "https://status.dev.spsh.dbildungsplattform.de/"
+status:
+  url: "https://status.dev.spsh.dbildungsplattform.de/"

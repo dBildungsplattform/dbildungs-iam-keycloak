@@ -231,7 +231,7 @@
             </a>
             <a
                 class="footer-item"
-                href="${properties.statusLink!}"
+                href="${properties.statusUrl!}"
                 target="_blank"
                 rel="noopener noreferrer"
             >
