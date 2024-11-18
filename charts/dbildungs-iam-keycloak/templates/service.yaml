@@ -10,7 +10,6 @@ spec:
     app.kubernetes.io/name: {{ template "common.names.name" . }}
     app.kubernetes.io/component: keycloak
   type: {{ .Values.service.type }}
-  clusterIP: "None"
   ports:
     {{- if .Values.service.http.enabled }}
     - name: http
