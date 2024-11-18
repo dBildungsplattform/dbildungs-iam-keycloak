@@ -8,14 +8,14 @@
             <p class="password-update-prompt">${msg("passwordUpdatePrompt")}</p>
         </div>
         <div class="password-requirements">
-            <p class="password-requirement">Das Passwort muss folgende Vorgaben erfüllen:</p>
+            <p class="password-requirement">${msg("passwordRequirementsTitle")}</p>
             <ul>
-            <li>Mindestens 8 Zeichen lang sein</li>
-            <li>Mindestens 1 Sonderzeichen enthalten</li>
-            <li>Mindestens 1 Kleinbuchstaben enthalten</li>
-            <li>Mindestens 1 Großbuchstaben enthalten</li>
-            <li>Mindestens 1 Ziffer enthalten</li>
-            <li>Nicht dem alten Passwort entsprechen</li>
+                <li>${msg("passwordRequirementLength")}</li>
+                <li>${msg("passwordRequirementSpecial")}</li>
+                <li>${msg("passwordRequirementLower")}</li>
+                <li>${msg("passwordRequirementUpper")}</li>
+                <li>${msg("passwordRequirementDigit")}</li>
+                <li>${msg("passwordRequirementHistory")}</li>
             </ul>
         </div>
         <form id="kc-passwd-update-form" class="${properties.kcFormClass!}" action="${url.loginAction}" method="post">
