@@ -119,7 +119,7 @@
                 </#if>
             </header>
 
-            <#-- SPSH: custom messages for failed OTP authentication -->
+            <#-- SPSH: custom messages for failed OTP authentication and update password form -->
             <#-- Remove all whitespaces and linebreaks from the message key to-->
             <#assign customMessages = {
                 "Authenticationfailed.falscherOTP-Wert": msg("authenticationOtpFailedMessage"),
@@ -136,7 +136,7 @@
                 "UngültigesPasswort:Esmussmindestens1Kleinbuchstabenbeinhalten." : msg("mindPasswordGuidelines"),
                 "UngültigesPasswort:Esmussmindestens8Zeichenlangsein." : msg("mindPasswordGuidelines"),
                 "UngültigesPasswort:Esmussmindestens1Zahl(en)beinhalten." : msg("mindPasswordGuidelines"),
-                "UngültigesPasswort:Esdarfnichteinemderletzten3Passwörterentsprechen." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esdarfnichteinemderletzten3Passwörterentsprechen." : msg("mindPasswordGuidelines")
             }>
     
             <div id="kc-content">
