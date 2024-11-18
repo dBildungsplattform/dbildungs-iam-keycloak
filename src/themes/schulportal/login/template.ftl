@@ -130,7 +130,13 @@
                 "Authenticationfailed.falscherOTP-WertfrühererOTP-Wertwiederverwendet": msg("authenticationOtpUsedAgainFailedMessage"),                
                 "Authenticationfailed.wrongotpvalue.previousotpusedagain": msg("authenticationOtpUsedAgainFailedMessage"),
                 "Authenticationfailed.1passendeToken,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage"),
-                "Authenticationfailed.matching1tokens,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage")
+                "Authenticationfailed.matching1tokens,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage"),
+                "UngültigesPasswort:Esmussmindestens1Sonderzeichenbeinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens1Großbuchstabenbeinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens1Kleinbuchstabenbeinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens8Zeichenlangsein." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens1Zahl(en)beinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esdarfnichteinemderletzten3Passwörterentsprechen." : msg("mindPasswordGuidelines"),
             }>
     
             <div id="kc-content">
