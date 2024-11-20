@@ -10,7 +10,9 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ template "common.names.name" . }}
       app.kubernetes.io/component: keycloak
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   template:
     metadata:
       labels:
@@ -28,8 +30,9 @@ spec:
             {{- toYaml .command | nindent 16 }}
           {{- end }}
           args:
-            - "--cache"
-            - "local"
+            # - "--cache"
+            # - "local"
+            - "--optimized"
             - "--hostname"
             - "{{ tpl .Values.keycloakHostname . }}" 
             - "--import-realm"
@@ -45,6 +48,8 @@ spec:
           livenessProbe: {{- omit .Values.livenessProbe "enabled" | toYaml | nindent 12 }}
           readinessProbe: {{- omit .Values.readinessProbe "enabled" | toYaml | nindent 12 }}
           env:
+            - name: JAVA_OPTS_APPEND
+              value: "-Djgroups.dns.query={{ template "common.names.name" . }}-headless.{{ template "common.names.namespace" . }}.svc.cluster.local"
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
