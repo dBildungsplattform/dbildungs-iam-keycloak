@@ -243,17 +243,6 @@
                 />
             </a>
             <div class="footer-logo-divider"></div>
-            <a
-                href="https://www.schleswig-holstein.de/DE/landesportal/landesportal_node.html"
-                rel="noopener noreferrer"
-                target="_blank"
-            >
-                <img
-                    alt="Logo Schleswig-Holstein"
-                    class="footer-logo"
-                    src="${url.resourcesPath}/img/landesdachmarke_01_KORR.svg"
-                />
-            </a>
         </div>
     </div>
     <div class="dark-footer"></div>
