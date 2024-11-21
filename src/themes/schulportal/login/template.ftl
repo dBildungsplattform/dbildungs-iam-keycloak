@@ -236,6 +236,14 @@
             >
                 ${msg("accessibility")}
             </a>
+            <a
+                class="footer-item"
+                href="${properties.statusUrl!}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                ${msg("systemStatus")}
+            </a>
         </div>
         <div class="footer-logos">
             <a
