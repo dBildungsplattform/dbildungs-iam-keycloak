@@ -113,9 +113,9 @@ service:
 keycloak:
   serviceMonitor:
     enabled: true
-    path: "/realms/SPSH/metrics"
+    path: "/metrics"
     endpoints:
-      - port: 'http'
+      - port: 'mgmt'
 
 autoscaling:
   enabled: false
