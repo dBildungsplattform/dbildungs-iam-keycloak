@@ -16,6 +16,7 @@
                 <li>${msg("passwordRequirementUpper")}</li>
                 <li>${msg("passwordRequirementDigit")}</li>
                 <li>${msg("passwordRequirementHistory")}</li>
+                <li>${msg("passwordRequirementNoWhitespace")}</li>
             </ul>
         </div>
         <form id="kc-passwd-update-form" class="${properties.kcFormClass!}" action="${url.loginAction}" method="post">

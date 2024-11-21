@@ -136,7 +136,8 @@
                 "UngültigesPasswort:Esmussmindestens1Kleinbuchstabenbeinhalten." : msg("mindPasswordGuidelines"),
                 "UngültigesPasswort:Esmussmindestens8Zeichenlangsein." : msg("mindPasswordGuidelines"),
                 "UngültigesPasswort:Esmussmindestens1Zahl(en)beinhalten." : msg("mindPasswordGuidelines"),
-                "UngültigesPasswort:Esdarfnichteinemderletzten3Passwörterentsprechen." : msg("mindPasswordGuidelines")
+                "UngültigesPasswort:Esdarfnichteinemderletzten3Passwörterentsprechen." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:EsentsprichtnichtdemRegex-Muster." : msg("mindPasswordGuidelines")
             }>
     
             <div id="kc-content">
