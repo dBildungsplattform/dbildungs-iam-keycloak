@@ -12,8 +12,8 @@
             <meta name="${meta?split('==')[0]}" content="${meta?split('==')[1]}"/>
         </#list>
     </#if>
-    <title>${msg("loginTitle",(realm.displayName!''))}</title>
-    <link rel="icon" href="${url.resourcesPath}/img/favicon.ico" />
+    <title>${msg("title")}</title>
+    <link rel="icon" href="${url.resourcesPath}/img/Schulportal_SH_Bildmarke_RGB_Anwendung_HG_Blau.svg" />
     <#if properties.stylesCommon?has_content>
         <#list properties.stylesCommon?split(' ') as style>
             <link href="${url.resourcesCommonPath}/${style}" rel="stylesheet" />
@@ -119,7 +119,7 @@
                 </#if>
             </header>
 
-            <#-- SPSH: custom messages for failed OTP authentication -->
+            <#-- SPSH: custom messages for failed OTP authentication and update password form -->
             <#-- Remove all whitespaces and linebreaks from the message key to-->
             <#assign customMessages = {
                 "Authenticationfailed.falscherOTP-Wert": msg("authenticationOtpFailedMessage"),
@@ -130,7 +130,14 @@
                 "Authenticationfailed.falscherOTP-WertfrühererOTP-Wertwiederverwendet": msg("authenticationOtpUsedAgainFailedMessage"),                
                 "Authenticationfailed.wrongotpvalue.previousotpusedagain": msg("authenticationOtpUsedAgainFailedMessage"),
                 "Authenticationfailed.1passendeToken,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage"),
-                "Authenticationfailed.matching1tokens,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage")
+                "Authenticationfailed.matching1tokens,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage"),
+                "UngültigesPasswort:Esmussmindestens1Sonderzeichenbeinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens1Großbuchstabenbeinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens1Kleinbuchstabenbeinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens8Zeichenlangsein." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens1Zahl(en)beinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esdarfnichteinemderletzten3Passwörterentsprechen." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:EsentsprichtnichtdemRegex-Muster." : msg("mindPasswordGuidelines")
             }>
     
             <div id="kc-content">

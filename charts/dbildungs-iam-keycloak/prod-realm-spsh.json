@@ -416,7 +416,7 @@
     "requiredCredentials": [
       "password"
     ],
-    "passwordPolicy" : "maxAuthAge(0)",
+    "passwordPolicy": "maxAuthAge(0) and passwordHistory(3) and length(8) and digits(1) and lowerCase(1) and upperCase(1) and specialChars(1) and regexPattern(^\\S+$)",
     "otpPolicyType": "totp",
     "otpPolicyAlgorithm": "HmacSHA1",
     "otpPolicyInitialCounter": 0,
