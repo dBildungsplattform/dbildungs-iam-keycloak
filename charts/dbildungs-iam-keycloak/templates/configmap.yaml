@@ -12,3 +12,4 @@ data:
   KC_PROXY: "edge"
   KEYCLOAK_ADMIN: admin
   KC_HTTP_MANAGEMENT_PORT: "8090"
+  STATUS_URL: "{{ .Values.status.url }}"
