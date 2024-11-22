@@ -1983,7 +1983,6 @@
     "loginTheme": "schulportal",
     "eventsEnabled": false,
     "eventsListeners": [
-      "metrics-listener",
       "jboss-logging"
     ],
     "enabledEventTypes": [],
