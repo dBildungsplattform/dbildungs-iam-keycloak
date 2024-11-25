@@ -137,7 +137,8 @@
                 "UngültigesPasswort:Esmussmindestens8Zeichenlangsein." : msg("mindPasswordGuidelines"),
                 "UngültigesPasswort:Esmussmindestens1Zahl(en)beinhalten." : msg("mindPasswordGuidelines"),
                 "UngültigesPasswort:Esdarfnichteinemderletzten3Passwörterentsprechen." : msg("mindPasswordGuidelines"),
-                "UngültigesPasswort:EsentsprichtnichtdemRegex-Muster." : msg("mindPasswordGuidelines")
+                "UngültigesPasswort:EsentsprichtnichtdemRegex-Muster." : msg("mindPasswordGuidelines"),
+                "ERR904:Theusercannotbefoundinanyresolverinthisrealm" : msg("userNotFound"),
             }>
     
             <div id="kc-content">
