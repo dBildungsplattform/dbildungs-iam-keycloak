@@ -2191,21 +2191,27 @@
         },
         {
           "id": "d47622d7-8d04-4d38-b7f0-d80eb182f80d",
-          "name": "rsa-generated",
-          "providerId": "rsa-generated",
+          "name": "rsa",
+          "providerId": "rsa",
           "subComponents": {},
           "config": {
             "privateKey": [
               "${KC_RS256_PRIVATE_KEY}"
             ],
-            "keyUse": [
-              "SIG"
-            ],
             "certificate": [
               "${KC_RSA256_CERTIFICATE}"
             ],
+            "active": [
+              "true"
+            ],
+            "enabled": [
+              "true"
+            ],
             "priority": [
-                "100"
+              "100"
+            ],
+            "algorithm": [
+              "RS256"
             ]
           }
         },
