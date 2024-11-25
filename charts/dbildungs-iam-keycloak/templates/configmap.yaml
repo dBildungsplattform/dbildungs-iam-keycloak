@@ -11,6 +11,6 @@ data:
   KC_ROOT_URL: "https://{{ .Values.frontendHostname }}"
   KC_PROXY: "edge"
   KEYCLOAK_ADMIN: admin
-  KC_SCHOOLSH_CLIENT_ROOT_URL: "{{ .Values.school-sh.rootUrl }}"
+  KC_SCHOOLSH_CLIENT_ROOT_URL: "{{ .Values.school_sh.rootUrl }}"
   KC_HTTP_MANAGEMENT_PORT: "8090"
   STATUS_URL: "{{ .Values.status.url }}"
