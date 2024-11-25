@@ -9,7 +9,7 @@ image:
   pullPolicy: Always
 
 schoolsh:
-  rootUrl: https://school-sh.qs.schule-sh.de
+  rootUrl: https://school-sh.invalid
 
 auth:
   # existingSecret: Refers to a secret already present in the cluster, which is required for the authentication and configuration of the database setup tasks.
