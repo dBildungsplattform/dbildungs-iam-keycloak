@@ -8,12 +8,17 @@ image:
   tag: ""
   pullPolicy: Always
 
+school-sh:
+  rootUrl: https://school-sh.qs.schule-sh.de
+
 auth:
   # existingSecret: Refers to a secret already present in the cluster, which is required for the authentication and configuration of the database setup tasks.
   existingSecret: ""
   secretName: dbildungs-iam-keycloak
   admin_password: ""
   admin_user: ""
+  keycloak_rs256_privateKey: ""
+  keycloak_rs256_certificate: ""
   keycloak_adminSecret: ""
   keycloak_clientSecret: ""
   keycloak_itslearning_clientSecret: ""
@@ -25,6 +30,10 @@ auth:
   pi_admin_password: ""
   pi_user_resolver: ""
   pi_user_realm: ""
+  schoolsh_clientSecret: ""
+  schoolsh_signingCertificate: ""
+  schoolsh_encryptionCertificate: ""
+
 
 command: []
 
