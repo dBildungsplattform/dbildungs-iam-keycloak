@@ -90,7 +90,7 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: keycloak-adminSecret
-            - name: KC_ITSLEARNING_CLIENT _SECRET
+            - name: KC_ITSLEARNING_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
