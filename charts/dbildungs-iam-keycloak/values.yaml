@@ -8,7 +8,7 @@ image:
   tag: ""
   pullPolicy: Always
 
-school_sh:
+schoolsh:
   rootUrl: https://school-sh.qs.schule-sh.de
 
 auth:
