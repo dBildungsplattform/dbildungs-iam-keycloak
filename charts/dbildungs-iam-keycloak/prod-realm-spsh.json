@@ -1285,7 +1285,7 @@
       },
       {
         "id": "dd986a17-44c7-4ec9-87f6-addf1646ecf0",
-        "clientId": "school-sh",
+        "clientId": "${KC_SCHOOLSH_CLIENT_ID}",
         "name": "School-SH",
         "description": "",
         "rootUrl": "${KC_SCHOOLSH_CLIENT_ROOT_URL}",

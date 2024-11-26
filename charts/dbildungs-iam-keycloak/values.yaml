@@ -9,6 +9,7 @@ image:
   pullPolicy: Always
 
 schoolsh:
+  clientId: https://school-sh.invalid
   rootUrl: https://school-sh.invalid
 
 auth:
