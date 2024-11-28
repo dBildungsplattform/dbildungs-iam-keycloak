@@ -80,6 +80,11 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: keycloak-adminSecret
+            - name: KC_SERVICE_CLIENT_CERTIFICATE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-serviceClientCertificate
             - name: KC_ITSLEARNING_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
