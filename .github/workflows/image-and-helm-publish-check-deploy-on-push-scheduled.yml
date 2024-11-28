@@ -16,6 +16,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  get-pr-labels:
+    name: "PR labels"
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get PR number
+        id: get_pr_number
+        run: |
+          PR_NUMBER=$(gh pr list --state open --head ${{ github.ref_name }} --json number --jq '.[0].number')
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+
+      - name: Get PR labels
+        id: get_pr_labels
+        run: |
+          PR_LABELS=$(gh pr view ${{ env.PR_NUMBER }} --json labels --jq '.labels | map(.name) | join(",")')
+          echo "PR_LABELS=$PR_LABELS" >> $GITHUB_ENV
+
+      - name: Display PR labels
+        run: echo "Labels:" ${{ env.PR_LABELS }}
+
   codeql_analyze:
     name: "CodeQL"
     if: ${{ github.event_name == 'push' }}
