@@ -19,12 +19,11 @@ jobs:
   get-pr-labels:
     name: "PR labels"
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Authenticate GitHub CLI
-        run: gh auth login --with-token <<< "${{ secrets.ACCESS_GITHUB_TOKEN }}"
 
       - name: Get PR number
         id: get_pr_number
