@@ -19,6 +19,8 @@ jobs:
   get-pr-labels:
     name: "PR labels"
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.ACCESS_GITHUB_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
