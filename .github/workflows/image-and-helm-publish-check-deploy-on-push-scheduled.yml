@@ -29,7 +29,12 @@ jobs:
         id: get_pr_number
         run: |
           PR_NUMBER=$(gh pr list --state open --head ${{ github.ref_name }} --json number --jq '.[0].number')
-          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+          if [ -z "${{ PR_NUMBER }}"]; then
+            echo "No existing PR found for ${{ github.ref_name }}, exiting..."
+            exit 0
+          else
+            echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+          fi
 
       - name: Get PR labels
         id: get_pr_labels
