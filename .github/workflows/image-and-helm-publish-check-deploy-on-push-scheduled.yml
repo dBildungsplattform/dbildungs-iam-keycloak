@@ -61,7 +61,6 @@ jobs:
           fi
       
       - name: test output
-        if: ${{ env.PR_NUMBER != ''  }}
         run: |
           echo "test output: " ${{ steps.determine_merge_clearance.outputs.merge_clearance }}
 
