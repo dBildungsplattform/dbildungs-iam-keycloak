@@ -22,7 +22,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     outputs:
-      merge_clearance: ${{ steps.determine_merge_clearance.merge_clearance }}
+      merge_clearance: ${{ steps.determine_merge_clearance.outputs.merge_clearance }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
