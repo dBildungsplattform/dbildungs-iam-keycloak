@@ -39,7 +39,7 @@ jobs:
 
       - name: Get PR labels
         id: get_pr_labels
-        if: ${{ env.PR_NUMBER != '' }}
+        if: ${{ env.PR_NUMBER != ''  }}
         run: |
           PR_LABELS=$(gh pr view ${{ env.PR_NUMBER }} --json labels --jq '.labels | map(.name) | join(",")')
           echo "PR_LABELS=$PR_LABELS" >> $GITHUB_ENV
