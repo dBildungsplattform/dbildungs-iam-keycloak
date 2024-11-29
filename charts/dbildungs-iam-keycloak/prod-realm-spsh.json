@@ -1282,6 +1282,72 @@
           "configure": true,
           "manage": true
         }
+      },
+      {
+        "id": "dd986a17-44c7-4ec9-87f6-addf1646ecf0",
+        "clientId": "${KC_SCHOOLSH_CLIENT_ID}",
+        "name": "School-SH",
+        "description": "",
+        "rootUrl": "${KC_SCHOOLSH_CLIENT_ROOT_URL}",
+        "adminUrl": "",
+        "baseUrl": "",
+        "surrogateAuthRequired": false,
+        "enabled": true,
+        "alwaysDisplayInConsole": false,
+        "clientAuthenticatorType": "client-secret",
+        "secret": "${KC_SCHOOLSH_CLIENT_SECRET}",
+        "redirectUris": [
+          "/cgi/samlauth"
+        ],
+        "webOrigins": [
+          "+"
+        ],
+        "notBefore": 0,
+        "bearerOnly": false,
+        "consentRequired": false,
+        "standardFlowEnabled": true,
+        "implicitFlowEnabled": false,
+        "directAccessGrantsEnabled": false,
+        "serviceAccountsEnabled": false,
+        "publicClient": false,
+        "frontchannelLogout": true,
+        "protocol": "saml",
+        "attributes": {
+          "saml.assertion.signature": "true",
+          "saml_assertion_consumer_url_redirect": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/samlauth",
+          "saml_single_logout_service_url_post": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/tmlogout",
+          "saml.force.post.binding": "true",
+          "saml.encrypt": "true",
+          "saml_assertion_consumer_url_post": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/samlauth",
+          "saml.server.signature": "true",
+          "saml.server.signature.keyinfo.ext": "false",
+          "saml.signing.certificate": "${KC_SCHOOLSH_CLIENT_SIGNING_CERTIFICATE}",
+          "saml_single_logout_service_url_redirect": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/tmlogout",
+          "saml.artifact.binding": "false",
+          "saml.signature.algorithm": "RSA_SHA256",
+          "saml_force_name_id_format": "false",
+          "saml.client.signature": "true",
+          "saml.encryption.certificate": "${KC_SCHOOLSH_CLIENT_ENCRYPTION_CERTIFICATE}",
+          "saml.authnstatement": "true",
+          "display.on.consent.screen": "false",
+          "saml_name_id_format": "username",
+          "saml.allow.ecp.flow": "false",
+          "saml_signature_canonicalization_method": "http://www.w3.org/2001/10/xml-exc-c14n#",
+          "saml.onetimeuse.condition": "false",
+          "saml.server.signature.keyinfo.xmlSigKeyInfoKeyNameTransformer": "NONE"
+        },
+        "authenticationFlowBindingOverrides": {},
+        "fullScopeAllowed": true,
+        "nodeReRegistrationTimeout": -1,
+        "defaultClientScopes": [
+          "role_list"
+        ],
+        "optionalClientScopes": [],
+        "access": {
+          "view": true,
+          "configure": true,
+          "manage": true
+        }
       }
     ],
     "clientScopes": [
@@ -1963,12 +2029,27 @@
         },
         {
           "id": "d47622d7-8d04-4d38-b7f0-d80eb182f80d",
-          "name": "rsa-generated",
-          "providerId": "rsa-generated",
+          "name": "rsa",
+          "providerId": "rsa",
           "subComponents": {},
           "config": {
+            "privateKey": [
+              "${KC_RS256_PRIVATE_KEY}"
+            ],
+            "certificate": [
+              "${KC_RS256_CERTIFICATE}"
+            ],
+            "active": [
+              "true"
+            ],
+            "enabled": [
+              "true"
+            ],
             "priority": [
               "100"
+            ],
+            "algorithm": [
+              "RS256"
             ]
           }
         },
