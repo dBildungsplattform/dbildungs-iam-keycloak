@@ -120,5 +120,5 @@ autoscaling:
 status:
   url: "https://status.dev.spsh.dbildungsplattform.de/"
 
-persistence:
-  size: 10Gi
+#persistence:
+#  size: 10Gi
