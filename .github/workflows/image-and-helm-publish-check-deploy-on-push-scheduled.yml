@@ -93,7 +93,7 @@ jobs:
   select_helm_version_generation_and_image_tag_generation:
     needs:
       - check-merge-clearance
-    if: ${{ github.event_name == 'push' && need.check-merge-clearance.outputs.merge_clearance == 'true' }}
+    if: ${{ github.event_name == 'push' && needs.check-merge-clearance.outputs.merge_clearance == 'true' }}
     runs-on: ubuntu-latest
     outputs: 
       SELECT_HELM_VERION_GENERATION: ${{ steps.select_generation.outputs.SELECT_HELM_VERION_GENERATION }}
