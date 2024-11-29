@@ -53,6 +53,10 @@ jobs:
             echo "merge_clearance=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: test output
+        run: |
+          echo "test output: " ${{ steps.determine_merge_clearance.outputs.merge_clearance }}
+
   codeql_analyze:
     name: "CodeQL"
     if: ${{ github.event_name == 'push' }}
