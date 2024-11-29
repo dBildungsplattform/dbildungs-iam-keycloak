@@ -16,11 +16,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  get-pr-labels:
+  check-merge-clearance:
     name: "PR labels"
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      merge_clearance: ${{ steps.determine_merge_clearance.merge_clearance }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,22 +33,29 @@ jobs:
           PR_NUMBER=$(gh pr list --state open --head ${{ github.ref_name }} --json number --jq '.[0].number')
           if [ -z "$PR_NUMBER" ]; then
             echo "No existing PR found for ${{ github.ref_name }} "
-            echo "has_pr=false" >> "$GITHUB_OUTPUT"
           else
             echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
-            echo "has_pr=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Get PR labels
         id: get_pr_labels
-        if: ${{ steps.get_pr_number.outputs.has_pr == 'true' }}
+        if: ${{ env.PR_NUMBER != '' }}
         run: |
           PR_LABELS=$(gh pr view ${{ env.PR_NUMBER }} --json labels --jq '.labels | map(.name) | join(",")')
           echo "PR_LABELS=$PR_LABELS" >> $GITHUB_ENV
 
-      - name: Display PR labels
-        if: ${{ steps.get_pr_number.outputs.has_pr == 'true' }}
-        run: echo "Labels:" ${{ env.PR_LABELS }}
+      - name: Determine merge clearance
+        id: determine_merge_clearance
+        run: |
+          if [ -z "env.PR_NUMBER" ]; then
+            echo "merge_clearance=true" >> "$GITHUB_OUTPUT"
+          else
+            if [[ "${{ contains(env.PR_LABELS, 'prevent_merge') }}" == "true" ]]; then
+              echo "merge_clearance=false" >> "$GITHUB_OUTPUT"
+            else
+              echo "merge_clearance=true" >> "$GITHUB_OUTPUT"
+            fi
+          fi
 
   codeql_analyze:
     name: "CodeQL"
@@ -82,7 +91,9 @@ jobs:
       contents: read
 
   select_helm_version_generation_and_image_tag_generation:
-    if: ${{ github.event_name == 'push'}}
+    needs:
+      - check-merge-clearance
+    if: ${{ github.event_name == 'push' && need.check-merge-clearance.outputs.merge_clearance == 'true' }}
     runs-on: ubuntu-latest
     outputs: 
       SELECT_HELM_VERION_GENERATION: ${{ steps.select_generation.outputs.SELECT_HELM_VERION_GENERATION }}
