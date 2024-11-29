@@ -851,7 +851,7 @@
           "oidc.ciba.grant.enabled": "false",
           "client.secret.creation.time": "1727357679",
           "backchannel.logout.session.required": "true",
-          "jwt.credential.certificate": "MIICpzCCAY8CBgGSudz1xDANBgkqhkiG9w0BAQsFADAXMRUwEwYDVQQDDAxzcHNoLXNlcnZpY2UwHhcNMjQxMDIzMTQ1MDE4WhcNMzQxMDIzMTQ1MTU4WjAXMRUwEwYDVQQDDAxzcHNoLXNlcnZpY2UwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC4+xc3VFrYv+1A5Eoa+7firuYN/+3FwoLKSYAe68FQrPTDA27qyTdtPwbZfYe33lxREq7YgAF0T9qGVShXQrQqv+vvf0IDBdsTWd2UbEnJ02vj0CvDKV+1bFBWQt2Ead7MF6Wsw0HbK1tWMlvdZZl7YwypH8uHmXtGvdnnYNCLzJYPEWU4so6CPVAB89cTdspceYGg9HUnoWKv7IklAL/fJfJ/IWO/D/tEmPqM5taONuQmnwmYFhXMFAVRu32uixIYXNzr8Tw9w5naHIjENib83OtiqwidZrGbL7djNidIIs0XOzTxRlOzJ/+ajvUUQJLEQPEpjyd0QFEk2RshtcD9AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAGsR/rbVu+Yf0rvYsfz59etjNoEtTq8l4jbDMChJRnanLHJvAxqHl0co1m+MbxTYB+l2cnqS6tpwea0LfKICXAamMScxe8dcq86DHV8RFOpWLszZgxFuPNplVxZxWde2AhwxCTz/wF2bPllJGc8mxJK0DJkuC50zh9yXQ6XFfwT9qTVAvqv3aEEKidmY3uDxRYFnzmLzqu7ac+Q3e/AWtP+PCQ+vmSJaSK4Uyn21wu3VN+1Gb8clPVI2pkNypSExq/OeS6g1BZy6Sng9mxG42602RLQj7QwK4GQHxYqMCEagf2W1OzC9pt+kGGg0JlN1kxeodiKLvU/Q8zWGCURWY30=",
+          "jwt.credential.certificate": "${KC_SERVICE_CLIENT_CERTIFICATE}",
           "oauth2.device.authorization.grant.enabled": "false",
           "display.on.consent.screen": "false",
           "backchannel.logout.revoke.offline.tokens": "false"
