@@ -47,14 +47,10 @@ jobs:
       - name: Determine merge clearance
         id: determine_merge_clearance
         run: |
-          if [ -z "env.PR_NUMBER" ]; then
+          if [ -z "env.PR_NUMBER" ] || [[ ! ${{ contains(env.PR_LABELS, 'prevent_auto_deployment') }} ]]; then
             echo "merge_clearance=true" >> "$GITHUB_OUTPUT"
           else
-            if [[ "${{ contains(env.PR_LABELS, 'prevent_merge') }}" == "true" ]]; then
-              echo "merge_clearance=false" >> "$GITHUB_OUTPUT"
-            else
-              echo "merge_clearance=true" >> "$GITHUB_OUTPUT"
-            fi
+            echo "merge_clearance=false" >> "$GITHUB_OUTPUT"
           fi
 
   codeql_analyze:
