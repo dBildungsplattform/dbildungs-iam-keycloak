@@ -52,6 +52,7 @@ jobs:
           else
             echo "merge_clearance=false" >> "$GITHUB_OUTPUT"
           fi
+          
 
   codeql_analyze:
     name: "CodeQL"
