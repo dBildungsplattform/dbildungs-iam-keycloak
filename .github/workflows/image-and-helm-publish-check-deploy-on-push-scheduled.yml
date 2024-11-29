@@ -59,6 +59,11 @@ jobs:
               echo "set merge clearance to true"
             fi
           fi
+      
+      - name: test output
+        if: ${{ env.PR_NUMBER != ''  }}
+        run: |
+          echo "test output: " ${{ steps.determine_merge_clearance.outputs.merge_clearance }}
 
   test_merge_prevention:
     needs:
@@ -80,8 +85,10 @@ jobs:
       security-events: write
 
   build_image_on_push:
+    needs:
+      - check-merge-clearance
     name: "Publish image and scan with trivy"
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' && needs.check-merge-clearance.outputs.merge_clearance }}
     permissions:
       packages: write
       security-events: write
