@@ -67,7 +67,7 @@ jobs:
   test_merge_prevention:
     needs:
       - check_merge_clearance
-    if: ${{ github.event_name == 'push' && needs.check_merge_clearance.outputs.merge_clearance == 'true' }}
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - name: "test output var"
