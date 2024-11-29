@@ -16,8 +16,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check-merge-clearance:
-    name: "PR labels"
+  check_merge_clearance:
+    name: "Check merge clearance"
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -66,13 +66,13 @@ jobs:
 
   test_merge_prevention:
     needs:
-      - check-merge-clearance
-    if: ${{ github.event_name == 'push' && needs.check-merge-clearance.outputs.merge_clearance == 'true' }}
+      - check_merge_clearance
+    if: ${{ github.event_name == 'push' && needs.check_merge_clearance.outputs.merge_clearance == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: "test output var"
         run: |
-          echo "Test clearance: " ${{ needs.check-merge-clearance.outputs.merge_clearance }}
+          echo "Test clearance: " ${{ needs.check_merge_clearance.outputs.merge_clearance }}
 
   codeql_analyze:
     name: "CodeQL"
@@ -85,9 +85,9 @@ jobs:
 
   build_image_on_push:
     needs:
-      - check-merge-clearance
+      - check_merge_clearance
     name: "Publish image and scan with trivy"
-    if: ${{ github.event_name == 'push' && needs.check-merge-clearance.outputs.merge_clearance }}
+    if: ${{ github.event_name == 'push' && needs.check_merge_clearance.outputs.merge_clearance }}
     permissions:
       packages: write
       security-events: write
@@ -111,8 +111,8 @@ jobs:
 
   select_helm_version_generation_and_image_tag_generation:
     needs:
-      - check-merge-clearance
-    if: ${{ github.event_name == 'push' && needs.check-merge-clearance.outputs.merge_clearance == 'true' }}
+      - check_merge_clearance
+    if: ${{ github.event_name == 'push' && needs.check_merge_clearance.outputs.merge_clearance == 'true' }}
     runs-on: ubuntu-latest
     outputs: 
       SELECT_HELM_VERION_GENERATION: ${{ steps.select_generation.outputs.SELECT_HELM_VERION_GENERATION }}
