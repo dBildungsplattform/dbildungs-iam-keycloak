@@ -49,30 +49,13 @@ jobs:
         run: |
           if [ -z "env.PR_NUMBER" ]; then
             echo "merge_clearance=true" >> "$GITHUB_OUTPUT"
-            echo "set merge clearance to true"
           else
             if [[ "${{ contains(env.PR_LABELS, 'prevent_merge') }}" == "true" ]]; then
               echo "merge_clearance=false" >> "$GITHUB_OUTPUT"
-              echo "set merge clearance to false"
             else
               echo "merge_clearance=true" >> "$GITHUB_OUTPUT"
-              echo "set merge clearance to true"
             fi
           fi
-      
-      - name: test output
-        run: |
-          echo "test output: " ${{ steps.determine_merge_clearance.outputs.merge_clearance }}
-
-  test_merge_prevention:
-    needs:
-      - check_merge_clearance
-    if: ${{ github.event_name == 'push' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: "test output var"
-        run: |
-          echo "Test clearance: " ${{ needs.check_merge_clearance.outputs.merge_clearance }}
 
   codeql_analyze:
     name: "CodeQL"
