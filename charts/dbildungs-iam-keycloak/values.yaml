@@ -74,6 +74,7 @@ containerSecurityContext:
 resources:
   limits:
     memory: "2Gi"
+    cpu: "4"
   requests:
     memory: "1Gi"
     cpu: "2"
