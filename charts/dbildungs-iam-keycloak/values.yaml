@@ -121,6 +121,13 @@ service:
   ports:
     http: 80
 
+keycloak:
+  serviceMonitor:
+    enabled: true
+    path: "/metrics"
+    endpoints:
+      - port: 'mgmt'
+
 autoscaling:
   enabled: false
   minReplicas: 1
