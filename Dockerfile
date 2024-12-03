@@ -44,7 +44,8 @@ ENV KC_HEALTH_ENABLED=true \
     KC_DB=postgres \
     KC_FEATURES_DISABLED=impersonation,par \
     KC_CACHE=ispn \
-    KC_CACHE_STACK=kubernetes
+    KC_CACHE_STACK=kubernetes \
+    DISABLE_EXTERNAL_ACCESS=true
 
 # Build Keycloak for deployment
 RUN /opt/keycloak/bin/kc.sh build
