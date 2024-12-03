@@ -70,6 +70,16 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: db-password
+            - name: KC_RS256_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-rs256-privateKey
+            - name: KC_RS256_CERTIFICATE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-rs256-certificate
             - name: KC_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -80,6 +90,11 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: keycloak-adminSecret
+            - name: KC_SERVICE_CLIENT_CERTIFICATE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-serviceClientCertificate
             - name: KC_ITSLEARNING_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -127,6 +142,21 @@ spec:
                   key: keycloak-nextcloud-clientSecret
             - name: KC_DB_URL
               value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
+            - name: KC_SCHOOLSH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-schoolsh-clientSecret
+            - name: KC_SCHOOLSH_CLIENT_SIGNING_CERTIFICATE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-schoolsh-signingCertificate
+            - name: KC_SCHOOLSH_CLIENT_ENCRYPTION_CERTIFICATE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-schoolsh-encryptionCertificate
             {{- if .Values.extraEnvVars }}
             {{ toYaml .Values.extraEnvVars | nindent 12 }}
             {{- end }}
