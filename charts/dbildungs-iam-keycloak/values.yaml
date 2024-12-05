@@ -57,7 +57,7 @@ restartPolicy: Always
 
 keycloakHostname: ""
 frontendHostname: ""
-keycloak2ndHostname: ""
+keycloak2ndHostname: "key.mcpovel.de"
 
 containerSecurityContext:
   enabled: true
@@ -101,7 +101,7 @@ readinessProbe:
 
 ingress:
   # Only enable if 2nd host name is defined
-  enabled2nd: false
+  enabled2nd: true
   ingressClassName: nginx
   path: /
   pathType: Prefix
