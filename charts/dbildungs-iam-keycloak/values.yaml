@@ -80,7 +80,7 @@ resources:
     cpu: "150m"
 
 # should be about 4 times the cpu count
-threadPool: "16"
+threadPool: 16
 
 startupProbe:
   enabled: true
