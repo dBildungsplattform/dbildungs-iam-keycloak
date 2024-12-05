@@ -131,8 +131,7 @@ keycloak:
   serviceMonitor:
     enabled: true
     path: "/metrics"
-    endpoints:
-      - port: 'mgmt'
+    port: 'mgmt'
 
 autoscaling:
   enabled: false
