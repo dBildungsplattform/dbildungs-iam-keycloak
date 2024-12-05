@@ -50,6 +50,8 @@ spec:
           env:
             - name: JAVA_OPTS_APPEND
               value: "-Djgroups.dns.query={{ template "common.names.name" . }}-headless.{{ template "common.names.namespace" . }}.svc.cluster.local"
+            - name: KC_HTTP_POOL_MAX_THREADS
+              value: {{ .Values.threadPool }}
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
