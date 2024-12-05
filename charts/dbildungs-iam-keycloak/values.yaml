@@ -57,6 +57,7 @@ restartPolicy: Always
 
 keycloakHostname: ""
 frontendHostname: ""
+keycloak2ndHostname: ""
 
 containerSecurityContext:
   enabled: true
@@ -99,6 +100,8 @@ readinessProbe:
     port: mgmt
 
 ingress:
+  # Only enable if 2nd host name is defined
+  enabled2nd: false
   ingressClassName: nginx
   path: /
   pathType: Prefix
