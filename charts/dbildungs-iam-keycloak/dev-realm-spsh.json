@@ -959,7 +959,7 @@
           "oauth2.device.authorization.grant.enabled": "false",
           "display.on.consent.screen": "false",
           "backchannel.logout.revoke.offline.tokens": "false",
-          "acr.loa.map": "{\"gold\":\"10\"}",
+          "acr.loa.map": "{\"gold\":\"10\", \"silver\":\"15\"}",
           "default.acr.values": "0"
         },
         "authenticationFlowBindingOverrides": {
