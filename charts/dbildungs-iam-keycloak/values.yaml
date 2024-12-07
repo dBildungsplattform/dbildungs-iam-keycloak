@@ -39,7 +39,7 @@ database:
   username: "dbildungs_iam_keycloak"
 
 realm:
-  name: dbilduns-iam-keycloak-realm
+  name: dbildungs-iam-keycloak-realm
   filepath: "dev-realm-spsh.json"
 
 restartPolicy: Always
