@@ -7,7 +7,7 @@
             <p class="instruction">${kcSanitize(message.summary)?no_esc}</p>
             <form id="kc-form-logout" 
                 <#if client?? && client.baseUrl?has_content>
-                    action="${client.baseUrl}api/auth/logout"
+                    action="${client.baseUrl?ensure_ends_with("/")}api/auth/logout"
                 <#else>
                     action="/realms/${realm.name}/protocol/openid-connect/logout"
                 </#if>
