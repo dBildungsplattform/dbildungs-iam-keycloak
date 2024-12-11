@@ -55,7 +55,7 @@
                         height="60"
                     />
                 </a>
-                <a class="header-help" target="_blank" href="https://medienberatung.iqsh.de/schulportal-sh.html">${msg("help")}</a>
+                <a class="header-help" target="_blank" href="https://medienberatung.iqsh.de/paedagogischer-helpdesk.html">${msg("help")}</a>
             </div>
             <div class="light-header"></div>
         </div>
@@ -208,7 +208,7 @@
             </a>
             <a
                 class="footer-item"
-                href="https://medienberatung.iqsh.de/schulportal-sh.html"
+                href="https://medienberatung.iqsh.de/paedagogischer-helpdesk.html"
                 rel="noopener noreferrer"
                 target="_blank"
             >
