@@ -107,16 +107,15 @@ jobs:
   deploy:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
     needs:
-      - branch_meta
       - create_branch_identifier
       - wait_for_helm_chart_to_get_published
       - build_image_on_push
     uses: dBildungsplattform/spsh-app-deploy/.github/workflows/deploy.yml@6
     with:
-      dbildungs_iam_server_branch: ${{ needs.branch_meta.outputs.ticket }}
-      schulportal_client_branch: ${{ needs.branch_meta.outputs.ticket }}
-      dbildungs_iam_keycloak_branch: ${{ needs.branch_meta.outputs.ticket }}
-      dbildungs_iam_ldap_branch: ${{ needs.branch_meta.outputs.ticket }}
+      dbildungs_iam_server_branch: ${{ needs.create_branch_identifier.outputs.chart_version_from_branch }}
+      schulportal_client_branch: ${{ needs.create_branch_identifier.outputs.chart_version_from_branch }}
+      dbildungs_iam_keycloak_branch: ${{ needs.create_branch_identifier.outputs.chart_version_from_branch }}
+      dbildungs_iam_ldap_branch: ${{ needs.create_branch_identifier.outputs.chart_version_from_branch }}
       namespace: ${{ needs.create_branch_identifier.outputs.namespace_from_branch }}
       database_recreation: ${{ github.ref_name == 'main' && 'true' || 'false' }}
       # database_recreation: "true" # to force database recreation this has be set to true
