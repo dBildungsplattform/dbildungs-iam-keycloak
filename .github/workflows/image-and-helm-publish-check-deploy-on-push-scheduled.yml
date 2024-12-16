@@ -94,7 +94,7 @@ jobs:
 
   branch_meta:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
-    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/get-branch-meta.yml@3
+    uses: dBildungsplattform/spsh-app-deploy/.github/workflows/get-branch-meta.yml@DBP-1179-convert-branch-to-image-tag-and-chart-version # todo change back to correct version
 
   create_branch_identifier:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
