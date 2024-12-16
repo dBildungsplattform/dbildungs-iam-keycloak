@@ -25,40 +25,37 @@ jobs:
       contents: read
       security-events: write
 
-  build_image_on_push:
+  build_dependencies_for_image_on_push:
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     permissions:
       packages: write
       security-events: write
       contents: read
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
         ref: ${{ github.ref_name }}
-
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'temurin'
-
       - name: Build Jars with Maven
         run: mvn -f providers/privacyidea/pom.xml clean package
 
-      - name: 'Checkout repository'
-        uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@DBP-1196-adjust-dev-release-piepline
-        with:
-          image_name: "dbildungs-iam-keycloak"
-          run_trivy_scan: true
-          image_tag_generation: ${{ github.ref_name == 'main' && 'commit_hash' || 'ticket_from_branch' }}
-          add_latest_tag: ${{ github.ref_name == 'main' }}
-          container_registry: "ghcr.io"
-          fail_on_vulnerabilites: false
-          report_location: "Dockerfile"
-          target: "deployment"
-          github_branch: ${{ github.ref_name }}
+  build_image_on_push_2:
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@DBP-1196-adjust-dev-release-piepline
+    with:
+      image_name: "dbildungs-iam-keycloak"
+      run_trivy_scan: true
+      image_tag_generation: ${{ github.ref_name == 'main' && 'commit_hash' || 'ticket_from_branch' }}
+      add_latest_tag: ${{ github.ref_name == 'main' }}
+      container_registry: "ghcr.io"
+      fail_on_vulnerabilites: false
+      report_location: "Dockerfile"
+      target: "deployment"
+      github_branch: ${{ github.ref_name }}
 
   # scan_helm:
   #   if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
