@@ -19,6 +19,9 @@ jobs:
       contents: read
       security-events: write
 
+  build_plugins: 
+    
+
   release_image:
     name: "Publish image and scan with trivy"
     needs: codeql_analyze
