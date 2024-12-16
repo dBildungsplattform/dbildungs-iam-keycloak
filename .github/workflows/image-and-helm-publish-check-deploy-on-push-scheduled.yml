@@ -34,7 +34,7 @@ jobs:
       packages: write
       security-events: write
       contents: read
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@DBP-1179-spsh-image-tag-generation # todo: change to new version
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@7.1.0 # todo: change to 7, depending on tests
     with:
       image_name: "dbildungs-iam-keycloak"
       run_trivy_scan: true
