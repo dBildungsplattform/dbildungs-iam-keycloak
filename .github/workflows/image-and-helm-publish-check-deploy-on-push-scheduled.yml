@@ -46,6 +46,10 @@ jobs:
         run: mvn -f providers/privacyidea/pom.xml clean package
 
   build_image_on_push_2:
+    permissions:
+      packages: write
+      security-events: write
+      contents: read
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@DBP-1196-adjust-dev-release-piepline
     with:
       image_name: "dbildungs-iam-keycloak"
