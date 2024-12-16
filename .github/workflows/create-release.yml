@@ -19,8 +19,8 @@ jobs:
       contents: read
       security-events: write
 
-  build_plugins: 
-    
+  # build_plugins: 
+
 
   release_image:
     name: "Publish image and scan with trivy"
