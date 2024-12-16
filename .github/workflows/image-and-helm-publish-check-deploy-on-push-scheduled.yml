@@ -34,7 +34,7 @@ jobs:
       packages: write
       security-events: write
       contents: read
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@7.1.0 # todo: change to 7, depending on tests
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@7
     with:
       image_name: "dbildungs-iam-keycloak"
       run_trivy_scan: true
