@@ -35,7 +35,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        ref: ${{ github.ref_name }}
+        with: 
+          ref: ${{ github.ref_name }}
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
