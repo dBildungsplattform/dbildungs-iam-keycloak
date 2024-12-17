@@ -851,7 +851,7 @@
           "oidc.ciba.grant.enabled": "false",
           "client.secret.creation.time": "1727357679",
           "backchannel.logout.session.required": "true",
-          "jwt.credential.certificate": "MIICpzCCAY8CBgGSudz1xDANBgkqhkiG9w0BAQsFADAXMRUwEwYDVQQDDAxzcHNoLXNlcnZpY2UwHhcNMjQxMDIzMTQ1MDE4WhcNMzQxMDIzMTQ1MTU4WjAXMRUwEwYDVQQDDAxzcHNoLXNlcnZpY2UwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC4+xc3VFrYv+1A5Eoa+7firuYN/+3FwoLKSYAe68FQrPTDA27qyTdtPwbZfYe33lxREq7YgAF0T9qGVShXQrQqv+vvf0IDBdsTWd2UbEnJ02vj0CvDKV+1bFBWQt2Ead7MF6Wsw0HbK1tWMlvdZZl7YwypH8uHmXtGvdnnYNCLzJYPEWU4so6CPVAB89cTdspceYGg9HUnoWKv7IklAL/fJfJ/IWO/D/tEmPqM5taONuQmnwmYFhXMFAVRu32uixIYXNzr8Tw9w5naHIjENib83OtiqwidZrGbL7djNidIIs0XOzTxRlOzJ/+ajvUUQJLEQPEpjyd0QFEk2RshtcD9AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAGsR/rbVu+Yf0rvYsfz59etjNoEtTq8l4jbDMChJRnanLHJvAxqHl0co1m+MbxTYB+l2cnqS6tpwea0LfKICXAamMScxe8dcq86DHV8RFOpWLszZgxFuPNplVxZxWde2AhwxCTz/wF2bPllJGc8mxJK0DJkuC50zh9yXQ6XFfwT9qTVAvqv3aEEKidmY3uDxRYFnzmLzqu7ac+Q3e/AWtP+PCQ+vmSJaSK4Uyn21wu3VN+1Gb8clPVI2pkNypSExq/OeS6g1BZy6Sng9mxG42602RLQj7QwK4GQHxYqMCEagf2W1OzC9pt+kGGg0JlN1kxeodiKLvU/Q8zWGCURWY30=",
+          "jwt.credential.certificate": "${KC_SERVICE_CLIENT_CERTIFICATE}",
           "oauth2.device.authorization.grant.enabled": "false",
           "display.on.consent.screen": "false",
           "backchannel.logout.revoke.offline.tokens": "false"
@@ -1277,6 +1277,72 @@
           "offline_access",
           "microprofile-jwt"
         ],
+        "access": {
+          "view": true,
+          "configure": true,
+          "manage": true
+        }
+      },
+      {
+        "id": "dd986a17-44c7-4ec9-87f6-addf1646ecf0",
+        "clientId": "${KC_SCHOOLSH_CLIENT_ID}",
+        "name": "School-SH",
+        "description": "",
+        "rootUrl": "${KC_SCHOOLSH_CLIENT_ROOT_URL}",
+        "adminUrl": "",
+        "baseUrl": "",
+        "surrogateAuthRequired": false,
+        "enabled": true,
+        "alwaysDisplayInConsole": false,
+        "clientAuthenticatorType": "client-secret",
+        "secret": "${KC_SCHOOLSH_CLIENT_SECRET}",
+        "redirectUris": [
+          "/cgi/samlauth"
+        ],
+        "webOrigins": [
+          "+"
+        ],
+        "notBefore": 0,
+        "bearerOnly": false,
+        "consentRequired": false,
+        "standardFlowEnabled": true,
+        "implicitFlowEnabled": false,
+        "directAccessGrantsEnabled": false,
+        "serviceAccountsEnabled": false,
+        "publicClient": false,
+        "frontchannelLogout": true,
+        "protocol": "saml",
+        "attributes": {
+          "saml.assertion.signature": "true",
+          "saml_assertion_consumer_url_redirect": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/samlauth",
+          "saml_single_logout_service_url_post": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/tmlogout",
+          "saml.force.post.binding": "true",
+          "saml.encrypt": "true",
+          "saml_assertion_consumer_url_post": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/samlauth",
+          "saml.server.signature": "true",
+          "saml.server.signature.keyinfo.ext": "false",
+          "saml.signing.certificate": "${KC_SCHOOLSH_CLIENT_SIGNING_CERTIFICATE}",
+          "saml_single_logout_service_url_redirect": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/tmlogout",
+          "saml.artifact.binding": "false",
+          "saml.signature.algorithm": "RSA_SHA256",
+          "saml_force_name_id_format": "false",
+          "saml.client.signature": "true",
+          "saml.encryption.certificate": "${KC_SCHOOLSH_CLIENT_ENCRYPTION_CERTIFICATE}",
+          "saml.authnstatement": "true",
+          "display.on.consent.screen": "false",
+          "saml_name_id_format": "username",
+          "saml.allow.ecp.flow": "false",
+          "saml_signature_canonicalization_method": "http://www.w3.org/2001/10/xml-exc-c14n#",
+          "saml.onetimeuse.condition": "false",
+          "saml.server.signature.keyinfo.xmlSigKeyInfoKeyNameTransformer": "NONE"
+        },
+        "authenticationFlowBindingOverrides": {},
+        "fullScopeAllowed": true,
+        "nodeReRegistrationTimeout": -1,
+        "defaultClientScopes": [
+          "role_list"
+        ],
+        "optionalClientScopes": [],
         "access": {
           "view": true,
           "configure": true,
@@ -1963,12 +2029,27 @@
         },
         {
           "id": "d47622d7-8d04-4d38-b7f0-d80eb182f80d",
-          "name": "rsa-generated",
-          "providerId": "rsa-generated",
+          "name": "rsa",
+          "providerId": "rsa",
           "subComponents": {},
           "config": {
+            "privateKey": [
+              "${KC_RS256_PRIVATE_KEY}"
+            ],
+            "certificate": [
+              "${KC_RS256_CERTIFICATE}"
+            ],
+            "active": [
+              "true"
+            ],
+            "enabled": [
+              "true"
+            ],
             "priority": [
               "100"
+            ],
+            "algorithm": [
+              "RS256"
             ]
           }
         },
