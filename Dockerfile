@@ -1,12 +1,15 @@
-# Keycloak base image with dbildungs-iam-keycloak extensions
-FROM quay.io/keycloak/keycloak:25.0.1 AS base
+# Use Red Hat UBI as the base for package support
+FROM registry.access.redhat.com/ubi8/ubi:8.10-1132.1733300785 AS base
 
-# Copy dbildungs-iam-keycloak specific extensions (providers, themes, etc.)
-COPY src/providers/ /opt/keycloak/providers/
-COPY src/themes/ /opt/keycloak/themes/
+# Install necessary tools: krb5-workstation and Java
+USER root
+RUN yum install -y krb5-workstation krb5-libs java-17-openjdk-headless \
+    && yum clean all
 
-#  Build Stage
-FROM base AS build
+# Download Keycloak
+RUN curl -L -o /opt/keycloak.tar.gz https://github.com/keycloak/keycloak/releases/download/25.0.1/keycloak-25.0.1.tar.gz \
+    && tar xzf /opt/keycloak.tar.gz -C /opt/ \
+    && mv /opt/keycloak-25.0.1 /opt/keycloak
 
 # Set Keycloak settings for developer mode
 ENV KC_HEALTH_ENABLED=true \
@@ -15,11 +18,19 @@ ENV KC_HEALTH_ENABLED=true \
     KC_CACHE=local \
     KC_FEATURES_DISABLED=impersonation,par
 
+# Set Keycloak directory
+WORKDIR /opt/keycloak
+
+# Copy extensions
+COPY src/providers/ /opt/keycloak/providers/
+COPY src/themes/ /opt/keycloak/themes/
+
 # Build Keycloak
+FROM base AS build
 RUN /opt/keycloak/bin/kc.sh build
 
 # Development Run Stage
-FROM build as development
+FROM build AS development
 
 # Set work directory
 WORKDIR /opt/keycloak
@@ -51,7 +62,7 @@ ENV KC_HEALTH_ENABLED=true \
 RUN /opt/keycloak/bin/kc.sh build
 
 # Deployment Run Stage
-FROM deployment-build as deployment
+FROM deployment-build AS deployment
 
 # Set work directory
 WORKDIR /opt/keycloak
