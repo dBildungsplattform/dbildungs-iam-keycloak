@@ -20,7 +20,7 @@ Following steps are intent to build the container for local development purpose.
 You may use a pre-build image from [`GitHub Packages`](https://github.com/orgs/hpi-schul-cloud/packages?repo_name=dbildungs-iam). To build the container on your own execute following command:
 
 ```bash
-docker build --target development -t dbildungsplattform/dbildungs-iam-keycloak/dev .
+docker build --load --target development -t dbildungsplattform/dbildungs-iam-keycloak/dev .
 ```
 
 To create the container execute following command:
