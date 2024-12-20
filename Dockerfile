@@ -67,3 +67,4 @@ WORKDIR /opt/keycloak
 COPY --from=deployment-build /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
 
 ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start"]
+

@@ -959,7 +959,7 @@
           "oauth2.device.authorization.grant.enabled": "false",
           "display.on.consent.screen": "false",
           "backchannel.logout.revoke.offline.tokens": "false",
-          "acr.loa.map": "{\"gold\":\"10\"}",
+          "acr.loa.map": "{\"gold\":\"10\", \"silver\":\"15\"}",
           "default.acr.values": "0"
         },
         "authenticationFlowBindingOverrides": {
@@ -2898,7 +2898,7 @@
           "piservicepass" : "${PI_ADMIN_PASSWORD}",
           "piserver" : "${PI_BASE_URL}",
           "piserviceaccount" : "${PI_ADMIN_USER}",
-          "pidefaultmessage" : "Diese Aktion setzt eine Zwei-Faktor-Authentifizierung voraus. Bitte geben Sie das Einmalpasswort von Ihrem 2FA-Token ein.",
+          "pidefaultmessage" : "Diese Aktion setzt eine Zwei-Faktor-Authentifizierung voraus. Bitte geben Sie die 6 Ziffern des Einmalpassworts von Ihrem 2FA-Token ein.",
           "preftokentype" : "OTP",
           "pirealm" : "${PI_REALM}",
           "pidolog" : "true",
