@@ -42,102 +42,13 @@
                         </div>
                         Please scan the QR-Code with an authenticator app like "privacyIDEA Authenticator" or "Google Authenticator"
                     </#if>                  
-
-                    <div id="otp-inputs" style="display: flex; gap: 10px; padding:10px">
-                        <style>
-                            input[type=number] {
-                                -moz-appearance: textfield;                                
-                                -webkit-appearance: none;                                  
-                                appearance: none;                                      
-                            }
-                    
-                            input[type=number]::-webkit-inner-spin-button,
-                            input[type=number]::-webkit-outer-spin-button {
-                                -webkit-appearance: none;
-                                margin: 0;
-                            }
-                        </style>
-
-                        <input id="otp-1" type="number" maxlength="1" min="0" max="9" pattern="\d*" class="${properties.kcInputClass!}" style="text-align: center; padding: 10px" onkeydown="moveToNextField(this, 'otp-2')" autofocus/>
-                        <input id="otp-2" type="number" maxlength="1" min="0" max="9" pattern="\d*" class="${properties.kcInputClass!}" style="text-align: center; padding: 10px" onkeydown="moveToNextField(this, 'otp-3')"/>
-                        <input id="otp-3" type="number" maxlength="1" min="0" max="9" pattern="\d*" class="${properties.kcInputClass!}" style="text-align: center; padding: 10px" onkeydown="moveToNextField(this, 'otp-4')"/>
-                        <input id="otp-4" type="number" maxlength="1" min="0" max="9" pattern="\d*" class="${properties.kcInputClass!}" style="text-align: center; padding: 10px" onkeydown="moveToNextField(this, 'otp-5')"/>
-                        <input id="otp-5" type="number" maxlength="1" min="0" max="9" pattern="\d*" class="${properties.kcInputClass!}" style="text-align: center; padding: 10px" onkeydown="moveToNextField(this, 'otp-6')"/>
-                        <input id="otp-6" type="number" maxlength="1" min="0" max="9" pattern="\d*" class="${properties.kcInputClass!}" style="text-align: center; padding: 10px" onkeydown="copyOTPtoInput()"/>
-                    </div>
-                    
+                 
+                    <input id="otp" name="otp" type="tel" class="pf-c-form-control" style="letter-spacing: 1em; font-size:2em; text-align: center" maxlength="6" oninput="validateOtpInput(this)" autofocus/>
                     <script>
-                        function moveToNextField(currentField, nextFieldId) {
-                            if (currentField.value.length === 1) {
-                                document.getElementById(nextFieldId).focus();
-                            }
-                            copyOTPtoInput();
+                        function validateOtpInput(input) {
+                            input.value = input.value.replace(/[^0-9]/g, '');
                         }
-                    
-                        function moveToPreviousField(currentField, previousFieldId) {
-                            if (currentField.value.length === 0) {
-                                document.getElementById(previousFieldId).focus();
-                            }
-                            copyOTPtoInput();
-                        }
-                    
-                        function selectFieldContent(field) {
-                            field.select();
-                        }
-                    
-                        function copyOTPtoInput() {
-                            let otp = '';
-                            for (let i = 1; i <= 6; i++) {
-                                otp += document.getElementById('otp-' + i).value ?? '';
-                            }
-                            document.getElementById('otp').value = otp;
-                        }
-                    
-                        document.addEventListener('DOMContentLoaded', () => {
-                            for (let i = 1; i <= 6; i++) {
-                                const field = document.getElementById('otp-' + i);
-                                const nextFieldId = i < 6 ? 'otp-' + (i + 1) : null;
-                                const previousFieldId = i > 1 ? 'otp-' + (i - 1) : null;
-                    
-                                // Move to the next field on input
-                                field.addEventListener('keyup', (event) => {
-                                    if (event.key !== 'Backspace' && nextFieldId && field.value.length === 1) {
-                                        document.getElementById(nextFieldId).focus();
-                                    }
-                                });
-                    
-                                // Move to the previous field on Backspace
-                                field.addEventListener('keydown', (event) => {
-                                    if (event.key === 'Backspace' && previousFieldId && field.value.length === 0) {
-                                        document.getElementById(previousFieldId).focus();
-                                    }
-                                });
-                    
-                                // Select the field content on focus
-                                field.addEventListener('focus', (event) => {
-                                    selectFieldContent(event.target);
-                                });
-                            }
-                            const otpContainer = document.getElementById('otp-inputs');
-                            otpContainer.addEventListener('paste', (event) => {
-                                event.preventDefault();
-                                const pasteData = event.clipboardData.getData('text').replace(/\D/g, '');
-                                if (pasteData.length <= 6) {
-                                    for (let i = 0; i < pasteData.length; i++) {
-                                        const field = document.getElementById('otp-' + (i + 1));
-                                        if (field) {
-                                            field.value = pasteData[i];
-                                        }
-                                    }
-                                    document.getElementById('otp-' + pasteData.length).focus();
-                                }
-                                copyOTPtoInput();
-                            });
-                        });
                     </script>
-                    
-                    <input id="otp" name="otp" type="hidden" style="display: none;" />
-                    
                 </div>
             </div>
 
@@ -300,7 +211,6 @@
                             <#--If token type is not push, an input field and login button is needed-->
                                 <script>
                                     enable("kc-login");
-                                    document.getElementById("otp").type = "text";
                                     document.getElementById("otp").required = true;
                                 </script>
                             <#if push_available>

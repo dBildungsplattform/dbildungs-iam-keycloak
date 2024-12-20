@@ -1,7 +1,0 @@
-/target
-.idea/
-*.iml
-template.ftl
-dependency-reduced-pom.xml
-make.bat
-deploy.bat
