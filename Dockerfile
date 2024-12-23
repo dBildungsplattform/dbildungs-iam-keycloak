@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi:8.10-1132.1733300785 AS base
+FROM registry.access.redhat.com/ubi8/ubi:8.10-1132.1733300785 AS plugin_build
 
 USER root
 RUN yum install -y java-17-openjdk-headless && \
@@ -14,19 +14,16 @@ ADD https://github.com/keycloak/keycloak/releases/download/25.0.1/keycloak-25.0.
 RUN tar xzf /opt/keycloak.tar.gz -C /opt/ \
     && mv /opt/keycloak-25.0.1 /opt/keycloak
 
-ENV KC_HEALTH_ENABLED=true \
-    KC_METRICS_ENABLED=true \
-    KC_DB=dev-file \
-    KC_CACHE=local \
-    KC_FEATURES_DISABLED=impersonation,par
-
 COPY providers/privacyidea /tmp/privacyidea
 
 WORKDIR /tmp/privacyidea/java-client
 RUN mvn clean install -DskipTests && \
     cd /tmp/privacyidea && \
-    mvn clean install -DskipTests && \
-    cp /tmp/privacyidea/target/PrivacyIDEA-Provider.jar /opt/keycloak/providers/
+    mvn clean install -DskipTests
+
+FROM quay.io/keycloak/keycloak:25.0.1 as base
+
+COPY --from=plugin_build /tmp/privacyidea/target/PrivacyIDEA-Provider.jar /opt/keycloak/providers
 
 # Set Keycloak directory
 WORKDIR /opt/keycloak
