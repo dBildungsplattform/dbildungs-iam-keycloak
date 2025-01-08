@@ -34,7 +34,9 @@ spec:
             # - "local"
             - "--optimized"
             - "--hostname"
-            - "{{ tpl .Values.keycloakHostname . }}" 
+            - "https://{{ tpl .Values.keycloakHostname . }}"
+            - "--hostname-backend-dynamic"
+            - "true"
             - "--import-realm"
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
