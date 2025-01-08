@@ -35,7 +35,7 @@ spec:
             - "--optimized"
             - "--hostname"
             - "https://{{ tpl .Values.keycloakHostname . }}"
-            - "--hostname-backend-dynamic"
+            - "--hostname-backchannel-dynamic"
             - "true"
             - "--import-realm"
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
