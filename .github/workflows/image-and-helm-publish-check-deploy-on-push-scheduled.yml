@@ -84,7 +84,7 @@ jobs:
       container_registry: "ghcr.io"
       fail_on_vulnerabilites: false
       report_location: "Dockerfile"
-      target: "deployment"
+      target: "dev"
 
   scan_helm:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
