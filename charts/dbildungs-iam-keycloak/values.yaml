@@ -144,4 +144,4 @@ status:
 
 podDisruptionBudget:
   enabled: true
-  minAvailable: "80%"
+  minAvailable: "60%"
