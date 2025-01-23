@@ -161,7 +161,7 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: keycloak-schoolsh-encryptionCertificate
-          - name: INTERNAL_COMMUNICATION_API_KEY
+            - name: INTERNAL_COMMUNICATION_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
