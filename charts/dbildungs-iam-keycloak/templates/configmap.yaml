@@ -9,7 +9,7 @@ data:
   DB_NAME: "{{ .Values.database.name }}"
   KC_DB_USERNAME: "{{ .Values.database.username }}"
   KC_ROOT_URL: "https://{{ .Values.frontendHostname }}"
-  KC_PROXY_HEADERS: "forwarded"
+  KC_PROXY_HEADERS: "xforwarded"
   KC_HTTP_ENABLED: "{{ default .Values.service.http.enabled false }}"
   KEYCLOAK_ADMIN: admin
   KC_SCHOOLSH_CLIENT_ID: "{{ .Values.schoolsh.clientId }}"
