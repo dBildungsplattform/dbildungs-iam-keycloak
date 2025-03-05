@@ -10,6 +10,7 @@ data:
   KC_DB_USERNAME: "{{ .Values.database.username }}"
   KC_ROOT_URL: "https://{{ .Values.frontendHostname }}"
   KC_PROXY: "edge"
+  KC_HTTP_ENABLED: "{{ default .Values.service.http.enabled false }}"
   KEYCLOAK_ADMIN: admin
   KC_SCHOOLSH_CLIENT_ID: "{{ .Values.schoolsh.clientId }}"
   KC_SCHOOLSH_CLIENT_ROOT_URL: "{{ .Values.schoolsh.rootUrl }}"
