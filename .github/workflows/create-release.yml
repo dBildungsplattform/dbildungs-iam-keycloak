@@ -10,18 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # GHRC Image
-  codeql_analyze:
-    name: "CodeQL"
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-codeql.yaml@5
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
   release_image:
     name: "Publish image and scan with trivy"
-    needs: codeql_analyze
     permissions:
       packages: write
       security-events: write
@@ -34,6 +24,7 @@ jobs:
       container_registry: "ghcr.io"
       fail_on_vulnerabilites: false
       report_location: "Dockerfile"
+      target: "deployment"
   
   # Helm Chart
   scan_helm:
@@ -43,7 +34,7 @@ jobs:
 
   release_helm:
     needs: scan_helm
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@5
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
     secrets: inherit
     with:
       chart_name: "dbildungs-iam-keycloak"

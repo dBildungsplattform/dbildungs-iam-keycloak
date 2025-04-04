@@ -1,5 +1,5 @@
 # Keycloak base image with dbildungs-iam-keycloak extensions
-FROM quay.io/keycloak/keycloak:23.0.7 AS base
+FROM quay.io/keycloak/keycloak:26.1.4 AS base
 
 # Copy dbildungs-iam-keycloak specific extensions (providers, themes, etc.)
 COPY src/providers/ /opt/keycloak/providers/
@@ -44,7 +44,8 @@ ENV KC_HEALTH_ENABLED=true \
     KC_DB=postgres \
     KC_FEATURES_DISABLED=impersonation,par \
     KC_CACHE=ispn \
-    KC_CACHE_STACK=kubernetes
+    KC_CACHE_STACK=kubernetes \
+    DISABLE_EXTERNAL_ACCESS=true
 
 # Build Keycloak for deployment
 RUN /opt/keycloak/bin/kc.sh build

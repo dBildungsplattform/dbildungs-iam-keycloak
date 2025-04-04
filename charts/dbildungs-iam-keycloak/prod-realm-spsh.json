@@ -34,7 +34,7 @@
     "loginWithEmailAllowed": true,
     "duplicateEmailsAllowed": false,
     "resetPasswordAllowed": false,
-    "editUsernameAllowed": false,
+    "editUsernameAllowed": true,
     "bruteForceProtected": false,
     "permanentLockout": false,
     "maxFailureWaitSeconds": 900,
@@ -302,6 +302,7 @@
         "spsh": [],
         "admin-cli": [],
         "account-console": [],
+        "spsh-service": [],
         "broker": [
           {
             "id": "e3b83cee-0556-4164-b94b-723f60f85a8c",
@@ -415,6 +416,7 @@
     "requiredCredentials": [
       "password"
     ],
+    "passwordPolicy": "maxAuthAge(0) and passwordHistory(3) and length(8) and digits(1) and lowerCase(1) and upperCase(1) and specialChars(1) and regexPattern(^\\S+$)",
     "otpPolicyType": "totp",
     "otpPolicyAlgorithm": "HmacSHA1",
     "otpPolicyInitialCounter": 0,
@@ -452,6 +454,24 @@
     "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister": false,
     "webAuthnPolicyPasswordlessAcceptableAaguids": [],
     "users": [
+      {
+        "id": "7baf74aa-565f-4cfc-9d5a-8f1a3f374dc9",
+        "createdTimestamp": 1727357679883,
+        "username": "service-account-spsh-service",
+        "enabled": true,
+        "totp": false,
+        "emailVerified": false,
+        "serviceAccountClientId": "spsh-service",
+        "disableableCredentialTypes": [],
+        "requiredActions": [],
+        "clientRoles": {
+          "realm-management": [
+            "manage-clients"
+          ]
+        },
+        "notBefore": 0,
+        "groups": []
+      },
       {
         "id": "9e30e22d-2f7b-47cf-a82a-a6e82cf8c5de",
         "createdTimestamp": 1697087666332,
@@ -617,7 +637,7 @@
         "description": "Admin for Schulportal SH",
         "rootUrl": "${KC_ROOT_URL}",
         "adminUrl": "",
-        "baseUrl": "",
+        "baseUrl": "${KC_ROOT_URL}",
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
@@ -798,13 +818,116 @@
         ]
       },
       {
+        "id": "1dcfa102-dad9-4cf4-b0ff-dcc945e4a2ca",
+        "clientId": "spsh-service",
+        "name": "SPSH Service Client",
+        "description": "",
+        "rootUrl": "",
+        "adminUrl": "",
+        "baseUrl": "${KC_ROOT_URL}",
+        "surrogateAuthRequired": false,
+        "enabled": true,
+        "alwaysDisplayInConsole": false,
+        "clientAuthenticatorType": "client-jwt",
+        "secret": "spsh-service-client-secret",
+        "redirectUris": [
+          "/*"
+        ],
+        "webOrigins": [
+          "/*"
+        ],
+        "notBefore": 0,
+        "bearerOnly": false,
+        "consentRequired": false,
+        "standardFlowEnabled": false,
+        "implicitFlowEnabled": false,
+        "directAccessGrantsEnabled": false,
+        "serviceAccountsEnabled": true,
+        "authorizationServicesEnabled": true,
+        "publicClient": false,
+        "frontchannelLogout": true,
+        "protocol": "openid-connect",
+        "attributes": {
+          "oidc.ciba.grant.enabled": "false",
+          "client.secret.creation.time": "1727357679",
+          "backchannel.logout.session.required": "true",
+          "jwt.credential.certificate": "${KC_SERVICE_CLIENT_CERTIFICATE}",
+          "oauth2.device.authorization.grant.enabled": "false",
+          "display.on.consent.screen": "false",
+          "backchannel.logout.revoke.offline.tokens": "false"
+        },
+        "authenticationFlowBindingOverrides": {},
+        "fullScopeAllowed": true,
+        "nodeReRegistrationTimeout": -1,
+        "protocolMappers": [
+          {
+            "id": "5539f59b-f743-43ca-8fd9-cc7b27fddcc7",
+            "name": "Client IP Address",
+            "protocol": "openid-connect",
+            "protocolMapper": "oidc-usersessionmodel-note-mapper",
+            "consentRequired": false,
+            "config": {
+              "user.session.note": "clientAddress",
+              "introspection.token.claim": "true",
+              "id.token.claim": "true",
+              "access.token.claim": "true",
+              "claim.name": "clientAddress",
+              "jsonType.label": "String"
+            }
+          },
+          {
+            "id": "aa00f9ee-a74e-4a04-b012-844d98c6fdf6",
+            "name": "Client ID",
+            "protocol": "openid-connect",
+            "protocolMapper": "oidc-usersessionmodel-note-mapper",
+            "consentRequired": false,
+            "config": {
+              "user.session.note": "client_id",
+              "introspection.token.claim": "true",
+              "id.token.claim": "true",
+              "access.token.claim": "true",
+              "claim.name": "client_id",
+              "jsonType.label": "String"
+            }
+          },
+          {
+            "id": "6dd421e9-cbe3-48e6-9379-8a5aab14a80e",
+            "name": "Client Host",
+            "protocol": "openid-connect",
+            "protocolMapper": "oidc-usersessionmodel-note-mapper",
+            "consentRequired": false,
+            "config": {
+              "user.session.note": "clientHost",
+              "introspection.token.claim": "true",
+              "id.token.claim": "true",
+              "access.token.claim": "true",
+              "claim.name": "clientHost",
+              "jsonType.label": "String"
+            }
+          }
+        ],
+        "defaultClientScopes": [
+          "web-origins",
+          "acr",
+          "roles",
+          "profile",
+          "email"
+        ],
+        "optionalClientScopes": [
+          "address",
+          "phone",
+          "offline_access",
+          "microprofile-jwt"
+        ]
+      },      
+      {
         "id": "f45add8b-ab22-4742-afb4-cefa9bc12331",
         "clientId": "spsh",
         "name": "Schulportal SH",
         "description": "",
         "rootUrl": "${KC_ROOT_URL}",
         "adminUrl": "",
-        "baseUrl": "",
+        "baseUrl": "${KC_ROOT_URL}",
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
@@ -834,7 +957,7 @@
           "oauth2.device.authorization.grant.enabled": "false",
           "display.on.consent.screen": "false",
           "backchannel.logout.revoke.offline.tokens": "false",
-          "acr.loa.map": "{\"silver\":\"10\",\"gold\":\"20\"}",
+          "acr.loa.map": "{\"gold\":\"10\"}",
           "default.acr.values": "0"
         },
         "authenticationFlowBindingOverrides": {
@@ -909,7 +1032,7 @@
         "description": "",
         "rootUrl": "",
         "adminUrl": "",
-        "baseUrl": "",
+        "baseUrl": "${KC_ROOT_URL}",
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
@@ -1016,7 +1139,7 @@
         "description": "",
         "rootUrl": "https://www.itslintegrations.com",
         "adminUrl": "",
-        "baseUrl": "",
+        "baseUrl": "${KC_ROOT_URL}",
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
@@ -1092,7 +1215,7 @@
         "description": "",
         "rootUrl": "http://ox.dev.spsh.dbildungsplattform.de",
         "adminUrl": "http://ox.dev.spsh.dbildungsplattform.de/appsuite/",
-        "baseUrl": "",
+        "baseUrl": "${KC_ROOT_URL}",
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
@@ -1126,7 +1249,7 @@
         "nodeReRegistrationTimeout": -1,
         "protocolMappers": [
           {
-            "name": "Subject Mapper",
+            "name": "E-Mail Mapper",
             "protocol": "openid-connect",
             "protocolMapper": "oidc-usermodel-attribute-mapper",
             "consentRequired": false,
@@ -1136,7 +1259,7 @@
               "user.attribute": "ID_OX",
               "id.token.claim": "true",
               "access.token.claim": "true",
-              "claim.name": "sub",
+              "claim.name": "email",
               "jsonType.label": "String"
             }
           }
@@ -1154,6 +1277,72 @@
           "offline_access",
           "microprofile-jwt"
         ],
+        "access": {
+          "view": true,
+          "configure": true,
+          "manage": true
+        }
+      },
+      {
+        "id": "dd986a17-44c7-4ec9-87f6-addf1646ecf0",
+        "clientId": "${KC_SCHOOLSH_CLIENT_ID}",
+        "name": "School-SH",
+        "description": "",
+        "rootUrl": "${KC_SCHOOLSH_CLIENT_ROOT_URL}",
+        "adminUrl": "",
+        "baseUrl": "",
+        "surrogateAuthRequired": false,
+        "enabled": true,
+        "alwaysDisplayInConsole": false,
+        "clientAuthenticatorType": "client-secret",
+        "secret": "${KC_SCHOOLSH_CLIENT_SECRET}",
+        "redirectUris": [
+          "/cgi/samlauth"
+        ],
+        "webOrigins": [
+          "+"
+        ],
+        "notBefore": 0,
+        "bearerOnly": false,
+        "consentRequired": false,
+        "standardFlowEnabled": true,
+        "implicitFlowEnabled": false,
+        "directAccessGrantsEnabled": false,
+        "serviceAccountsEnabled": false,
+        "publicClient": false,
+        "frontchannelLogout": true,
+        "protocol": "saml",
+        "attributes": {
+          "saml.assertion.signature": "true",
+          "saml_assertion_consumer_url_redirect": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/samlauth",
+          "saml_single_logout_service_url_post": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/tmlogout",
+          "saml.force.post.binding": "true",
+          "saml.encrypt": "true",
+          "saml_assertion_consumer_url_post": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/samlauth",
+          "saml.server.signature": "true",
+          "saml.server.signature.keyinfo.ext": "false",
+          "saml.signing.certificate": "${KC_SCHOOLSH_CLIENT_SIGNING_CERTIFICATE}",
+          "saml_single_logout_service_url_redirect": "${KC_SCHOOLSH_CLIENT_ROOT_URL}/cgi/tmlogout",
+          "saml.artifact.binding": "false",
+          "saml.signature.algorithm": "RSA_SHA256",
+          "saml_force_name_id_format": "false",
+          "saml.client.signature": "true",
+          "saml.encryption.certificate": "${KC_SCHOOLSH_CLIENT_ENCRYPTION_CERTIFICATE}",
+          "saml.authnstatement": "true",
+          "display.on.consent.screen": "false",
+          "saml_name_id_format": "username",
+          "saml.allow.ecp.flow": "false",
+          "saml_signature_canonicalization_method": "http://www.w3.org/2001/10/xml-exc-c14n#",
+          "saml.onetimeuse.condition": "false",
+          "saml.server.signature.keyinfo.xmlSigKeyInfoKeyNameTransformer": "NONE"
+        },
+        "authenticationFlowBindingOverrides": {},
+        "fullScopeAllowed": true,
+        "nodeReRegistrationTimeout": -1,
+        "defaultClientScopes": [
+          "role_list"
+        ],
+        "optionalClientScopes": [],
         "access": {
           "view": true,
           "configure": true,
@@ -1840,12 +2029,27 @@
         },
         {
           "id": "d47622d7-8d04-4d38-b7f0-d80eb182f80d",
-          "name": "rsa-generated",
-          "providerId": "rsa-generated",
+          "name": "rsa",
+          "providerId": "rsa",
           "subComponents": {},
           "config": {
+            "privateKey": [
+              "${KC_RS256_PRIVATE_KEY}"
+            ],
+            "certificate": [
+              "${KC_RS256_CERTIFICATE}"
+            ],
+            "active": [
+              "true"
+            ],
+            "enabled": [
+              "true"
+            ],
             "priority": [
               "100"
+            ],
+            "algorithm": [
+              "RS256"
             ]
           }
         },
@@ -1914,14 +2118,15 @@
             "priority": 0,
             "autheticatorFlow": false,
             "userSetupAllowed": false
-          },
+          }, 
           {
-            "authenticator": "auth-otp-form",
-            "authenticatorFlow": false,
-            "requirement": "REQUIRED",
-            "priority": 1,
-            "autheticatorFlow": false,
-            "userSetupAllowed": false
+            "authenticatorConfig" : "pi",
+            "authenticator" : "privacyidea-authenticator",
+            "authenticatorFlow" : false,
+            "requirement" : "REQUIRED",
+            "priority" : 2,
+            "autheticatorFlow" : false,
+            "userSetupAllowed" : false
           }
         ]
       },
@@ -2479,6 +2684,14 @@
         "builtIn": false,
         "authenticationExecutions": [
           {
+            "authenticator" : "auth-cookie",
+            "authenticatorFlow" : false,
+            "requirement" : "ALTERNATIVE",
+            "priority" : 0,
+            "autheticatorFlow" : false,
+            "userSetupAllowed" : false
+          },
+          {
             "authenticatorFlow": true,
             "requirement": "ALTERNATIVE",
             "priority": 0,
@@ -2509,7 +2722,24 @@
         "alias": "gold",
         "config": {
           "loa-condition-level": "20",
-          "loa-max-age": "10000"
+          "loa-max-age": "0"
+        }
+      },
+      {
+        "id" : "a289ca13-92ef-4ac8-9544-bbff68c93147",
+        "alias" : "pi",
+        "config" : {
+          "pienrolltokentype" : "TOTP",
+          "pipollinbrowser" : "false",
+          "piservicerealm" : "${PI_REALM}",
+          "piservicepass" : "${PI_ADMIN_PASSWORD}",
+          "piserver" : "${PI_BASE_URL}",
+          "piserviceaccount" : "${PI_ADMIN_USER}",
+          "pidefaultmessage" : "Diese Aktion setzt eine Zwei-Faktor-Authentifizierung voraus. Bitte geben Sie die 6 Ziffern des Einmalpassworts von Ihrem 2FA-Token ein.",
+          "preftokentype" : "OTP",
+          "pirealm" : "${PI_REALM}",
+          "pidolog" : "true",
+          "pienrolltoken" : "false"
         }
       },
       {
@@ -2629,4 +2859,3 @@
       "policies": []
     }
   }
-  

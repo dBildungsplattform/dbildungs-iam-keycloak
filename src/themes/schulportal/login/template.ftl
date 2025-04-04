@@ -12,8 +12,8 @@
             <meta name="${meta?split('==')[0]}" content="${meta?split('==')[1]}"/>
         </#list>
     </#if>
-    <title>${msg("loginTitle",(realm.displayName!''))}</title>
-    <link rel="icon" href="${url.resourcesPath}/img/favicon.ico" />
+    <title>${msg("title")}</title>
+    <link rel="icon" href="${url.resourcesPath}/img/Schulportal_SH_Bildmarke_RGB_Anwendung_HG_Blau.svg" />
     <#if properties.stylesCommon?has_content>
         <#list properties.stylesCommon?split(' ') as style>
             <link href="${url.resourcesCommonPath}/${style}" rel="stylesheet" />
@@ -34,13 +34,19 @@
             <script src="${script}" type="text/javascript"></script>
         </#list>
     </#if>
+    <style>
+        input::-ms-reveal,
+        input::-ms-clear {
+          display: none;
+        }
+    </style>
 </head>
 
 <body class="${properties.kcBodyClass!}">
     <div class="${properties.kcLoginClass!}">
         <div id="kc-header" class="${properties.kcHeaderClass!}">
             <div id="kc-header-wrapper" class="${properties.kcHeaderWrapperClass!}">
-                <a href="https://spsh.staging.spsh.dbildungsplattform.de">
+                <a href="${client.baseUrl}">
                     <img
                         src="${url.resourcesPath}/img/Schulportal_SH_Wort_Bildmarke_RGB_Anwendung_HG_Blau.svg"
                         alt="Logo Schulportal"
@@ -49,7 +55,7 @@
                         height="60"
                     />
                 </a>
-                <a class="header-help" href="https://medienberatung.iqsh.de/schulportal-sh.html">${msg("help")}</a>
+                <a class="header-help" target="_blank" href="https://medienberatung.iqsh.de/schulportal-sh.html">${msg("help")}</a>
             </div>
             <div class="light-header"></div>
         </div>
@@ -100,47 +106,70 @@
                             <div class="col-md-10">
                                 <#nested "show-username">
                                 <div id="kc-username" class="${properties.kcFormGroupClass!}">
-                                    <label id="kc-attempted-username">${auth.attemptedUsername}</label>
-                                    <a id="reset-login" href="${url.loginRestartFlowUrl}" aria-label="${msg("restartLoginTooltip")}">
-                                        <div class="kc-login-tooltip">
-                                            <i class="${properties.kcResetFlowIcon!}"></i>
-                                            <span class="kc-tooltip-text">${msg("restartLoginTooltip")}</span>
-                                        </div>
-                                    </a>
+                                    <label id="kc-attempted-username">${auth.attemptedUsername}</label>                                    
                                 </div>
                             </div>
                         </div>
                     <#else>
                         <#nested "show-username">
                         <div id="kc-username" class="${properties.kcFormGroupClass!}">
-                            <label id="kc-attempted-username">${auth.attemptedUsername}</label>
-                            <a id="reset-login" href="${url.loginRestartFlowUrl}" aria-label="${msg("restartLoginTooltip")}">
-                                <div class="kc-login-tooltip">
-                                    <i class="${properties.kcResetFlowIcon!}"></i>
-                                    <span class="kc-tooltip-text">${msg("restartLoginTooltip")}</span>
-                                </div>
-                            </a>
+                            <label id="kc-attempted-username">${auth.attemptedUsername}</label>                            
                         </div>
                     </#if>
                 </#if>
             </header>
+
+            <#-- SPSH: custom messages for failed OTP authentication and update password form -->
+            <#-- Remove all whitespaces and linebreaks from the message key to-->
+            <#assign customMessages = {
+                "Authenticationfailed.falscherOTP-Wert": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.falscheOTP-Pin": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.wrongotpvalue": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.wrongotppin": msg("authenticationOtpFailedMessage"),
+                "Authenticationfailed.": msg("authenticationFailedMessage"),
+                "Authenticationfailed.falscherOTP-WertfrühererOTP-Wertwiederverwendet": msg("authenticationOtpUsedAgainFailedMessage"),                
+                "Authenticationfailed.wrongotpvalue.previousotpusedagain": msg("authenticationOtpUsedAgainFailedMessage"),
+                "Authenticationfailed.1passendeToken,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage"),
+                "Authenticationfailed.matching1tokens,Failcounterexceeded": msg("authenticationFailedFailcounterExceededMessage"),
+                "UngültigesPasswort:Esmussmindestens1Sonderzeichenbeinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens1Großbuchstabenbeinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens1Kleinbuchstabenbeinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens8Zeichenlangsein." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esmussmindestens1Zahl(en)beinhalten." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:Esdarfnichteinemderletzten3Passwörterentsprechen." : msg("mindPasswordGuidelines"),
+                "UngültigesPasswort:EsentsprichtnichtdemRegex-Muster." : msg("mindPasswordGuidelines"),
+                "ERR904:Theusercannotbefoundinanyresolverinthisrealm!" : msg("userNotFound"),
+                "Authenticationfailed.Theuserhasnotokensassigned" : msg("userNotFound")
+            }>
+    
             <div id="kc-content">
                 <div id="kc-content-wrapper">
-
                 <#-- App-initiated actions should not see warning messages about the need to complete the action -->
                 <#-- during login.                                                                               -->
-                <#-- SPSH: commented the following block to customize warning messages                          -->
-                <#-- #if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
-                    <div class="alert-${message.type} ${properties.kcAlertClass!} pf-m-<#if message.type = 'error'>danger<#else>${message.type}</#if>">
+                <#-- SPSH: commented the following block to customize warning messages                           -->
+                <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??) && message.type != 'info'>
+                    <div class="alert-${message.type} ${properties.kcAlertClass!} pf-m-<#if message.type == 'error'>danger<#else>${message.type}</#if>">
                         <div class="pf-c-alert__icon">
-                            <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
-                            <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
-                            <#if message.type = 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
-                            <#if message.type = 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
+                            <#if message.type == 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
+                            <#if message.type == 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
+                            <#if message.type == 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
+                            <#if message.type == 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
                         </div>
+                        <#if message?? && message.summary??>
+                            <#assign key = message.summary?replace(" ", "")?replace("\n", "")?replace("\t", "")>
+                            <#if customMessages[key]??>
+                                <#assign customMessage = customMessages[key]>
+                            </#if>
+                        </#if>           
+                        <#if customMessage??>
+                            <!-- Verwende die angepasste Nachricht -->
+                            <span class="${properties.kcAlertTitleClass!}">${customMessage}</span>
+                        <#else>
+                            <!-- Fallback auf die ursprüngliche Nachricht -->
                             <span class="${properties.kcAlertTitleClass!}">${kcSanitize(message.summary)?no_esc}</span>
+                        </#if>
                     </div>
-                </#if -->
+                </#if>
 
                 <#nested "form">
 
@@ -187,21 +216,35 @@
             </a>
             <a
                 class="footer-item"
-                href="https://spsh.staging.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html"
+                href="${client.baseUrl}/impressum_datenschutzerklaerung.html"
+                target="_blank"
+                rel="noopener noreferrer"
             >
                 ${msg("legalNotice")}
             </a>
             <a
                 class="footer-item"
-                href="https://spsh.staging.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html#privacy_policy"
+                href="${client.baseUrl}/impressum_datenschutzerklaerung.html#privacy_policy"
+                target="_blank"
+                rel="noopener noreferrer"
             >
                 ${msg("privacyPolicy")}
             </a>
             <a
                 class="footer-item"
-                href="https://spsh.staging.spsh.dbildungsplattform.de/impressum_datenschutzerklaerung.html#accessibility"
+                href="${client.baseUrl}/impressum_datenschutzerklaerung.html#accessibility"
+                target="_blank"
+                rel="noopener noreferrer"
             >
                 ${msg("accessibility")}
+            </a>
+            <a
+                class="footer-item"
+                href="${properties.statusUrl!}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                ${msg("systemStatus")}
             </a>
         </div>
         <div class="footer-logos">

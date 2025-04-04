@@ -10,7 +10,9 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ template "common.names.name" . }}
       app.kubernetes.io/component: keycloak
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   template:
     metadata:
       labels:
@@ -28,20 +30,30 @@ spec:
             {{- toYaml .command | nindent 16 }}
           {{- end }}
           args:
-            - "--cache"
-            - "local"
+            # - "--cache"
+            # - "local"
+            - "--optimized"
             - "--hostname"
-            - "{{ tpl .Values.keycloakHostname . }}" 
+            - "https://{{ tpl .Values.keycloakHostname . }}"
+            - "--hostname-backchannel-dynamic"
+            - "true"
             - "--import-realm"
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
           ports:
-            - name: {{ .Values.containerPorts.name }}
-              containerPort: {{ .Values.containerPorts.http }}
+            {{- range .Values.containerPorts }}
+            - name: {{ .name }}
+              containerPort: {{ .port }}
+              protocol: {{ .protocol }}
+            {{- end }}
           startupProbe: {{- omit .Values.startupProbe "enabled" | toYaml | nindent 12 }}
           livenessProbe: {{- omit .Values.livenessProbe "enabled" | toYaml | nindent 12 }}
           readinessProbe: {{- omit .Values.readinessProbe "enabled" | toYaml | nindent 12 }}
           env:
+            - name: JAVA_OPTS_APPEND
+              value: "-Djgroups.dns.query={{ template "common.names.name" . }}-headless.{{ template "common.names.namespace" . }}.svc.cluster.local"
+            - name: KC_HTTP_POOL_MAX_THREADS
+              value: "{{ .Values.threadPool }}"
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -62,6 +74,16 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: db-password
+            - name: KC_RS256_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-rs256-privateKey
+            - name: KC_RS256_CERTIFICATE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-rs256-certificate
             - name: KC_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -72,11 +94,41 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: keycloak-adminSecret
+            - name: KC_SERVICE_CLIENT_CERTIFICATE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-serviceClientCertificate
             - name: KC_ITSLEARNING_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: keycloak-itslearning-clientSecret
+            - name: PI_BASE_URL
+              valueFrom:
+                secretKeyRef:
+                    name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                    key: pi-base-url
+            - name: PI_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                    name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                    key: pi-admin-user
+            - name: PI_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                    name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                    key: pi-admin-password
+            - name: PI_USER_RESOLVER
+              valueFrom:
+                secretKeyRef:
+                    name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                    key: pi-user-resolver
+            - name: PI_REALM
+              valueFrom:
+                secretKeyRef:
+                    name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                    key: pi-user-realm
             - name: KC_OX_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -92,8 +144,38 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: keycloak-vidis-clientId
+            - name: KC_NEXTCLOUD_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-nextcloud-clientId
+            - name: KC_NEXTCLOUD_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-nextcloud-clientSecret
             - name: KC_DB_URL
               value: "jdbc:postgresql://$(DB_HOST)/$(DB_NAME)"
+            - name: KC_SCHOOLSH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-schoolsh-clientSecret
+            - name: KC_SCHOOLSH_CLIENT_SIGNING_CERTIFICATE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-schoolsh-signingCertificate
+            - name: KC_SCHOOLSH_CLIENT_ENCRYPTION_CERTIFICATE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-schoolsh-encryptionCertificate
+            - name: INTERNAL_COMMUNICATION_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: internal-communication-api-key
             {{- if .Values.extraEnvVars }}
             {{ toYaml .Values.extraEnvVars | nindent 12 }}
             {{- end }}

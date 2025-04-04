@@ -3,7 +3,8 @@
     <#if section = "header">
          <span data-testid="update-password-title">${msg("loginAccountTitle")}</span>
     <#elseif section = "form">
-        <p class="login-prompt" data-testid="login-prompt-text">${msg("enterLoginData")}</p>
+
+        <p class="login-prompt" data-testid="login-prompt-text">${msg("enterLoginData")}</p>     
         <div id="kc-form">
           <div id="kc-form-wrapper">
             <#if realm.password>
@@ -11,7 +12,6 @@
                     <#if !usernameHidden??>
                         <div class="${properties.kcFormGroupClass!}">
                             <label for="username" class="${properties.kcLabelClass!}"><#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if></label>
-
                             <input tabindex="2" id="username" class="${properties.kcInputClass!}" name="username" placeholder="${msg("username")}" value="${(login.username!'')}" type="text" autocomplete="username" data-testid="username-input"
                                 aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                                 <#if !(login.username?? && login.username != '')>autofocus</#if>
@@ -22,13 +22,11 @@
                                         ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
                                 </span>
                             </#if>
-
                         </div>
                     </#if>
 
                     <div class="${properties.kcFormGroupClass!}">
                         <label for="password" class="${properties.kcLabelClass!}">${msg("password")}</label>
-
                         <div class="${properties.kcInputGroup!}">
                             <input tabindex="3" id="password" class="${properties.kcInputClass!}" name="password" placeholder="${msg("password")}" type="password" autocomplete="current-password" data-testid="password-input"
                                 aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
@@ -46,7 +44,6 @@
                                     ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
                             </span>
                         </#if>
-
                     </div>
 
                     <p class="password-help-text" data-testid="password-help-text">${kcSanitize(msg("passwordHelpText"))?no_esc}</p>
@@ -70,7 +67,6 @@
                                     <span><a tabindex="6" href="${url.loginResetCredentialsUrl}">${msg("doForgotPassword")}</a></span>
                                 </#if>
                             </div>
-
                       </div>
 
                       <div id="kc-form-buttons" class="${properties.kcFormGroupClass!}">
@@ -92,11 +88,10 @@
             </div>
         </#if>
     <#elseif section = "socialProviders" >
-        <#if realm.password && social.providers??>
+        <#if realm.password && social.providers?? && social.providers?size gte 1>
             <div id="kc-social-providers" class="${properties.kcFormSocialAccountSectionClass!}">
                 <hr/>
                 <h2>${msg("identity-provider-login-label")}</h2>
-
                 <ul class="${properties.kcFormSocialAccountListClass!} <#if social.providers?size gt 3>${properties.kcFormSocialAccountListGridClass!}</#if>">
                     <#list social.providers as p>
                         <li>
@@ -115,5 +110,15 @@
             </div>
         </#if>
     </#if>
-
 </@layout.registrationLayout>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const kc_action = urlParams.get('kc_action');
+
+    if (kc_action === "UPDATE_PASSWORD") {
+        document.querySelector(".login-prompt").textContent = "${msg("enterOldPassword")}";
+    } else {
+        document.querySelector(".login-prompt").textContent = "${msg("enterLoginData")}";
+    }
+</script>
