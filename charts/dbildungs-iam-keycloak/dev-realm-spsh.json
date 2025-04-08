@@ -1527,10 +1527,10 @@
         "clientAuthenticatorType": "client-secret",
         "secret": "${VIDIS_CLIENT_SECRET}",
         "redirectUris": [
-          "/*"
+          "https://aai-test.vidis.schule/*"
         ],
         "webOrigins": [
-          "/*"
+          "+"
         ],
         "notBefore": 0,
         "bearerOnly": false,
