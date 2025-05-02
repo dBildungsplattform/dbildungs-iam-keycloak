@@ -6,7 +6,7 @@ name: "Dev Pipeline"
 on:
   push:
     branches:
-      - "*"
+      - "DBP-1438-Create-basic-Erwin-DevPipeline"
   schedule:
     - cron:  '0 2 * * *'
   delete:

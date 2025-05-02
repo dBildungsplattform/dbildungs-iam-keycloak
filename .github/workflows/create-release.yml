@@ -2,8 +2,8 @@
 name: Release Image and Helm Chart
 on:
   push:
-    branches:
-      - 'DBP-1438-Create-basic-Erwin-DevPipeline'
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
 
 concurrency:
   group: dbildungs-iam-keycloak-image-helm-chart
