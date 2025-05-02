@@ -18,7 +18,7 @@ jobs:
       contents: read
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@7
     with:
-      image_name: "dbildungs-iam-keycloak"
+      image_name: "erwin-portal-keycloak"
       run_trivy_scan: true
       image_tag_generation: version_git_tag
       container_registry: "ghcr.io"
@@ -27,18 +27,18 @@ jobs:
       target: "deployment"
   
   # Helm Chart
-  scan_helm:
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@5
-    permissions:
-      contents: read
+  # scan_helm:
+  #   uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@5
+  #   permissions:
+  #     contents: read
 
-  release_helm:
-    needs: scan_helm
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
-    secrets: inherit
-    with:
-      chart_name: "dbildungs-iam-keycloak"
-      helm_chart_version_generation: specified 
-      image_tag_generation: specified 
-      helm_chart_version: "${{ github.ref_name }}"
-      image_tag: "${{ github.ref_name }}"
+  # release_helm:
+  #   needs: scan_helm
+  #   uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
+  #   secrets: inherit
+  #   with:
+  #     chart_name: "dbildungs-iam-keycloak"
+  #     helm_chart_version_generation: specified 
+  #     image_tag_generation: specified 
+  #     helm_chart_version: "${{ github.ref_name }}"
+  #     image_tag: "${{ github.ref_name }}"
