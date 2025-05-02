@@ -1,6 +1,6 @@
 apiVersion: v2
-name: dbildungs-iam-keycloak
+name: erwin-portal-keycloak
 version: 0.1.1
-description: A Helm Chart for the dbildungs-iam-keycloak
+description: A Helm Chart for the erwin-portal-keycloak
 type: application
 appVersion: ""
