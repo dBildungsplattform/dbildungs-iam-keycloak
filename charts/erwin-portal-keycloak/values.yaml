@@ -4,18 +4,18 @@ namespaceOverride: ""
 
 replicaCount: 1
 image:
-  repository: ghcr.io/dbildungsplattform/dbildungs-iam-keycloak
+  repository: ghcr.io/dbildungsplattform/erwin-portal-keycloak
   tag: ""
   pullPolicy: Always
 
-schoolsh:
-  clientId: https://school-sh.invalid
-  rootUrl: https://school-sh.invalid
+#schoolsh:
+#  clientId: https://school-sh.invalid
+#  rootUrl: https://school-sh.invalid
 
 auth:
   # existingSecret: Refers to a secret already present in the cluster, which is required for the authentication and configuration of the database setup tasks.
   existingSecret: ""
-  secretName: dbildungs-iam-keycloak
+  secretName: erwin-portal-keycloak
   admin_password: ""
   admin_user: ""
   keycloak_rs256_privateKey: ""
@@ -44,14 +44,14 @@ extraVolumes: []
 extraVolumeMounts: []
 
 database:
-  name: "dbildungs_iam_keycloak"
+  name: "erwin_portal_keycloak"
   host: ""
   password: ""
-  username: "dbildungs_iam_keycloak"
+  username: "erwin_portal_keycloak"
 
-realm:
-  name: dbildungs-iam-keycloak-realm
-  filepath: "dev-realm-spsh.json"
+#realm:
+#  name: dbildungs-iam-keycloak-realm
+#  filepath: "dev-realm-spsh.json"
 
 restartPolicy: Always
 
@@ -139,8 +139,8 @@ autoscaling:
   maxReplicas: 5
   targetCPUUtilizationPercentage: 60
 
-status:
-  url: "https://status.dev.spsh.dbildungsplattform.de/"
+#status:
+#  url: "https://status.dev.spsh.dbildungsplattform.de/"
 
 podDisruptionBudget:
   enabled: true
