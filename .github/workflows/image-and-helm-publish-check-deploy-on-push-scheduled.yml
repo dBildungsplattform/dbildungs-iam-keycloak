@@ -153,7 +153,7 @@ jobs:
       - create_branch_identifier
       - wait_for_helm_chart_to_get_published
       - build_image_on_push
-    uses: dBildungsplattform/erwin-app-deploy/.github/workflows/deploy.yml@DBP-1438-Create-Devpipeline
+    uses: dBildungsplattform/erwin-app-deploy/.github/workflows/deploy.yml@main
     with:
       erwin_portal_server_branch: ${{ needs.branch_meta.outputs.ticket }}
       erwin_portal_client_branch: ${{ needs.branch_meta.outputs.ticket }}
