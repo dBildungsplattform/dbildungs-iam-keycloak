@@ -1550,7 +1550,10 @@
           "display.on.consent.screen": "false",
           "backchannel.logout.revoke.offline.tokens": "false"
         },
-        "authenticationFlowBindingOverrides": {},
+        "authenticationFlowBindingOverrides": {
+          "browser": "2e19a392-6bf3-4ea4-a599-ac39bcdfd827",
+          "direct_grant": ""
+        },
         "fullScopeAllowed": true,
         "nodeReRegistrationTimeout": -1,
         "defaultClientScopes": [
