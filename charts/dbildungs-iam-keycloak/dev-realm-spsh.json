@@ -1540,15 +1540,16 @@
         "directAccessGrantsEnabled": true,
         "serviceAccountsEnabled": false,
         "publicClient": false,
-        "frontchannelLogout": true,
+        "frontchannelLogout": false,
         "protocol": "openid-connect",
         "attributes": {
           "oidc.ciba.grant.enabled": "false",
           "client.secret.creation.time": "1724413577",
-          "backchannel.logout.session.required": "true",
+          "backchannel.logout.session.required": "false",
+          "backchannel.logout.url": "https://aai-test.vidis.schule/auth/realms/vidis/protocol/openid-connect/logout/backchannel-logout",
           "oauth2.device.authorization.grant.enabled": "false",
           "display.on.consent.screen": "false",
-          "backchannel.logout.revoke.offline.tokens": "false"
+          "backchannel.logout.revoke.offline.tokens": "true"
         },
         "authenticationFlowBindingOverrides": {
           "browser": "2e19a392-6bf3-4ea4-a599-ac39bcdfd827",
