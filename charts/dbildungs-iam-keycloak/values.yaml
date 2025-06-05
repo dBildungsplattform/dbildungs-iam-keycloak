@@ -25,6 +25,8 @@ auth:
   keycloak_serviceClientCertificate: ""
   keycloak_itslearning_clientSecret: ""
   keycloak_ox_clientSecret: ""
+  keycloak_vidis_clientSecret: ""
+  keycloak_vidis_clientId: ""
   keycloak_nextcloud_clientId: ""
   keycloak_nextcloud_clientSecret: ""
   pi_base_url: ""
