@@ -117,7 +117,7 @@ jobs:
       - create_branch_identifier
       - select_helm_version_generation_and_image_tag_generation
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
     secrets: inherit
     with:
       chart_name: dbildungs-iam-keycloak
