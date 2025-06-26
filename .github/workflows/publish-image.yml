@@ -1,0 +1,60 @@
+name: 'Publish image to GHCR on push to branch'
+
+on:
+  push:
+    branches-ignore:
+      - 'main'
+
+env:
+  TARGET_IMAGE: "dbp-keycloak"
+
+jobs:
+  build_and_upload_image:
+    name: Publish image
+    runs-on: ubuntu-latest
+    outputs:
+      digest: ${{ steps.docker_build_push.outputs.digest }}
+    permissions:
+      packages: write
+      contents: read
+    strategy:
+      matrix:
+        variant: ['generic', 'erwin']
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #v4.1.1
+      
+      - name: Build image name and tags
+        id: docker_meta_img
+        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81 #v5.5.1
+        with:
+          images: | 
+            name=ghcr.io/${{ github.repository_owner }}/${{ env.TARGET_IMAGE }}
+          tags: |
+            type=match,pattern=\d.\d.\d,prefix=${{ matrix.variant }}-
+            type=raw,value=test,prefix=${{ matrix.variant }}-
+      
+      - name: Log into ghcr.io
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d #v3.0.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push ${{ env.TARGET_IMAGE }} to ghcr
+        id: docker_build_push
+        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 #v5.1.0
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.docker_meta_img.outputs.tags }}
+          labels: ${{ steps.docker_meta_img.outputs.labels }}
+          build-args: |
+            KEYCLOAK_VARIANT=${{ matrix.variant }}
+  
+      - name: Derive registry and owner for image to scan
+        id: registry_and_owner
+        run: |
+          registry_and_owner=ghcr.io/${{ github.repository_owner }}
+          echo "registry_and_owner=$registry_and_owner" >> $GITHUB_OUTPUT
