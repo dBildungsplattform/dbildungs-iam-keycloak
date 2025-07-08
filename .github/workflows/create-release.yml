@@ -3,28 +3,13 @@ name: Release Image and Helm Chart
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-?*' # matches v1.2.3 and v1.2.3-foobar
 
 concurrency:
-  group: dbildungs-iam-keycloak-image-helm-chart
+  group: dbp-keycloak-image-helm-chart
   cancel-in-progress: true
 
 jobs:
-  release_image:
-    name: "Publish image and scan with trivy"
-    permissions:
-      packages: write
-      security-events: write
-      contents: read
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@7
-    with:
-      image_name: "dbildungs-iam-keycloak"
-      run_trivy_scan: true
-      image_tag_generation: version_git_tag
-      container_registry: "ghcr.io"
-      fail_on_vulnerabilites: false
-      report_location: "Dockerfile"
-      target: "deployment"
   
   # Helm Chart
   scan_helm:
@@ -37,7 +22,7 @@ jobs:
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
     secrets: inherit
     with:
-      chart_name: "dbildungs-iam-keycloak"
+      chart_name: "dbp-keycloak"
       helm_chart_version_generation: specified 
       image_tag_generation: specified 
       helm_chart_version: "${{ github.ref_name }}"

@@ -1,0 +1,7 @@
+# base env vars, common to all variants
+# can be overwritten/extended by the env vars from the variants
+KC_HEALTH_CHECKS_ENABLED=true
+KC_METRICS_ENABLED=true
+KC_CACHE_STACK=kubernetes
+KC_DB=postgres
+KC_CACHE=ispn
