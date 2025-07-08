@@ -1,0 +1,106 @@
+---
+keycloak_state: "present"
+keycloak_chart_repo_name: "dbildungsplattform"
+keycloak_chart_repo_url: "https://dbildungsplattform.github.io/helm-charts-registry/"
+keycloak_chart_ref: "{{ keycloak_chart_repo_name }}/automation/dbp-keycloak"
+keycloak_chart_version: "1.0.0"
+keycloak_release_name: "keycloak"
+keycloak_namespace: ""
+keycloak_create_namespace: true
+
+keycloak_image_repository: "ghcr.io/dbildungsplattform/dbp-keycloak-generic"
+keycloak_image_tag: "latest"
+keycloak_image_pull_policy: "Always"
+keycloak_image_pull_secrets: []
+
+keycloak_replica_count: 1
+keycloak_autoscaling_enabled: false
+keycloak_autoscaling_min_replicas: 1
+keycloak_autoscaling_max_replicas: 5
+keycloak_autoscaling_target_cpu_utilization_percentage: 60
+
+keycloak_pod_disruption_budget_enabled: false
+keycloak_pod_disruption_budget_min_available: "60%"
+
+
+keycloak_auth_existing_secret: ""
+keycloak_auth_secret_name: "dbp-keycloak"
+
+keycloak_auth_admin_password: ""
+keycloak_auth_rs256_private_key: ""
+keycloak_auth_rs256_certificate: ""
+keycloak_auth_admin_secret: ""
+keycloak_auth_client_secret: ""
+keycloak_auth_service_client_certificate: ""
+
+
+keycloak_command: []
+keycloak_extra_args: []
+keycloak_extra_volumes: []
+keycloak_extra_volume_mounts: []
+
+keycloak_extra_config_name: ""
+keycloak_extra_config_create: false
+keycloak_extra_config_data: {}
+keycloak_extra_config_external: []
+
+keycloak_extra_secret_name: ""
+keycloak_extra_secret_create: false
+keycloak_extra_secret_data: {}
+keycloak_extra_secret_external: []
+
+keycloak_database_url: "jdbc:postgresql://db:5432/keycloak"
+keycloak_database_username: "keycloak"
+keycloak_database_password: ""
+
+keycloak_import_realms: true
+keycloak_realm_name: ""
+keycloak_realm_filepath: ""
+keycloak_restart_policy: "Always"
+
+keycloak_hostname: ""
+keycloak_secondary_hostname: ""
+keycloak_frontend_hostname: ""
+keycloak_hostname_backchannel_dynamic: true
+
+keycloak_ingress_enabled_2nd: false
+keycloak_ingress_class_name: "nginx"
+keycloak_ingress_path: "/"
+keycloak_ingress_path_type: "Prefix"
+
+keycloak_service_monitor_enabled: true
+keycloak_service_monitor_path: "/metrics"
+keycloak_service_monitor_port: "mgmt"
+
+keycloak_resources_requests_cpu: "150m"
+keycloak_resources_requests_memory: "256Mi"
+keycloak_resources_limits_cpu: "4000m"
+keycloak_resources_limits_memory: "4Gi"
+
+keycloak_thread_pool: 16
+
+keycloak_startup_probe_enabled: true
+keycloak_startup_probe_initial_delay_seconds: 30
+keycloak_startup_probe_period_seconds: 5
+keycloak_startup_probe_timeout_seconds: 1
+keycloak_startup_probe_failure_threshold: 60
+keycloak_startup_probe_success_threshold: 1
+
+keycloak_liveness_probe_enabled: true
+keycloak_liveness_probe_initial_delay_seconds: 300
+keycloak_liveness_probe_period_seconds: 1
+keycloak_liveness_probe_timeout_seconds: 5
+keycloak_liveness_probe_failure_threshold: 5
+keycloak_liveness_probe_success_threshold: 1
+
+keycloak_readiness_probe_enabled: true
+keycloak_readiness_probe_initial_delay_seconds: 30
+keycloak_readiness_probe_period_seconds: 10
+keycloak_readiness_probe_timeout_seconds: 1
+keycloak_readiness_probe_failure_threshold: 3
+keycloak_readiness_probe_success_threshold: 1
+
+keycloak_service_account_create: true
+keycloak_service_account_annotations: {}
+keycloak_service_account_name: ""
+keycloak_service_account_automount_token: false
