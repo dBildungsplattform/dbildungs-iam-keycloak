@@ -3,7 +3,8 @@ image:
   repository: "{{ keycloak_image_repository }}"
   tag: "{{ keycloak_image_tag }}"
   pullPolicy: "{{ keycloak_image_pull_policy }}"
-  pullSecrets: "{{ keycloak_image_pull_secrets }}"
+  pullSecrets:
+    {{ keycloak_image_pull_secrets | to_nice_yaml | indent(4) | trim  }}
 
 auth:
   existingSecret: "{{ keycloak_auth_existing_secret }}"
@@ -18,22 +19,30 @@ auth:
 
 importRealms: "{{ keycloak_import_realms }}"
 
-command: "{{ keycloak_command }}"
-extraArgs: "{{ keycloak_extra_args }}"
-extraVolumes: "{{ keycloak_extra_volumes }}"
-extraVolumeMounts: "{{ keycloak_extra_volume_mounts }}"
+command:
+  {{ keycloak_command | to_nice_yaml | indent(2) | trim }}
+extraArgs:
+  {{ keycloak_extra_args | to_nice_yaml | indent(2) | trim  }}
+extraVolumes:
+  {{ keycloak_extra_volumes | to_nice_yaml | indent(2) | trim }}
+extraVolumeMounts:
+  {{ keycloak_extra_volume_mounts | to_nice_yaml | indent(2) | trim }}
 
 extraConfig:
   name: "{{ keycloak_extra_config_name }}"
   create: "{{ keycloak_extra_config_create }}"
-  data: "{{ keycloak_extra_config_data }}"
-  external: "{{ keycloak_extra_config_external }}"
+  data:
+    {{ keycloak_extra_config_data | to_nice_yaml | indent(4) | trim  }}
+  external:
+    {{ keycloak_extra_config_external  | to_nice_yaml | indent(4) | trim }}
 
 extraSecret:
   name: "{{ keycloak_extra_secret_name }}"
   create: "{{ keycloak_extra_secret_create }}"
-  data: "{{ keycloak_extra_secret_data }}"
-  external: "{{ keycloak_extra_secret_external }}"
+  data:
+    {{ keycloak_extra_secret_data | to_nice_yaml | indent(4) | trim  }}
+  external:
+    {{ keycloak_extra_secret_external | to_nice_yaml | indent(4) | trim }}
 
 database:
   url: "{{ keycloak_database_url }}"
@@ -95,10 +104,14 @@ ingress:
   ingressClassName: "{{ keycloak_ingress_class_name }}"
   path: "{{ keycloak_ingress_path }}"
   pathType: "{{ keycloak_ingress_path_type }}"
+  tls:
+    enabled: "{{ keycloak_ingress_tls_enabled }}"
+    secret: "{{ keycloak_ingress_tls_secret }}"
 
 serviceAccount:
   create: "{{ keycloak_service_account_create }}"
-  annotations: "{{ keycloak_service_account_annotations }}"
+  annotations:
+    {{ keycloak_service_account_annotations | to_nice_yaml | indent(4) | trim }}
   name: "{{ keycloak_service_account_name }}"
   automountServiceAccountToken: "{{ keycloak_service_account_automount_token }}"
 
