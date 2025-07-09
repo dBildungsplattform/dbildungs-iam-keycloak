@@ -1,0 +1,9 @@
+galaxy_info:
+  role_name: "keycloak"
+  author: dOPS
+  description: role for deploying the keycloak helm chart
+  company: Dataport AöR
+  min_ansible_version: "2.8"
+  galaxy_tags: []
+  license: "EUPL v. 1.2"
+dependencies: []
