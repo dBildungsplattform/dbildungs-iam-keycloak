@@ -1557,6 +1557,102 @@
         },
         "fullScopeAllowed": true,
         "nodeReRegistrationTimeout": -1,
+        "protocolMappers": [
+        {
+          "name": "schulkennung",
+          "protocol": "openid-connect",
+          "protocolMapper": "spsh-custom-oidc-api-mapper",
+          "consentRequired": false,
+          "config": {
+            "fetchUrl": "http://dbildungs-iam-server-backend.spsh-961.svc.cluster.local/keycloakinternal/externaldata",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "true",
+            "extractJsonPath": "$.vidis.dienststellenNummern",
+            "access.token.claim": "true",
+            "claim.name": "schulkennung"
+          }
+        },
+        {
+          "name": "uid",
+          "protocol": "openid-connect",
+          "protocolMapper": "spsh-custom-oidc-api-mapper",
+          "consentRequired": false,
+          "config": {
+            "fetchUrl": "http://dbildungs-iam-server-backend.spsh-961.svc.cluster.local/keycloakinternal/externaldata",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "true",
+            "extractJsonPath": "$.vidis.personId",
+            "access.token.claim": "true",
+            "claim.name": "uid"
+          }
+        },
+        {
+          "name": "vorname",
+          "protocol": "openid-connect",
+          "protocolMapper": "spsh-custom-oidc-api-mapper",
+          "consentRequired": false,
+          "config": {
+            "fetchUrl": "http://dbildungs-iam-server-backend.spsh-961.svc.cluster.local/keycloakinternal/externaldata",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "true",
+            "extractJsonPath": "$.vidis.vorname",
+            "access.token.claim": "true",
+            "claim.name": "vorname"
+          }
+        },
+        {
+          "name": "email",
+          "protocol": "openid-connect",
+          "protocolMapper": "spsh-custom-oidc-api-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "fetchUrl": "http://dbildungs-iam-server-backend.spsh-961.svc.cluster.local/keycloakinternal/externaldata",
+            "userinfo.token.claim": "true",
+            "ignoreMissingPath": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "true",
+            "extractJsonPath": "$.vidis.emailAdresse",
+            "access.token.claim": "true",
+            "claim.name": "email"
+          }
+        },
+        {
+          "name": "rolle",
+          "protocol": "openid-connect",
+          "protocolMapper": "spsh-custom-oidc-api-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "fetchUrl": "http://dbildungs-iam-server-backend.spsh-961.svc.cluster.local/keycloakinternal/externaldata",
+            "userinfo.token.claim": "true",
+            "ignoreMissingPath": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "true",
+            "extractJsonPath": "$.vidis.rollenart",
+            "access.token.claim": "true",
+            "claim.name": "rolle"
+          }
+        },
+        {
+          "name": "nachname",
+          "protocol": "openid-connect",
+          "protocolMapper": "spsh-custom-oidc-api-mapper",
+          "consentRequired": false,
+          "config": {
+            "fetchUrl": "http://dbildungs-iam-server-backend.spsh-961.svc.cluster.local/keycloakinternal/externaldata",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "true",
+            "extractJsonPath": "$.vidis.nachname",
+            "access.token.claim": "true",
+            "claim.name": "nachname"
+          }
+        }
+      ],
         "defaultClientScopes": [
           "web-origins",
           "acr",
