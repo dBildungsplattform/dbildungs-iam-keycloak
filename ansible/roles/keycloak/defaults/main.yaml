@@ -56,10 +56,8 @@ keycloak_database_password: ""
 keycloak_import_realms: true
 keycloak_realm_name: ""
 keycloak_realm_filepath: ""
-keycloak_restart_policy: "Always"
 
-keycloak_hostname: ""
-keycloak_secondary_hostname: ""
+keycloak_hostnames: []
 keycloak_frontend_hostname: ""
 keycloak_hostname_backchannel_dynamic: true
 

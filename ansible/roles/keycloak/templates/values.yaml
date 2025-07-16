@@ -53,11 +53,9 @@ realm:
   name: "{{ keycloak_realm_name }}"
   filepath: "{{ keycloak_realm_filepath }}"
 
-restartPolicy: "{{ keycloak_restart_policy }}"
-
 keycloak:
-  hostname: "{{ keycloak_hostname }}"
-  secondaryHostname: "{{ keycloak_secondary_hostname }}"
+  hostnames:
+    {{ keycloak_hostnames | to_nice_yaml | indent(4) | trim }}
   frontendHostname: "{{ keycloak_frontend_hostname }}"
   hostnameBackchannelDynamic: {{ keycloak_hostname_backchannel_dynamic }}
   serviceMonitor:
