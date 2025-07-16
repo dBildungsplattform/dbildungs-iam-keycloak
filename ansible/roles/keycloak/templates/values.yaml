@@ -1,4 +1,4 @@
-replicaCount: "{{ keycloak_replica_count }}"
+replicaCount: {{ keycloak_replica_count }}
 image:
   repository: "{{ keycloak_image_repository }}"
   tag: "{{ keycloak_image_tag }}"
@@ -17,7 +17,7 @@ auth:
   keycloak_clientSecret: "{{ keycloak_auth_client_secret }}"
   keycloak_serviceClientCertificate: "{{ keycloak_auth_service_client_certificate }}"
 
-importRealms: "{{ keycloak_import_realms }}"
+importRealms: {{ keycloak_import_realms }}
 
 command:
   {{ keycloak_command | to_nice_yaml | indent(2) | trim }}
@@ -30,7 +30,7 @@ extraVolumeMounts:
 
 extraConfig:
   name: "{{ keycloak_extra_config_name }}"
-  create: "{{ keycloak_extra_config_create }}"
+  create: {{ keycloak_extra_config_create }}
   data:
     {{ keycloak_extra_config_data | to_nice_yaml | indent(4) | trim  }}
   external:
@@ -38,7 +38,7 @@ extraConfig:
 
 extraSecret:
   name: "{{ keycloak_extra_secret_name }}"
-  create: "{{ keycloak_extra_secret_create }}"
+  create: {{ keycloak_extra_secret_create }}
   data:
     {{ keycloak_extra_secret_data | to_nice_yaml | indent(4) | trim  }}
   external:
@@ -59,9 +59,9 @@ keycloak:
   hostname: "{{ keycloak_hostname }}"
   secondaryHostname: "{{ keycloak_secondary_hostname }}"
   frontendHostname: "{{ keycloak_frontend_hostname }}"
-  hostnameBackchannelDynamic: "{{ keycloak_hostname_backchannel_dynamic }}"
+  hostnameBackchannelDynamic: {{ keycloak_hostname_backchannel_dynamic }}
   serviceMonitor:
-    enabled: "{{ keycloak_service_monitor_enabled }}"
+    enabled: {{ keycloak_service_monitor_enabled }}
     path: "{{ keycloak_service_monitor_path }}"
     port: "{{ keycloak_service_monitor_port }}"
 
@@ -73,54 +73,54 @@ resources:
     memory: "{{ keycloak_resources_requests_memory }}"
     cpu: "{{ keycloak_resources_requests_cpu }}"
 
-threadPool: "{{ keycloak_thread_pool }}"
+threadPool: {{ keycloak_thread_pool }}
 
 startupProbe:
-  enabled: "{{ keycloak_startup_probe_enabled }}"
-  initialDelaySeconds: "{{ keycloak_startup_probe_initial_delay_seconds }}"
-  periodSeconds: "{{ keycloak_startup_probe_period_seconds }}"
-  timeoutSeconds: "{{ keycloak_startup_probe_timeout_seconds }}"
-  failureThreshold: "{{ keycloak_startup_probe_failure_threshold }}"
-  successThreshold: "{{ keycloak_startup_probe_success_threshold }}"
+  enabled: {{ keycloak_startup_probe_enabled }}
+  initialDelaySeconds: {{ keycloak_startup_probe_initial_delay_seconds }}
+  periodSeconds: {{ keycloak_startup_probe_period_seconds }}
+  timeoutSeconds: {{ keycloak_startup_probe_timeout_seconds }}
+  failureThreshold: {{ keycloak_startup_probe_failure_threshold }}
+  successThreshold: {{ keycloak_startup_probe_success_threshold }}
 
 livenessProbe:
-  enabled: "{{ keycloak_liveness_probe_enabled }}"
-  initialDelaySeconds: "{{ keycloak_liveness_probe_initial_delay_seconds }}"
-  periodSeconds: "{{ keycloak_liveness_probe_period_seconds }}"
-  timeoutSeconds: "{{ keycloak_liveness_probe_timeout_seconds }}"
-  failureThreshold: "{{ keycloak_liveness_probe_failure_threshold }}"
-  successThreshold: "{{ keycloak_liveness_probe_success_threshold }}"
+  enabled: {{ keycloak_liveness_probe_enabled }}
+  initialDelaySeconds: {{ keycloak_liveness_probe_initial_delay_seconds }}
+  periodSeconds: {{ keycloak_liveness_probe_period_seconds }}
+  timeoutSeconds: {{ keycloak_liveness_probe_timeout_seconds }}
+  failureThreshold: {{ keycloak_liveness_probe_failure_threshold }}
+  successThreshold: {{ keycloak_liveness_probe_success_threshold }}
 
 readinessProbe:
-  enabled: "{{ keycloak_readiness_probe_enabled }}"
-  initialDelaySeconds: "{{ keycloak_readiness_probe_initial_delay_seconds }}"
-  periodSeconds: "{{ keycloak_readiness_probe_period_seconds }}"
-  timeoutSeconds: "{{ keycloak_readiness_probe_timeout_seconds }}"
-  failureThreshold: "{{ keycloak_readiness_probe_failure_threshold }}"
-  successThreshold: "{{ keycloak_readiness_probe_success_threshold }}"
+  enabled: {{ keycloak_readiness_probe_enabled }}
+  initialDelaySeconds: {{ keycloak_readiness_probe_initial_delay_seconds }}
+  periodSeconds: {{ keycloak_readiness_probe_period_seconds }}
+  timeoutSeconds: {{ keycloak_readiness_probe_timeout_seconds }}
+  failureThreshold: {{ keycloak_readiness_probe_failure_threshold }}
+  successThreshold: {{ keycloak_readiness_probe_success_threshold }}
 
 ingress:
-  enabled2nd: "{{ keycloak_ingress_enabled_2nd }}"
+  enabled2nd: {{ keycloak_ingress_enabled_2nd }}
   ingressClassName: "{{ keycloak_ingress_class_name }}"
   path: "{{ keycloak_ingress_path }}"
   pathType: "{{ keycloak_ingress_path_type }}"
   tls:
-    enabled: "{{ keycloak_ingress_tls_enabled }}"
-    secret: "{{ keycloak_ingress_tls_secret }}"
+    enabled: {{ keycloak_ingress_tls_enabled }}
+    secret: "{{ keycloak_ingress_tls_secret_name }}"
 
 serviceAccount:
-  create: "{{ keycloak_service_account_create }}"
+  create: {{ keycloak_service_account_create }}
   annotations:
     {{ keycloak_service_account_annotations | to_nice_yaml | indent(4) | trim }}
   name: "{{ keycloak_service_account_name }}"
-  automountServiceAccountToken: "{{ keycloak_service_account_automount_token }}"
+  automountServiceAccountToken: {{ keycloak_service_account_automount_token }}
 
 autoscaling:
-  enabled: "{{ keycloak_autoscaling_enabled }}"
-  minReplicas: "{{ keycloak_autoscaling_min_replicas }}"
-  maxReplicas: "{{ keycloak_autoscaling_max_replicas }}"
-  targetCPUUtilizationPercentage: "{{ keycloak_autoscaling_target_cpu_utilization_percentage }}"
+  enabled: {{ keycloak_autoscaling_enabled }}
+  minReplicas: {{ keycloak_autoscaling_min_replicas }}
+  maxReplicas: {{ keycloak_autoscaling_max_replicas }}
+  targetCPUUtilizationPercentage: {{ keycloak_autoscaling_target_cpu_utilization_percentage }}
 
 podDisruptionBudget:
-  enabled: "{{ keycloak_pod_disruption_budget_enabled }}"
+  enabled: {{ keycloak_pod_disruption_budget_enabled }}
   minAvailable: "{{ keycloak_pod_disruption_budget_min_available }}"
