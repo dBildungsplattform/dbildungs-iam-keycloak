@@ -1565,6 +1565,7 @@
           "consentRequired": false,
           "config": {
             "fetchUrl": "http://dbildungs-iam-server-backend.spsh-961.svc.cluster.local/keycloakinternal/externaldata",
+            "multivalued": "true",
             "userinfo.token.claim": "true",
             "id.token.claim": "true",
             "lightweight.claim": "true",
