@@ -105,6 +105,8 @@ ingress:
   tls:
     enabled: {{ keycloak_ingress_tls_enabled }}
     secret: "{{ keycloak_ingress_tls_secret_name }}"
+  annotations:
+    {{ keycloak_ingress_annotations | to_nice_yaml | indent(4) | trim }}
 
 serviceAccount:
   create: {{ keycloak_service_account_create }}

@@ -67,6 +67,7 @@ keycloak_ingress_path: "/"
 keycloak_ingress_path_type: "Prefix"
 keycloak_ingress_tls_enabled: true
 keycloak_ingress_tls_secret_name: ""
+keycloak_ingress_annotations: {}
 
 keycloak_service_monitor_enabled: true
 keycloak_service_monitor_path: "/metrics"
