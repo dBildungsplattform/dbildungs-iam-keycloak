@@ -98,7 +98,6 @@ readinessProbe:
   successThreshold: {{ keycloak_readiness_probe_success_threshold }}
 
 ingress:
-  enabled2nd: {{ keycloak_ingress_enabled_2nd }}
   ingressClassName: "{{ keycloak_ingress_class_name }}"
   path: "{{ keycloak_ingress_path }}"
   pathType: "{{ keycloak_ingress_path_type }}"
