@@ -14,7 +14,7 @@ keycloak_image_pull_policy: "Always"
 keycloak_image_pull_secrets: []
 
 keycloak_replica_count: 1
-keycloak_autoscaling_enabled: false
+keycloak_autoscaling_enabled: true
 keycloak_autoscaling_min_replicas: 1
 keycloak_autoscaling_max_replicas: 5
 keycloak_autoscaling_target_cpu_utilization_percentage: 60
@@ -26,6 +26,7 @@ keycloak_pod_disruption_budget_min_available: "60%"
 keycloak_auth_existing_secret: ""
 keycloak_auth_secret_name: "dbp-keycloak"
 
+keycloak_auth_admin_username: "admin"
 keycloak_auth_admin_password: ""
 keycloak_auth_rs256_private_key: ""
 keycloak_auth_rs256_certificate: ""
@@ -65,7 +66,7 @@ keycloak_ingress_enabled_2nd: false
 keycloak_ingress_class_name: "nginx"
 keycloak_ingress_path: "/"
 keycloak_ingress_path_type: "Prefix"
-keycloak_ingress_tls_enabled: true
+keycloak_ingress_tls_enabled: false
 keycloak_ingress_tls_secret_name: ""
 keycloak_ingress_annotations: {}
 
@@ -74,9 +75,9 @@ keycloak_service_monitor_path: "/metrics"
 keycloak_service_monitor_port: "mgmt"
 
 keycloak_resources_requests_cpu: "150m"
-keycloak_resources_requests_memory: "256Mi"
-keycloak_resources_limits_cpu: "4000m"
-keycloak_resources_limits_memory: "4Gi"
+keycloak_resources_requests_memory: "1Gi"
+keycloak_resources_limits_cpu: "500m"
+keycloak_resources_limits_memory: "1Gi"
 
 keycloak_thread_pool: 16
 
