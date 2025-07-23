@@ -1,0 +1,141 @@
+replicaCount: {{ keycloak_replica_count }}
+image:
+  repository: "{{ keycloak_image_repository }}"
+  tag: "{{ keycloak_image_tag }}"
+  pullPolicy: "{{ keycloak_image_pull_policy }}"
+  pullSecrets:
+{% for secret in keycloak_image_pull_secrets %}
+    - "{{ secret }}"
+{% endfor %}
+
+auth:
+  existingSecret: "{{ keycloak_auth_existing_secret }}"
+  secretName: "{{ keycloak_auth_secret_name }}"
+  adminUsername: "{{ keycloak_auth_admin_username }}"
+  adminPassword: "{{ keycloak_auth_admin_password }}"
+  keycloakRs256PrivateKey: "{{ keycloak_auth_rs256_private_key }}"
+  keycloakRs256Certificate: "{{ keycloak_auth_rs256_certificate }}"
+  keycloakAdminSecret: "{{ keycloak_auth_admin_secret }}"
+  keycloakClientSecret: "{{ keycloak_auth_client_secret }}"
+  keycloakServiceClientCertificate: "{{ keycloak_auth_service_client_certificate }}"
+
+importRealms: {{ keycloak_import_realms }}
+
+command:
+{% for command in keycloak_command %}
+  - "{{ command }}"
+{% endfor %}
+
+extraArgs:
+{% for arg in keycloak_extra_args %}
+  - "{{ arg }}"
+{% endfor %}
+
+extraVolumes:
+  {{ keycloak_extra_volumes | to_nice_yaml | indent(2) | trim }}
+extraVolumeMounts:
+  {{ keycloak_extra_volume_mounts | to_nice_yaml | indent(2) | trim }}
+
+extraConfig:
+  name: "{{ keycloak_extra_config_name }}"
+  create: {{ keycloak_extra_config_create }}
+  data:
+{% for key, value in keycloak_extra_config_data.items() %}
+    {{ key }}: "{{ value }}"
+{% endfor %}
+  external:
+{% for item in keycloak_extra_config_external %}
+    - "{{ item }}"
+{% endfor %}
+
+extraSecret:
+  name: "{{ keycloak_extra_secret_name }}"
+  create: {{ keycloak_extra_secret_create }}
+  data:
+{% for key, value in keycloak_extra_secret_data.items() %}
+    {{ key }}: "{{ value }}"
+{% endfor %}
+  external:
+{% for item in keycloak_extra_secret_external %}
+    - "{{ item }}"
+{% endfor %}
+
+database:
+  url: "{{ keycloak_database_url }}"
+  username: "{{ keycloak_database_username }}"
+  password: "{{ keycloak_database_password }}"
+
+realm:
+  filepath: "{{ keycloak_realm_filepath }}"
+
+keycloak:
+  hostnames:
+{% for hostname in keycloak_hostnames %}
+    - "{{ hostname }}"
+{% endfor %}
+  frontendHostname: "{{ keycloak_frontend_hostname }}"
+  hostnameBackchannelDynamic: {{ keycloak_hostname_backchannel_dynamic }}
+  serviceMonitor:
+    enabled: {{ keycloak_service_monitor_enabled }}
+    path: "{{ keycloak_service_monitor_path }}"
+    port: "{{ keycloak_service_monitor_port }}"
+
+resources:
+  limits:
+    memory: "{{ keycloak_resources_limits_memory }}"
+    cpu: "{{ keycloak_resources_limits_cpu }}"
+  requests:
+    memory: "{{ keycloak_resources_requests_memory }}"
+    cpu: "{{ keycloak_resources_requests_cpu }}"
+
+threadPool: {{ keycloak_thread_pool }}
+
+startupProbe:
+  enabled: {{ keycloak_startup_probe_enabled }}
+  periodSeconds: {{ keycloak_startup_probe_period_seconds }}
+  timeoutSeconds: {{ keycloak_startup_probe_timeout_seconds }}
+  failureThreshold: {{ keycloak_startup_probe_failure_threshold }}
+  successThreshold: {{ keycloak_startup_probe_success_threshold }}
+
+livenessProbe:
+  enabled: {{ keycloak_liveness_probe_enabled }}
+  periodSeconds: {{ keycloak_liveness_probe_period_seconds }}
+  timeoutSeconds: {{ keycloak_liveness_probe_timeout_seconds }}
+  failureThreshold: {{ keycloak_liveness_probe_failure_threshold }}
+  successThreshold: {{ keycloak_liveness_probe_success_threshold }}
+
+readinessProbe:
+  enabled: {{ keycloak_readiness_probe_enabled }}
+  periodSeconds: {{ keycloak_readiness_probe_period_seconds }}
+  timeoutSeconds: {{ keycloak_readiness_probe_timeout_seconds }}
+  failureThreshold: {{ keycloak_readiness_probe_failure_threshold }}
+  successThreshold: {{ keycloak_readiness_probe_success_threshold }}
+
+ingress:
+  ingressClassName: "{{ keycloak_ingress_class_name }}"
+  tls:
+    enabled: {{ keycloak_ingress_tls_enabled }}
+    secretName: "{{ keycloak_ingress_tls_secret_name }}"
+  annotations:
+{% for key, value in keycloak_ingress_annotations.items() %}
+    {{ key }}: "{{ value }}"
+{% endfor %}
+
+serviceAccount:
+  create: {{ keycloak_service_account_create }}
+  annotations:
+{% for key, value in keycloak_service_account_annotations.items() %}
+    {{ key }}: "{{ value }}"
+{% endfor %}
+  name: "{{ keycloak_service_account_name }}"
+  automountServiceAccountToken: {{ keycloak_service_account_automount_token }}
+
+autoscaling:
+  enabled: {{ keycloak_autoscaling_enabled }}
+  minReplicas: {{ keycloak_autoscaling_min_replicas }}
+  maxReplicas: {{ keycloak_autoscaling_max_replicas }}
+  targetCPUUtilizationPercentage: {{ keycloak_autoscaling_target_cpu_utilization_percentage }}
+
+podDisruptionBudget:
+  enabled: {{ keycloak_pod_disruption_budget_enabled }}
+  minAvailable: "{{ keycloak_pod_disruption_budget_min_available }}"

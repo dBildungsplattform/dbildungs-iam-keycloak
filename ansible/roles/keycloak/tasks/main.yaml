@@ -1,0 +1,18 @@
+---
+- name: "Add chart repo: {{ keycloak_chart_repo_name }}"
+  kubernetes.core.helm_repository:
+    name: "{{ keycloak_chart_repo_name }}"
+    repo_url: "{{ keycloak_chart_repo_url }}"
+
+- name: "Deploy keycloak helmchart"
+  delegate_to: localhost
+  kubernetes.core.helm:
+    chart_ref: "{{ keycloak_chart_ref }}"
+    chart_version: "{{ keycloak_chart_version }}"
+    release_name: "{{ keycloak_release_name }}"
+    release_namespace: "{{ keycloak_namespace }}"
+    release_state: "{{ keycloak_state }}"
+    create_namespace: "{{ keycloak_create_namespace }}"
+    kubeconfig: "{{ kubeconfig | default(omit) }}"
+    update_repo_cache: true
+    values: "{{ lookup('template', 'values.yaml') | from_yaml }}"
