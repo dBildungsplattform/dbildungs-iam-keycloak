@@ -511,6 +511,22 @@
         },
         "notBefore": 0,
         "groups": []
+      },
+      {
+        "id": "ef6eac58-af39-4bea-9994-43472b4bc3c0",
+        "username": "service-account-datum-test-technicaluser",
+        "emailVerified": false,
+        "createdTimestamp": 1753357612634,
+        "enabled": true,
+        "totp": false,
+        "serviceAccountClientId": "datum-test-technicaluser",
+        "disableableCredentialTypes": [],
+        "requiredActions": [],
+        "realmRoles": [
+          "default-roles-spsh"
+        ],
+        "notBefore": 0,
+        "groups": []
       }
     ],
     "scopeMappings": [
