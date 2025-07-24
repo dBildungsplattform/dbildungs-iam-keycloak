@@ -1516,18 +1516,18 @@
         "clientId": "datum-test",
         "name": "datum",
         "description": "DAZ Datum",
-        "rootUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-hollstein.de/",
-        "adminUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-hollstein.de/",
-        "baseUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-hollstein.de/",
+        "rootUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
+        "adminUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
+        "baseUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
         "clientAuthenticatorType": "client-secret",
         "redirectUris": [
-          "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-hollstein.de/*"
+          "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/*"
         ],
         "webOrigins": [
-          "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-hollstein.de"
+          "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de"
         ],
         "notBefore": 0,
         "bearerOnly": false,
@@ -1613,6 +1613,67 @@
           "manage": true
         },
         "authorizationServicesEnabled": false
+      },
+      {
+        "clientId": "datum-test-technicaluser",
+        "name": "datum-test-technicaluser",
+        "description": "technical user for provisioning",
+        "rootUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
+        "adminUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
+        "baseUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
+        "surrogateAuthRequired": false,
+        "enabled": true,
+        "alwaysDisplayInConsole": false,
+        "clientAuthenticatorType": "client-secret",
+        "secret": "LGkerV4YQJtAyZ2HWhXDmRdq6UlBEIQd",
+        "redirectUris": [
+          "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/*"
+        ],
+        "webOrigins": [
+          "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de"
+        ],
+        "notBefore": 0,
+        "bearerOnly": false,
+        "consentRequired": false,
+        "standardFlowEnabled": false,
+        "implicitFlowEnabled": false,
+        "directAccessGrantsEnabled": false,
+        "serviceAccountsEnabled": true,
+        "publicClient": false,
+        "frontchannelLogout": true,
+        "protocol": "openid-connect",
+        "attributes": {
+          "realm_client": "false",
+          "oidc.ciba.grant.enabled": "false",
+          "client.secret.creation.time": "1753357612",
+          "backchannel.logout.session.required": "true",
+          "standard.token.exchange.enabled": "false",
+          "oauth2.device.authorization.grant.enabled": "false",
+          "backchannel.logout.revoke.offline.tokens": "false"
+        },
+        "authenticationFlowBindingOverrides": {},
+        "fullScopeAllowed": true,
+        "nodeReRegistrationTimeout": -1,
+        "defaultClientScopes": [
+          "web-origins",
+          "service_account",
+          "acr",
+          "roles",
+          "profile",
+          "basic",
+          "email"
+        ],
+        "optionalClientScopes": [
+          "address",
+          "phone",
+          "offline_access",
+          "microprofile-jwt"
+        ],
+        "access": {
+          "view": true,
+          "configure": true,
+          "manage": true
+        }
       }
     ],
     "clientScopes": [
