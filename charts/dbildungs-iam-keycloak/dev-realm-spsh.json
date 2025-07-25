@@ -302,6 +302,7 @@
         "spsh": [],
         "admin-cli": [],
         "account-console": [],
+        "2p-sync": [],
         "${KC_NEXTCLOUD_CLIENT_ID}": [],
         "spsh-service": [],
         "spsh-test": [],
@@ -316,6 +317,7 @@
             "attributes": {}
           }
         ],
+        "2p": [],
         "account": [
           {
             "id": "6fc2dde9-c57e-4c9a-97b4-b6008943b273",
@@ -457,6 +459,22 @@
     "webAuthnPolicyPasswordlessAcceptableAaguids": [],
     "users": [
       {
+        "id": "29826914-34d2-47ce-a8f7-71fde63782b2",
+        "username": "service-account-2p-sync",
+        "emailVerified": false,
+        "createdTimestamp": 1753447440385,
+        "enabled": true,
+        "totp": false,
+        "serviceAccountClientId": "2p-sync",
+        "disableableCredentialTypes": [],
+        "requiredActions": [],
+        "realmRoles": [
+          "default-roles-spsh"
+        ],
+        "notBefore": 0,
+        "groups": []
+      },
+      {
         "id": "7baf74aa-565f-4cfc-9d5a-8f1a3f374dc9",
         "createdTimestamp": 1727357679883,
         "username": "service-account-spsh-service",
@@ -533,6 +551,121 @@
       ]
     },
     "clients": [
+      {
+      "id": "85d9358e-62a0-4978-ba64-cff87bb3ed54",
+      "clientId": "2p",
+      "name": "2p",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "6ncmBEQ7rr46xENGtW6KNP3AWHuNpJ7C",
+      "redirectUris": [
+        "/*"
+      ],
+      "webOrigins": [
+        "/*"
+      ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "realm_client": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "client.secret.creation.time": "1752828788",
+        "backchannel.logout.session.required": "true",
+        "standard.token.exchange.enabled": "false",
+        "frontchannel.logout.session.required": "true",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "display.on.consent.screen": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "roles",
+        "profile",
+        "basic",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    },
+    {
+      "id": "5abe13d0-e101-475f-a62b-7cc3bfa9358a",
+      "clientId": "2p-sync",
+      "name": "2p-sync",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "rVH3ADreZnU072V2NFOjo20ZVKjyseRk",
+      "redirectUris": [
+        "/*"
+      ],
+      "webOrigins": [
+        "/*"
+      ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "realm_client": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "client.secret.creation.time": "1753447440",
+        "backchannel.logout.session.required": "true",
+        "standard.token.exchange.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "service_account",
+        "acr",
+        "roles",
+        "profile",
+        "basic",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    },
       {
         "id": "51b43125-84f4-449e-b584-ee983c4af33b",
         "clientId": "account",
