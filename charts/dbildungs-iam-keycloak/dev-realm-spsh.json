@@ -514,12 +514,12 @@
       },
       {
         "id": "ef6eac58-af39-4bea-9994-43472b4bc3c0",
-        "username": "service-account-datum-test-technicaluser",
+        "username": "service-account-datenfabrik-poc-technicaluser",
         "emailVerified": false,
         "createdTimestamp": 1753357612634,
         "enabled": true,
         "totp": false,
-        "serviceAccountClientId": "datum-test-technicaluser",
+        "serviceAccountClientId": "datenfabrik-poc-technicaluser",
         "disableableCredentialTypes": [],
         "requiredActions": [],
         "realmRoles": [
@@ -1529,9 +1529,9 @@
         }
       },
       {
-        "clientId": "datum-test",
-        "name": "datum",
-        "description": "DAZ Datum",
+        "clientId": "datenfabrik-poc-data-app",
+        "name": "datenfabrik-poc-data-app",
+        "description": "DAZ (Deutsch als Zweitsprache) DaTUM (Daten für Taten Untericht und Monitoring)",
         "rootUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
         "adminUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
         "baseUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
@@ -1543,7 +1543,7 @@
           "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/*"
         ],
         "webOrigins": [
-          "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de"
+          "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/"
         ],
         "notBefore": 0,
         "bearerOnly": false,
@@ -1556,52 +1556,53 @@
         "frontchannelLogout": true,
         "protocol": "openid-connect",
         "attributes": {
-          "realm_client": "false",
-          "oidc.ciba.grant.enabled": "false",
-          "backchannel.logout.session.required": "true",
+          "request.object.signature.alg": "any",
+          "request.object.encryption.alg": "any",
+          "client.introspection.response.allow.jwt.claim.enabled": "false",
           "standard.token.exchange.enabled": "false",
+          "frontchannel.logout.session.required": "true",
+          "post.logout.redirect.uris": "+",
           "oauth2.device.authorization.grant.enabled": "false",
           "backchannel.logout.revoke.offline.tokens": "false",
-          "login_theme": "",
+          "use.refresh.tokens": "true",
+          "realm_client": "false",
+          "oidc.ciba.grant.enabled": "false",
+          "client.use.lightweight.access.token.enabled": "false",
+          "backchannel.logout.session.required": "true",
+          "request.object.required": "not required",
+          "client_credentials.use_refresh_token": "false",
+          "access.token.header.type.rfc9068": "false",
+          "tls.client.certificate.bound.access.tokens": "false",
+          "require.pushed.authorization.requests": "false",
+          "acr.loa.map": "{}",
           "display.on.consent.screen": "false",
+          "request.object.encryption.enc": "any",
+          "token.response.type.bearer.lower-case": "false",
+          "login_theme": "",
           "consent.screen.text": "",
           "frontchannel.logout.url": "",
-          "frontchannel.logout.session.required": "true",
           "logoUri": "",
           "policyUri": "",
           "tosUri": "",
           "access.token.signed.response.alg": "",
-          "access.token.header.type.rfc9068": "false",
           "id.token.signed.response.alg": "",
           "id.token.encrypted.response.alg": "",
           "id.token.encrypted.response.enc": "",
           "user.info.response.signature.alg": "",
           "user.info.encrypted.response.alg": "",
           "user.info.encrypted.response.enc": "",
-          "request.object.signature.alg": "any",
-          "request.object.encryption.alg": "any",
-          "request.object.encryption.enc": "any",
-          "request.object.required": "not required",
           "authorization.signed.response.alg": "",
           "authorization.encrypted.response.alg": "",
           "authorization.encrypted.response.enc": "",
           "exclude.session.state.from.auth.response": "",
           "exclude.issuer.from.auth.response": "",
-          "use.refresh.tokens": "true",
-          "client_credentials.use_refresh_token": "false",
-          "token.response.type.bearer.lower-case": "false",
           "standard.token.exchange.enableRefreshRequestedTokenType": "",
           "access.token.lifespan": "",
           "client.session.idle.timeout": "",
           "client.session.max.lifespan": "",
           "client.offline.session.idle.timeout": "",
-          "tls.client.certificate.bound.access.tokens": "false",
           "pkce.code.challenge.method": "",
-          "require.pushed.authorization.requests": "false",
-          "client.use.lightweight.access.token.enabled": "false",
-          "client.introspection.response.allow.jwt.claim.enabled": "false",
-          "minimum.acr.value": "",
-          "acr.loa.map": "{}"
+          "minimum.acr.value": ""
         },
         "authenticationFlowBindingOverrides": {
           "browser": "",
@@ -1631,9 +1632,10 @@
         "authorizationServicesEnabled": false
       },
       {
-        "clientId": "datum-test-technicaluser",
-        "name": "datum-test-technicaluser",
-        "description": "technical user for provisioning",
+        "id": "111d82f9-4393-49ba-bcef-57288107db04",
+        "clientId": "datenfabrik-poc-technicaluser",
+        "name": "datenfabrik-poc-technicaluser",
+        "description": "technical user for provisioning of datenfabrik-poc-data-app",
         "rootUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
         "adminUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
         "baseUrl": "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/",
@@ -1641,7 +1643,7 @@
         "enabled": true,
         "alwaysDisplayInConsole": false,
         "clientAuthenticatorType": "client-secret",
-        "secret": "LGkerV4YQJtAyZ2HWhXDmRdq6UlBEIQd",
+        "secret": "**********",
         "redirectUris": [
           "https://poc-data-app.dev.ibmcloudpic.datenfabrik.schleswig-holstein.de/*"
         ],
@@ -1664,15 +1666,18 @@
           "client.secret.creation.time": "1753357612",
           "backchannel.logout.session.required": "true",
           "standard.token.exchange.enabled": "false",
+          "post.logout.redirect.uris": "+",
+          "frontchannel.logout.session.required": "true",
           "oauth2.device.authorization.grant.enabled": "false",
+          "display.on.consent.screen": "false",
           "backchannel.logout.revoke.offline.tokens": "false"
         },
         "authenticationFlowBindingOverrides": {},
         "fullScopeAllowed": true,
         "nodeReRegistrationTimeout": -1,
         "defaultClientScopes": [
-          "web-origins",
           "service_account",
+          "web-origins",
           "acr",
           "roles",
           "profile",
@@ -1684,12 +1689,7 @@
           "phone",
           "offline_access",
           "microprofile-jwt"
-        ],
-        "access": {
-          "view": true,
-          "configure": true,
-          "manage": true
-        }
+        ]
       }
     ],
     "clientScopes": [
