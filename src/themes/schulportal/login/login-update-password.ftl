@@ -82,7 +82,7 @@
                 <div id="kc-form-buttons" class="${properties.kcFormButtonsClass!} pf-m-action">
                     <div class="kc-form-buttons pf-v5-c-form__actions">
                         <#if isAppInitiatedAction??>            
-                            <input id="SubmitButton" class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonLargeClass!}" type="submit" value="${msg("changePassword")}" />
+                            <input id="SubmitButton" class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonLargeClass!}" type="submit" value="${msg("changePassword")}" data-testid="set-password-button" />
                             <button id="CancelButton" class="${properties.kcButtonClass!} ${properties.kcButtonDefaultClass!} ${properties.kcButtonLargeClass!}" type="submit" name="cancel-aia" value="true" />${msg("doCancel")}</button>
                         <#else>
                             <input class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}" type="submit" value="${msg("setPassword")}" data-testid="set-password-button" />
