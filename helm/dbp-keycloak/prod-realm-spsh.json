@@ -641,7 +641,7 @@
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
-        "clientAuthenticatorType": "client-secret",        
+        "clientAuthenticatorType": "client-secret",
         "secret": "${KC_ADMIN_SECRET}",
         "redirectUris": [
           "/*"
@@ -919,7 +919,7 @@
           "offline_access",
           "microprofile-jwt"
         ]
-      },      
+      },
       {
         "id": "f45add8b-ab22-4742-afb4-cefa9bc12331",
         "clientId": "spsh",
@@ -2118,7 +2118,7 @@
             "priority": 0,
             "autheticatorFlow": false,
             "userSetupAllowed": false
-          }, 
+          },
           {
             "authenticatorConfig" : "pi",
             "authenticator" : "privacyidea-authenticator",

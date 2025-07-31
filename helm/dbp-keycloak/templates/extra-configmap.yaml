@@ -1,0 +1,12 @@
+{{ if .Values.extraConfig.create }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Values.extraConfig.name }}"
+  namespace: {{ include "common.names.namespace" . }}
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+data:
+  {{- .Values.extraConfig.data | toYaml | nindent 2 }}
+
+{{- end }}

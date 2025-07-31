@@ -1,0 +1,164 @@
+nameOverride: ""
+fullnameOverride: ""
+namespaceOverride: ""
+# partOfOverride is used to override the partOf label in the deployment.
+# If it is not set the partOf label will be set to the chart name.
+partOfOverride: ""
+
+replicaCount: 1
+image:
+  repository: "ghcr.io/dbildungsplattform/dbp-keycloak-generic"
+  tag: "latest"
+  pullPolicy: "Always"
+  pullSecrets: []
+
+auth:
+  # existingSecret: Refers to a secret already present in the cluster, which is required for the authentication and configuration of the database setup tasks.
+  existingSecret: ""
+  secretName: "dbp-keycloak"
+  adminUsername: "admin"
+  adminPassword: ""
+  keycloakRs256PrivateKey: ""
+  keycloakRs256Certificate: ""
+  keycloakAdminSecret: ""
+  keycloakClientSecret: ""
+  keycloakServiceClientCertificate: ""
+
+command: []
+extraArgs: []
+extraVolumes: []
+extraVolumeMounts: []
+
+# extraConfig is used to add additional environment variables to the Keycloak container.
+extraConfig:
+  # The name of the ConfigMap that will be created.
+  name: ""
+  # If enabled, the ConfigMap will be created with the specified data.
+  create: false
+  # The data to be added to the ConfigMap.
+  data: {}
+  # Add additional existing ConfigMaps. These will be active even if enabled is false.
+  external: []
+
+# extraSecret is used to add additional secrets to the Keycloak container.
+extraSecret:
+  # name of the Secret that will be created.
+  name: ""
+  # create enables the Secret with the specified data and name.
+  create: false
+  # data is a dict of environment variables to be added to the Secret.
+  data: {}
+  # external is a list of additional existing Secrets. These will be active even if enabled is false.
+  external: []
+
+database:
+  url: "jdbc:postgresql://db:5432/keycloak"
+  username: "keycloak"
+  password: ""
+
+# importRealms is used to import realms on startup.
+# It will set "--import-realm" as arg to enable realm import on startup.
+# This will not recreate existing realms.
+importRealms: true
+
+realm:
+  filepath: ""
+
+keycloak:
+  hostnames: []
+  hostnameBackchannelDynamic: true
+  serviceMonitor:
+    enabled: true
+    path: "/metrics"
+    port: "mgmt"
+  frontendHostname: ""
+
+ingress:
+  ingressClassName: nginx
+  tls:
+    enabled: false
+    secretName: ""
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+    nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
+
+containerSecurityContext:
+  enabled: true
+  runAsUser: 65532
+  runAsNonRoot: true
+  privileged: false
+  readOnlyRootFilesystem: false
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  seccompProfile:
+    type: "RuntimeDefault"
+
+resources:
+  limits:
+    memory: "1Gi"
+    cpu: "500m"
+  requests:
+    memory: "1Gi"
+    cpu: "150m"
+
+# should be about 4 times the cpu count
+threadPool: 16
+
+startupProbe:
+  enabled: true
+  httpGet:
+    path: "/health/started"
+    port: "mgmt"
+    scheme: "HTTPS"
+  periodSeconds: 5
+  timeoutSeconds: 1
+  failureThreshold: 60
+  successThreshold: 1
+
+livenessProbe:
+  enabled: true
+  httpGet:
+    path: "/health/live"
+    port: "mgmt"
+    scheme: "HTTPS"
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 6
+  successThreshold: 1
+
+readinessProbe:
+  enabled: true
+  httpGet:
+    path: "/health/ready"
+    port: "mgmt"
+    scheme: "HTTPS"
+  periodSeconds: 5
+  timeoutSeconds: 1
+  failureThreshold: 3
+  successThreshold: 1
+
+service:
+  http:
+    enabled: true
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+  automountServiceAccountToken: false
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  # targetCPUUtilizationPercentage is used to set the target CPU utilization for the Horizontal Pod Autoscaler.
+  # If set to 0, it will not be used as a metric.
+  targetCPUUtilizationPercentage: 60
+  # targetMemoryUtilizationPercentage is used to set the target memory utilization for the Horizontal Pod Autoscaler.
+  # If set to 0, it will not be used as a metric.
+  targetMemoryUtilizationPercentage: 0
+
+podDisruptionBudget:
+  enabled: false
+  minAvailable: "60%"

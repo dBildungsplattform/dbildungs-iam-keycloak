@@ -643,7 +643,7 @@
         "surrogateAuthRequired": false,
         "enabled": true,
         "alwaysDisplayInConsole": false,
-        "clientAuthenticatorType": "client-secret",        
+        "clientAuthenticatorType": "client-secret",
         "secret": "${KC_ADMIN_SECRET}",
         "redirectUris": [
           "/*"
@@ -921,7 +921,7 @@
           "offline_access",
           "microprofile-jwt"
         ]
-      },     
+      },
       {
         "id": "f45add8b-ab22-4742-afb4-cefa9bc12331",
         "clientId": "spsh",
@@ -2281,7 +2281,7 @@
             "priority": 0,
             "autheticatorFlow": false,
             "userSetupAllowed": false
-          }, 
+          },
           {
             "authenticatorConfig" : "pi",
             "authenticator" : "privacyidea-authenticator",
@@ -2887,7 +2887,7 @@
           "loa-condition-level": "20",
           "loa-max-age": "0"
         }
-      }, 
+      },
       {
         "id" : "a289ca13-92ef-4ac8-9544-bbff68c93147",
         "alias" : "pi",
@@ -3022,4 +3022,3 @@
       "policies": []
     }
   }
-  

@@ -1,0 +1,31 @@
+name: Push Charts to helm-charts-registry
+
+on:
+  push:
+    # tags:
+    #   - 'v[0-9]+.[0-9]+.[0-9]+-?*' # matches v1.2.3 and v1.2.3-foobar
+    branches-ignore:
+      - "release"
+      - "main"
+      - "dev"
+
+concurrency:
+  group: dbp-keycloak-chart
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@5
+    permissions:
+      contents: read
+  release:
+    needs: scan
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
+    secrets: inherit
+    with:
+      chart_name: "dbp-keycloak"
+      chart_path: "./helm"
+      helm_chart_version_generation: specified
+      image_tag_generation: specified
+      helm_chart_version: "0.0.6-${{ github.ref_name }}"
+      image_tag: ${{ github.ref_name }}

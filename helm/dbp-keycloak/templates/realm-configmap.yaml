@@ -1,0 +1,12 @@
+{{ if .Values.realm.filepath }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "keycloak.realmConfigmap" . }}
+  namespace: {{ include "common.names.namespace" . }}
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+data:
+  realm-spsh.json: |-
+{{ .Files.Get .Values.realm.filepath | indent 4 }}
+{{ end }}

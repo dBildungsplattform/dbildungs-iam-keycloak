@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ include "common.names.namespace" . }}
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+    - hosts:
+    {{- range $.Values.keycloak.hostnames }}
+        - "{{ . }}"
+    {{- end }}
+      {{- if .Values.ingress.tls.secretName }}
+      secretName: "{{ .Values.ingress.tls.secretName }}"
+      {{- end }}
+  {{- end }}
+  ingressClassName: "{{ $.Values.ingress.ingressClassName }}"
+  rules:
+{{- range .Values.keycloak.hostnames }}
+    - host: "{{ . }}"
+      http:
+        paths:
+          - path: "/"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "{{ include "common.names.fullname" $ }}"
+                port:
+                  name: "http"
+{{- end }}
