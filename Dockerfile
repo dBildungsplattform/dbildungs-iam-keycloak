@@ -1,5 +1,5 @@
 # Keycloak base image with dbildungs-iam-keycloak extensions
-FROM quay.io/keycloak/keycloak:26.3.2 AS base
+FROM quay.io/keycloak/keycloak:nightly AS base
 
 # Copy dbildungs-iam-keycloak specific extensions (providers, themes, etc.)
 COPY src/providers/ /opt/keycloak/providers/
