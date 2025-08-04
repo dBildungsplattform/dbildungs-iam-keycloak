@@ -565,7 +565,7 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "6ncmBEQ7rr46xENGtW6KNP3AWHuNpJ7C",
       "redirectUris": [
-        "/*"
+        "https://plattform-2p-sh.kaddev.artif.dev/site/callback"
       ],
       "webOrigins": [
         "/*"
@@ -578,15 +578,17 @@
       "directAccessGrantsEnabled": false,
       "serviceAccountsEnabled": false,
       "publicClient": false,
-      "frontchannelLogout": true,
+      "frontchannelLogout": false,
       "protocol": "openid-connect",
       "attributes": {
         "realm_client": "false",
         "oidc.ciba.grant.enabled": "false",
         "client.secret.creation.time": "1752828788",
         "backchannel.logout.session.required": "true",
+        "backchannel.logout.url": "https://plattform-2p-sh.kaddev.artif.dev/site/logout",
         "standard.token.exchange.enabled": "false",
         "frontchannel.logout.session.required": "true",
+        "post.logout.redirect.uris": "+",
         "oauth2.device.authorization.grant.enabled": "false",
         "display.on.consent.screen": "false",
         "backchannel.logout.revoke.offline.tokens": "false"
