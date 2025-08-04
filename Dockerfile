@@ -54,6 +54,7 @@ RUN set -o allexport && \
 # build final image
 FROM base AS final
 
-COPY --from=build /opt/ /opt/
+COPY --from=build --chown=65532:65532 /opt/ /opt/
 WORKDIR /opt/keycloak
+USER 65532
 ENTRYPOINT [ "/opt/keycloak/bin/kc.sh", "start" , "--optimized" ]
