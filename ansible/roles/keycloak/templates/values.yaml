@@ -61,9 +61,12 @@ extraSecret:
 {% endfor %}
 
 database:
-  url: "{{ keycloak_database_url }}"
   username: "{{ keycloak_database_username }}"
   password: "{{ keycloak_database_password }}"
+  host: "{{ keycloak_database_host }}"
+  port: "{{ keycloak_database_port }}"
+  name: "{{ keycloak_database_name }}"
+  type: "{{ keycloak_database_type }}"
 
 realm:
   filepath: "{{ keycloak_realm_filepath }}"

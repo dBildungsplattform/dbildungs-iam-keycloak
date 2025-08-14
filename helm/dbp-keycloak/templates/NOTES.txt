@@ -1,3 +1,8 @@
 If you use Secrets or ConfigMaps not managed by the Helm Chart and these are changed, the pods managed by the Chart's deployment will not be restarted automatically.
 A manual restart is required to have the pods use the new version.
-External secrets or ConfigMaps are used by this Helm deployment: {{ ternary "yes" "no" (or .Values.auth.existingSecret (or .Values.extraConfig.external .Values.extraSecret.external)) }}
+
+{{ if (or (or .Values.auth.existingSecret .Values.extraConfig.external) .Values.extraSecret.external) }}
+External secrets or ConfigMaps are used by this Helm deployment!
+{{ else }}
+No external secrets or ConfigMaps are used by this Helm deployment!
+{{ end }}

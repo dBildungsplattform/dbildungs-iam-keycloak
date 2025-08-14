@@ -52,9 +52,15 @@ extraSecret:
   external: []
 
 database:
-  url: "jdbc:postgresql://db:5432/keycloak"
+  # type is the type of database to use.
+  # Allowed values are: dev-file (default), dev-mem, mariadb, mssql, mysql, oracle, postgres
+  type: "postgres"
+  host: ""
+  port: "5432"
+  name: "keycloak"
   username: "keycloak"
   password: ""
+
 
 # importRealms is used to import realms on startup.
 # It will set "--import-realm" as arg to enable realm import on startup.

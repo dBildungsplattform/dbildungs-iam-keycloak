@@ -27,5 +27,5 @@ jobs:
       chart_path: "./helm"
       helm_chart_version_generation: specified
       image_tag_generation: specified
-      helm_chart_version: "0.0.6-${{ github.ref_name }}"
+      helm_chart_version: "0.0.7-${{ github.ref_name }}"
       image_tag: ${{ github.ref_name }}
