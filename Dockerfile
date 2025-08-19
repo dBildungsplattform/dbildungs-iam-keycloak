@@ -19,7 +19,7 @@ ENV KC_HEALTH_ENABLED=true \
 RUN /opt/keycloak/bin/kc.sh build
 
 # Development Run Stage
-FROM build as development
+FROM build AS development
 
 # Set work directory
 WORKDIR /opt/keycloak
@@ -51,7 +51,7 @@ ENV KC_HEALTH_ENABLED=true \
 RUN /opt/keycloak/bin/kc.sh build
 
 # Deployment Run Stage
-FROM deployment-build as deployment
+FROM deployment-build AS deployment
 
 # Set work directory
 WORKDIR /opt/keycloak
