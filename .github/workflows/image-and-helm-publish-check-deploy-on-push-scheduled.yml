@@ -58,7 +58,7 @@ jobs:
   codeql_analyze:
     name: "CodeQL"
     if: ${{ github.event_name == 'push' }}
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-codeql.yaml@5
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-codeql.yaml@7
     permissions:
       actions: read
       contents: read
@@ -88,7 +88,7 @@ jobs:
 
   scan_helm:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@5
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@7
     permissions:
       contents: read
 
