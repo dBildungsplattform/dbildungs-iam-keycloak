@@ -1,0 +1,3 @@
+# extends/overrides env file from base
+
+KC_FEATURES_DISABLED="impersonation,ciba,par,web-authn"

@@ -2,8 +2,11 @@ services:
   keycloak:
     build:
       context: .
+      args:
+        KEYCLOAK_VERSION: ${KEYCLOAK_VERSION:-26.2.5}
+        KEYCLOAK_VARIANT: ${KEYCLOAK_VARIANT:-generic}
     ports:
-      - 10079:8443
+      - ${KEYCLOAK_PORT:-10079}:8443
     environment:
       KC_DB_URL: jdbc:postgresql://db:5432/keycloak
       KC_DB_USERNAME: keycloak

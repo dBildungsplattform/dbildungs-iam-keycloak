@@ -11,6 +11,8 @@ FROM base AS build
 ARG KEYCLOAK_VERSION="26.2.5"
 ARG KEYCLOAK_VARIANT="generic"
 
+RUN echo "Building variant $KEYCLOAK_VARIANT"
+
 RUN apt-get update && apt-get install -y --no-install-recommends curl tar
 
 RUN mkdir /tmp/keycloak && \
@@ -26,8 +28,9 @@ RUN mkdir /tmp/keycloak && \
     mv /tmp/keycloak/keycloak-* /opt/keycloak && \
     mkdir -p /opt/keycloak/data && \
     mkdir -p /opt/keycloak/themes && \
+    mkdir -p /opt/keycloak/providers && \
     chmod -R g+rwX /opt/keycloak
-  
+
 # load files and env vars for base and the selected variant
 COPY ./variants/base/files/ /opt/keycloak/
 COPY ./variants/${KEYCLOAK_VARIANT}/files/ /opt/keycloak/
@@ -35,7 +38,7 @@ COPY ./variants/base/env /tmp/env-base
 COPY ./variants/${KEYCLOAK_VARIANT}/env /tmp/env-variant
 
 # remove unused .gitkeep files
-RUN rm -f /opt/keycloak/.gitkeep 
+RUN rm -f /opt/keycloak/.gitkeep
 
 # generate ssl cert for dev
 WORKDIR /opt/keycloak/
@@ -50,7 +53,7 @@ RUN set -o allexport && \
     /opt/keycloak/bin/kc.sh build && \
     /opt/keycloak/bin/kc.sh show-config
 
-
+RUN echo "Built variant $KEYCLOAK_VARIANT"
 # build final image
 FROM base AS final
 

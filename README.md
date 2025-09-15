@@ -6,11 +6,11 @@ This repository provides a container image for running Keycloak. The container i
 
 ### Build Arguments
 
-* **`KEYCLOAK_VERSION`**: Version of Keycloak to be downloaded and installed. Default is `26.2.5`.  
+* **`KEYCLOAK_VERSION`**: Version of Keycloak to be downloaded and installed. Default is `26.2.5`.
   * Example: `--build-arg KEYCLOAK_VERSION=27.0.0`
 
 * **`KEYCLOAK_VARIANT`**: Defines the variant of Keycloak to be used. This refers to a subdirectory in `variants/` which contains an env file and supports adding more files (like themes) to keycloak.
-  * `generic` (default): A general-purpose variant suitable for most use cases.  
+  * `generic` (default): A general-purpose variant suitable for most use cases.
   * Example: `--build-arg KEYCLOAK_VARIANT=custom`
 
 More basic Keycloak configurations can be found at `variants/base/env`.
@@ -30,6 +30,10 @@ Custom files are loaded from
 * `variants/<KEYCLOAK_VARIANT>/files`: Variant-specific files
 
 The files are copied to `/opt/keycloak`.
+
+> [!TIP]
+> This feature is used to deploy themes.
+> To deploy a theme copy the uncompressed directory to `variants/<KEYCLOAK_VARIANT>/files/themes/<THEME_NAME>`.
 
 ## Usage
 

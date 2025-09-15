@@ -22,7 +22,7 @@ jobs:
       contents: read
     strategy:
       matrix:
-        variant: ['generic', 'erwin']
+        variant: ['generic', 'erwin', 'enrichment']
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
