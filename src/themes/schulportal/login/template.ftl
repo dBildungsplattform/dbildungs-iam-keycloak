@@ -163,10 +163,10 @@
                         </#if>           
                         <#if customMessage??>
                             <!-- Verwende die angepasste Nachricht -->
-                            <span class="${properties.kcAlertTitleClass!}">${customMessage}</span>
+                            <span data-testid="login-error-message" class="${properties.kcAlertTitleClass!}">${customMessage}</span>
                         <#else>
                             <!-- Fallback auf die ursprüngliche Nachricht -->
-                            <span class="${properties.kcAlertTitleClass!}">${kcSanitize(message.summary)?no_esc}</span>
+                            <span data-testid="login-error-message" class="${properties.kcAlertTitleClass!}">${kcSanitize(message.summary)?no_esc}</span>
                         </#if>
                     </div>
                 </#if>
