@@ -1,0 +1,163 @@
+name: Dev Build and Release
+
+on:
+  push:
+    branches-ignore:
+      - 'release'
+
+jobs:
+  branch_meta:
+    runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.extract_branch_meta.outputs.branch }}
+      sha: ${{ steps.extract_branch_meta.outputs.sha }}
+    steps:
+      - name: Extract branch meta
+        shell: bash
+        id: extract_branch_meta
+        env:
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BRANCH_REF_NAME: ${{ github.ref_name}}
+          BRANCH_SHA: ${{ github.sha }}
+        run: |
+          if [ "${{ github.event_name }}" == 'pull_request' ]; then
+            echo "branch=$PR_HEAD_REF" >> $GITHUB_OUTPUT
+            echo "sha=$PR_HEAD_SHA" >> $GITHUB_OUTPUT
+          else
+            echo "branch=$BRANCH_REF_NAME" >> $GITHUB_OUTPUT
+            echo "sha=$BRANCH_SHA" >> $GITHUB_OUTPUT
+          fi
+          
+  lower_generic_repo:
+    name: lower repo name
+    runs-on: ubuntu-latest
+    outputs:
+      image_repo: ${{ steps.lower-repo.outputs.repository }}
+    permissions:
+      contents: read
+    steps:          
+      - id: lower-repo
+        name: Repository to lowercase
+        run: |
+          repo_var=${{ github.repository }}-generic
+          echo "repository=${repo_var@L}" >> $GITHUB_OUTPUT
+  
+  build_and_upload_image:
+    name: Publish image
+    runs-on: ubuntu-latest
+    needs:
+      - branch_meta
+    outputs:
+      image_tag: ${{ steps.docker_meta_img_trivy.outputs.tags }}
+    permissions:
+      packages: write
+      contents: read
+      actions: read
+      security-events: write
+    strategy:
+      matrix:
+        variant: ['generic', 'erwin', 'enrichment']
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - id: lower-repo
+        name: Repository to lowercase
+        run: |
+          repo_var=${{ github.repository }}-${{ matrix.variant }}
+          echo "repository=${repo_var@L}" >> $GITHUB_OUTPUT
+
+      - name: Build image name and tags
+        id: docker_meta_img
+        uses: docker/metadata-action@v5
+        with:
+          context: git
+          images: |
+            name=ghcr.io/${{ github.repository }}-${{ matrix.variant }}
+          tags: |
+            type=ref,event=branch,priority=601
+            type=sha,format=long,priority=600,prefix=
+
+      - name: Log into ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image to ghcr
+        id: docker_build_push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.docker_meta_img.outputs.tags }}
+          labels: ${{ steps.docker_meta_img.outputs.labels }}
+          build-args: |
+            KEYCLOAK_VARIANT=${{ matrix.variant }}
+      
+      - name: run trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.29.0
+        with:
+          image-ref: ghcr.io/${{ steps.lower-repo.outputs.repository }}:${{ needs.branch_meta.outputs.sha }}
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH"
+          ignore-unfixed: true
+          scan-type: 'image'
+        env:
+          TRIVY_SKIP_DB_UPDATE: false
+          TRIVY_SKIP_JAVA_DB_UPDATE: false
+      - name: upload trivy results
+        if: ${{ always() }}
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: "trivy-results.sarif"
+
+  scan:
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@5
+    permissions:
+      contents: read
+  helm_release_sha:
+
+    concurrency:
+      group: helm_release
+
+      cancel-in-progress: false
+    needs: 
+      - scan
+      - lower_generic_repo
+      - branch_meta
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
+    secrets: inherit
+    with:
+      chart_name: "dbp-keycloak"
+      chart_path: "./helm"
+      helm_chart_version_generation: specified
+      image_tag_generation: specified
+      helm_chart_version: "0.0.1-${{ needs.branch_meta.outputs.sha }}"
+      image_tag: ghcr.io/${{ needs.lower_generic_repo.outputs.image_repo }}:${{ needs.branch_meta.outputs.sha }}
+
+  helm_release_branch:
+
+    concurrency:
+      group: helm_release
+
+      cancel-in-progress: false
+    needs: 
+      - scan
+      - lower_generic_repo
+      - branch_meta
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
+    secrets: inherit
+    with:
+      chart_name: "dbp-keycloak"
+      chart_path: "./helm"
+      helm_chart_version_generation: specified
+      image_tag_generation: specified
+      helm_chart_version: "0.0.1-${{ needs.branch_meta.outputs.branch }}"
+      image_tag: ghcr.io/${{ needs.lower_generic_repo.outputs.image_repo }}:${{ needs.branch_meta.outputs.branch }}
