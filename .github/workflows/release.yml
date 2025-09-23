@@ -53,20 +53,6 @@ jobs:
         run: |
          tag=$(git describe --tags)
          echo "tag=$tag" >> $GITHUB_OUTPUT
-  
-  lower_generic_repo:
-    name: lower repo name
-    runs-on: ubuntu-latest
-    outputs:
-      image_repo: ${{ steps.lower-repo.outputs.repository }}
-    permissions:
-      contents: read
-    steps:          
-      - id: lower-repo
-        name: Repository to lowercase
-        run: |
-          repo_var=${{ github.repository }}-generic
-          echo "repository=${repo_var@L}" >> $GITHUB_OUTPUT
 
   build_and_upload_image:
     name: Publish image
@@ -157,7 +143,6 @@ jobs:
      - scan_helm
      - build_and_upload_image
      - get_tag
-     - lower_generic_repo
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
     secrets: inherit
     with:
@@ -166,4 +151,4 @@ jobs:
       helm_chart_version_generation: specified 
       image_tag_generation: specified 
       helm_chart_version: ${{ needs.get_tag.outputs.tag }}
-      image_tag: ghcr.io/${{ needs.lower_generic_repo.outputs.image_repo }}:${{ needs.get_tag.outputs.tag }}
+      image_tag: ${{ needs.get_tag.outputs.tag }}
