@@ -28,20 +28,6 @@ jobs:
             echo "branch=$BRANCH_REF_NAME" >> $GITHUB_OUTPUT
             echo "sha=$BRANCH_SHA" >> $GITHUB_OUTPUT
           fi
-          
-  lower_generic_repo:
-    name: lower repo name
-    runs-on: ubuntu-latest
-    outputs:
-      image_repo: ${{ steps.lower-repo.outputs.repository }}
-    permissions:
-      contents: read
-    steps:          
-      - id: lower-repo
-        name: Repository to lowercase
-        run: |
-          repo_var=${{ github.repository }}-generic
-          echo "repository=${repo_var@L}" >> $GITHUB_OUTPUT
   
   build_and_upload_image:
     name: Publish image
@@ -126,11 +112,9 @@ jobs:
 
     concurrency:
       group: helm_release
-
       cancel-in-progress: false
     needs: 
       - scan
-      - lower_generic_repo
       - branch_meta
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
     secrets: inherit
@@ -140,17 +124,14 @@ jobs:
       helm_chart_version_generation: specified
       image_tag_generation: specified
       helm_chart_version: "0.0.1-${{ needs.branch_meta.outputs.sha }}"
-      image_tag: ghcr.io/${{ needs.lower_generic_repo.outputs.image_repo }}:${{ needs.branch_meta.outputs.sha }}
+      image_tag: ${{ needs.branch_meta.outputs.sha }}
 
   helm_release_branch:
-
     concurrency:
       group: helm_release
-
       cancel-in-progress: false
     needs: 
       - scan
-      - lower_generic_repo
       - branch_meta
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
     secrets: inherit
@@ -160,4 +141,4 @@ jobs:
       helm_chart_version_generation: specified
       image_tag_generation: specified
       helm_chart_version: "0.0.1-${{ needs.branch_meta.outputs.branch }}"
-      image_tag: ghcr.io/${{ needs.lower_generic_repo.outputs.image_repo }}:${{ needs.branch_meta.outputs.branch }}
+      image_tag: ${{ needs.branch_meta.outputs.branch }}
