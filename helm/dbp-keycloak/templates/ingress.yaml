@@ -26,6 +26,15 @@ spec:
     - host: "{{ . }}"
       http:
         paths:
+          {{- if .Values.ingress.authOnly }}
+          - path: "/auth"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "{{ include "common.names.fullname" $ }}"
+                port:
+                  name: "http"
+          {{- else }}
           - path: "/"
             pathType: "Prefix"
             backend:
@@ -33,4 +42,5 @@ spec:
                 name: "{{ include "common.names.fullname" $ }}"
                 port:
                   name: "http"
+          {{- end }}
 {{- end }}

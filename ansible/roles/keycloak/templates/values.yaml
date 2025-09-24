@@ -123,6 +123,7 @@ ingress:
 {% for key, value in keycloak_ingress_annotations.items() %}
     {{ key }}: "{{ value }}"
 {% endfor %}
+  authOnly: {{ keycloak_ingress_auth_only }}
 
 serviceAccount:
   create: {{ keycloak_service_account_create }}
