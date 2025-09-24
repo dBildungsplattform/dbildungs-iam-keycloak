@@ -120,7 +120,7 @@ ingress:
     enabled: {{ keycloak_ingress_tls_enabled }}
     secretName: "{{ keycloak_ingress_tls_secret_name }}"
   path:
-    authOnly: {{ keycloak_ingress_path_auth_only }}
+    authOnly: "{{ keycloak_ingress_path_auth_only }}"
   annotations:
 {% for key, value in keycloak_ingress_annotations.items() %}
     {{ key }}: "{{ value }}"
