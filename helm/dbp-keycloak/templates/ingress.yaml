@@ -22,11 +22,11 @@ spec:
   {{- end }}
   ingressClassName: "{{ $.Values.ingress.ingressClassName }}"
   rules:
-{{- range .Values.keycloak.hostnames }}
-    - host: "{{ . }}"
+{{- range .Values.keycloak.hosts }}
+    - host: "{{ .name }}"
       http:
         paths:
-          {{- if $.Values.ingress.path.authOnly }}
+          {{- if .authOnly }}
           - path: "/auth"
             pathType: "Prefix"
             backend:
