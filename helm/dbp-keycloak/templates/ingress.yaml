@@ -26,7 +26,7 @@ spec:
     - host: "{{ . }}"
       http:
         paths:
-          {{- if .Values.ingress.authOnly }}
+          {{- if .Values.ingress.path.authOnly }}
           - path: "/auth"
             pathType: "Prefix"
             backend:
