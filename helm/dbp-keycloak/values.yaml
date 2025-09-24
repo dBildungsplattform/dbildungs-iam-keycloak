@@ -71,7 +71,7 @@ realm:
   filepath: ""
 
 keycloak:
-  hostnames: []
+  hosts: []
   hostnameBackchannelDynamic: true
   serviceMonitor:
     enabled: true
