@@ -67,8 +67,8 @@ keycloak_hostname_backchannel_dynamic: true
 keycloak_ingress_class_name: "nginx"
 keycloak_ingress_tls_enabled: false
 keycloak_ingress_tls_secret_name: ""
-keycloak_ingress_annotations: {}
 keycloak_ingress_path_auth_only: false
+keycloak_ingress_annotations: {}
 
 keycloak_service_monitor_enabled: true
 keycloak_service_monitor_path: "/metrics"
