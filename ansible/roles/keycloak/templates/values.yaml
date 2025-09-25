@@ -1,3 +1,4 @@
+#jinja2: trim_blocks:True, lstrip_blocks:True
 replicaCount: {{ keycloak_replica_count }}
 image:
   repository: "{{ keycloak_image_repository }}"
@@ -72,9 +73,14 @@ realm:
   filepath: "{{ keycloak_realm_filepath }}"
 
 keycloak:
-  hostnames:
-{% for hostname in keycloak_hostnames %}
-    - "{{ hostname }}"
+  hosts:
+{% for value  in keycloak_hosts %}
+    - name: "{{ value.name }}"
+  {% if value.auth_only is defined %}
+      authOnly: {{ value.auth_only }}
+  {% else %}
+      authOnly: {{ keycloak_ingress_path_auth_only }}
+  {% endif %}
 {% endfor %}
   frontendHostname: "{{ keycloak_frontend_hostname }}"
   hostnameBackchannelDynamic: {{ keycloak_hostname_backchannel_dynamic }}
@@ -119,6 +125,8 @@ ingress:
   tls:
     enabled: {{ keycloak_ingress_tls_enabled }}
     secretName: "{{ keycloak_ingress_tls_secret_name }}"
+  path:
+    authOnly: {{ keycloak_ingress_path_auth_only }}
   annotations:
 {% for key, value in keycloak_ingress_annotations.items() %}
     {{ key }}: "{{ value }}"

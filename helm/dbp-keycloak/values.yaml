@@ -71,7 +71,7 @@ realm:
   filepath: ""
 
 keycloak:
-  hostnames: []
+  hosts: []
   hostnameBackchannelDynamic: true
   serviceMonitor:
     enabled: true
@@ -87,6 +87,8 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
     nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
+  path:
+    authOnly: false
 
 containerSecurityContext:
   enabled: true

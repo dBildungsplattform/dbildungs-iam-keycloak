@@ -6,8 +6,9 @@ metadata:
   labels:
     {{- include "common.labels" . | nindent 4 }}
 data:
-  KC_HOSTNAME: "https://{{ .Values.keycloak.hostnames | first }}"
-  KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "{{ .Values.keycloak.hostnameBackchannelDynamic }}"
+{{- with (first .Values.keycloak.hosts) }}
+  KC_HOSTNAME: "https://{{ .name }}"
+{{- end }}
   KC_ROOT_URL: "https://{{ .Values.keycloak.frontendHostname }}"
   KC_PROXY_HEADERS: "xforwarded"
   KC_HTTP_ENABLED: "{{ .Values.service.http.enabled }}"

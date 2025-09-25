@@ -13,8 +13,8 @@ spec:
   {{- if .Values.ingress.tls.enabled }}
   tls:
     - hosts:
-    {{- range $.Values.keycloak.hostnames }}
-        - "{{ . }}"
+    {{- range .Values.keycloak.hosts }}
+        - "{{ .name }}"
     {{- end }}
       {{- if .Values.ingress.tls.secretName }}
       secretName: "{{ .Values.ingress.tls.secretName }}"
@@ -22,10 +22,19 @@ spec:
   {{- end }}
   ingressClassName: "{{ $.Values.ingress.ingressClassName }}"
   rules:
-{{- range .Values.keycloak.hostnames }}
-    - host: "{{ . }}"
+{{- range .Values.keycloak.hosts }}
+    - host: "{{ .name }}"
       http:
         paths:
+          {{- if .authOnly }}
+          - path: "/auth"
+            pathType: "Prefix"
+            backend:
+              service:
+                name: "{{ include "common.names.fullname" $ }}"
+                port:
+                  name: "http"
+          {{- else }}
           - path: "/"
             pathType: "Prefix"
             backend:
@@ -33,4 +42,5 @@ spec:
                 name: "{{ include "common.names.fullname" $ }}"
                 port:
                   name: "http"
+          {{- end }}
 {{- end }}
