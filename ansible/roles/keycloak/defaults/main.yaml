@@ -64,9 +64,18 @@ keycloak_realm_filepath: ""
 # keycloak_hosts:
 #   - name: "kc.example.com"
 #     auth_only: true
+#     protocol: https
 keycloak_hosts: []
+keycloak_host_protocol: "https"
 keycloak_frontend_hostname: ""
+keycloak_frontend_protocol: "https"
+keycloak_frontend_enabled: true
 keycloak_hostname_backchannel_dynamic: true
+keycloak_hostname_strict: true
+keycloak_hostname_strict_https: true
+keycloak_hostname_enabled: true
+# For keycloak_http_relative_path example:
+# keycloak_http_relative_path: "/auth"
 
 keycloak_ingress_class_name: "nginx"
 keycloak_ingress_tls_enabled: false
@@ -86,18 +95,21 @@ keycloak_resources_limits_memory: "1Gi"
 keycloak_thread_pool: 16
 
 keycloak_startup_probe_enabled: true
+keycloak_startup_probe_http_get_path: "/health/started"
 keycloak_startup_probe_period_seconds: 5
 keycloak_startup_probe_timeout_seconds: 1
 keycloak_startup_probe_failure_threshold: 60
 keycloak_startup_probe_success_threshold: 1
 
 keycloak_liveness_probe_enabled: true
+keycloak_liveness_probe_http_get_path: "/health/live"
 keycloak_liveness_probe_period_seconds: 5
 keycloak_liveness_probe_timeout_seconds: 3
 keycloak_liveness_probe_failure_threshold: 6
 keycloak_liveness_probe_success_threshold: 1
 
 keycloak_readiness_probe_enabled: true
+keycloak_readiness_probe_http_get_path: "/health/ready"
 keycloak_readiness_probe_period_seconds: 5
 keycloak_readiness_probe_timeout_seconds: 1
 keycloak_readiness_probe_failure_threshold: 3

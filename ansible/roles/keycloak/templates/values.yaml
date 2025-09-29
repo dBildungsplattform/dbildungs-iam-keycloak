@@ -81,13 +81,25 @@ keycloak:
   {% else %}
       authOnly: {{ keycloak_ingress_path_auth_only }}
   {% endif %}
+      protocol: {{ value.protocol | default(keycloak_host_protocol) }}
 {% endfor %}
+  hostname:
+    strict: {{ keycloak_hostname_strict }}
+    strictHTTPS: {{ keycloak_hostname_strict_https }}
+    enabled: {{ keycloak_hostname_enabled }}
+{% if keycloak_frontend_enabled %}
   frontendHostname: "{{ keycloak_frontend_hostname }}"
+  frontendProtocol: "{{ keycloak_frontend_protocol }}"
+{% endif %}
+  frontendEnabled: {{ keycloak_frontend_enabled }}
   hostnameBackchannelDynamic: {{ keycloak_hostname_backchannel_dynamic }}
   serviceMonitor:
     enabled: {{ keycloak_service_monitor_enabled }}
     path: "{{ keycloak_service_monitor_path }}"
     port: "{{ keycloak_service_monitor_port }}"
+{% if keycloak_http_relative_path is defined %}
+  httpRelativePath: "{{ keycloak_http_relative_path }}"
+{% endif %}
 
 resources:
   limits:
@@ -101,6 +113,8 @@ threadPool: {{ keycloak_thread_pool }}
 
 startupProbe:
   enabled: {{ keycloak_startup_probe_enabled }}
+  httpGet:
+    path: "{{ keycloak_startup_probe_http_get_path }}"
   periodSeconds: {{ keycloak_startup_probe_period_seconds }}
   timeoutSeconds: {{ keycloak_startup_probe_timeout_seconds }}
   failureThreshold: {{ keycloak_startup_probe_failure_threshold }}
@@ -108,6 +122,8 @@ startupProbe:
 
 livenessProbe:
   enabled: {{ keycloak_liveness_probe_enabled }}
+  httpGet:
+    path: "{{ keycloak_liveness_probe_http_get_path }}"
   periodSeconds: {{ keycloak_liveness_probe_period_seconds }}
   timeoutSeconds: {{ keycloak_liveness_probe_timeout_seconds }}
   failureThreshold: {{ keycloak_liveness_probe_failure_threshold }}
@@ -115,6 +131,8 @@ livenessProbe:
 
 readinessProbe:
   enabled: {{ keycloak_readiness_probe_enabled }}
+  httpGet:
+    path: "{{ keycloak_readiness_probe_http_get_path }}"
   periodSeconds: {{ keycloak_readiness_probe_period_seconds }}
   timeoutSeconds: {{ keycloak_readiness_probe_timeout_seconds }}
   failureThreshold: {{ keycloak_readiness_probe_failure_threshold }}
