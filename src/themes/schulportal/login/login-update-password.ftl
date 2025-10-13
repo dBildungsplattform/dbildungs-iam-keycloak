@@ -5,7 +5,7 @@
         <span data-testid="update-password-title">${msg("updatePasswordTitle")}</span>
     <#elseif section = "form">
         <div>
-            <p class="password-update-prompt">${msg("passwordUpdatePrompt")}</p>
+            <p class="password-update-prompt" data-testid="password-update-prompt">${msg("passwordUpdatePrompt")}</p>
         </div>
         <div class="password-requirements">
             <p class="password-requirement">${msg("passwordRequirementsTitle")}</p>

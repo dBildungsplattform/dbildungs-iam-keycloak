@@ -106,14 +106,14 @@
                             <div class="col-md-10">
                                 <#nested "show-username">
                                 <div id="kc-username" class="${properties.kcFormGroupClass!}">
-                                    <label id="kc-attempted-username">${auth.attemptedUsername}</label>                                    
+                                    <label id="kc-attempted-username" data-testid="attempted-username">${auth.attemptedUsername}</label>                                    
                                 </div>
                             </div>
                         </div>
                     <#else>
                         <#nested "show-username">
                         <div id="kc-username" class="${properties.kcFormGroupClass!}">
-                            <label id="kc-attempted-username">${auth.attemptedUsername}</label>                            
+                            <label id="kc-attempted-username" data-testid="attempted-username">${auth.attemptedUsername}</label>                            
                         </div>
                     </#if>
                 </#if>
