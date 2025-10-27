@@ -134,6 +134,16 @@ spec:
                 secretKeyRef:
                   name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
                   key: keycloak-ox-clientSecret
+            - name: VIDIS_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-vidis-clientSecret
+            - name: VIDIS_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default .Values.auth.existingSecret .Values.auth.secretName }}
+                  key: keycloak-vidis-clientId
             - name: KC_NEXTCLOUD_CLIENT_ID
               valueFrom:
                 secretKeyRef:
