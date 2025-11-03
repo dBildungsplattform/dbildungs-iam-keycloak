@@ -16,16 +16,21 @@ RUN echo "Building variant $KEYCLOAK_VARIANT"
 RUN apt-get update && apt-get install -y --no-install-recommends curl tar
 
 RUN mkdir /tmp/keycloak && \
-      curl \
-      --location \
-      --fail \
-      --request GET \
-      https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/keycloak-${KEYCLOAK_VERSION}.tar.gz \
-      --output /tmp/keycloak/keycloak-${KEYCLOAK_VERSION}.tar.gz && \
+    curl --location --fail \
+    --request GET \
+    https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/keycloak-${KEYCLOAK_VERSION}.tar.gz \
+    --output /tmp/keycloak/keycloak-${KEYCLOAK_VERSION}.tar.gz && \
+    curl --location --fail \
+    --request GET \
+    https://github.com/keycloak/keycloak/releases/download/${KEYCLOAK_VERSION}/keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1 \
+    --output /tmp/keycloak/keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1 && \
     cd /tmp/keycloak && \
-    tar -xvf /tmp/keycloak/keycloak-*.tar.gz && \
-    rm /tmp/keycloak/keycloak-*.tar.gz && \
-    mv /tmp/keycloak/keycloak-* /opt/keycloak && \
+    # Format the .sha1 file for sha1sum -c
+    echo "$(cat keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1)  keycloak-${KEYCLOAK_VERSION}.tar.gz" > keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1 && \
+    sha1sum -c keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1 && \
+    tar -xvf keycloak-${KEYCLOAK_VERSION}.tar.gz && \
+    rm keycloak-${KEYCLOAK_VERSION}.tar.gz keycloak-${KEYCLOAK_VERSION}.tar.gz.sha1 && \
+    mv keycloak-* /opt/keycloak && \
     mkdir -p /opt/keycloak/data && \
     mkdir -p /opt/keycloak/themes && \
     mkdir -p /opt/keycloak/providers && \
