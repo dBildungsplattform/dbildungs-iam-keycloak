@@ -1,14 +1,14 @@
-FROM debian:12-slim AS base
+FROM debian:13-slim AS base
 
 # prepare base, as both build and final layer need java
 RUN apt-get update && \
-  apt-get install -y --no-install-recommends openjdk-17-jre-headless && \
+  apt-get install -y --no-install-recommends openjdk-21-jre-headless && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
 FROM base AS build
 
-ARG KEYCLOAK_VERSION="26.2.5"
+ARG KEYCLOAK_VERSION="26.4.2"
 ARG KEYCLOAK_VARIANT="generic"
 
 RUN echo "Building variant $KEYCLOAK_VARIANT"
@@ -59,6 +59,8 @@ RUN set -o allexport && \
     /opt/keycloak/bin/kc.sh show-config
 
 RUN echo "Built variant $KEYCLOAK_VARIANT"
+
+
 # build final image
 FROM base AS final
 
