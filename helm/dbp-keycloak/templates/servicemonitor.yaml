@@ -6,9 +6,6 @@ metadata:
   namespace: {{ include "common.names.namespace" . }}
   labels:
     {{- include "common.labels" . | nindent 4 }}
-    # This label is used to determine if a service is headless or not.
-    # If not set to "false", the service will not be monitored.
-    service.kubernetes.io/headless: "false"
 spec:
   namespaceSelector:
     matchNames:

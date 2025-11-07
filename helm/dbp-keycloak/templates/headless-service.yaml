@@ -5,22 +5,8 @@ metadata:
   namespace: {{ include "common.names.namespace" . }}
   labels:
     {{- include "common.labels" . | nindent 4 }}
-    # This label is used by the service monitor to determine if the service is headless or not.
-    # If not set to "false", the service monitor will ignore the service.
-    service.kubernetes.io/headless: "true"
-
 spec:
   selector:
     {{- include "common.selectorLabels" . | nindent 4 }}
   type: "ClusterIP"
   clusterIP: "None"
-  ports:
-    {{- if .Values.service.http.enabled }}
-    - name: http
-      port: 80
-      targetPort: web
-    {{- end }}
-    - port: 8090
-      targetPort: 8090
-      protocol: TCP
-      name: mgmt
