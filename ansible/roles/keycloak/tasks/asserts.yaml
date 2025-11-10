@@ -1,0 +1,103 @@
+- name: "Assert that mandatory parameters are defined and have the correct type"
+  ignore_errors: false
+  ansible.builtin.assert:
+    quiet: true
+    that:
+       # String values (must be string, if default is "", must not be empty)
+      - "keycloak_state in ['present', 'absent']"
+      - "keycloak_chart_repo_name is string"
+      - "keycloak_chart_repo_url is string"
+      - "keycloak_chart_ref is string"
+      - "keycloak_chart_version is string"
+      - "keycloak_release_name is string"
+      - "keycloak_realm_filepath is string"
+      - "keycloak_image_repository is string"
+      - "keycloak_image_tag is string"
+      - "keycloak_image_pull_policy in ['Always', 'IfNotPresent', 'Never']"
+      - "keycloak_pod_disruption_budget_min_available is string"
+      - "keycloak_database_type is string"
+      - "keycloak_database_port is string"
+      - "keycloak_database_name is string"
+      - "keycloak_database_username is string"
+      - "keycloak_hostname_admin is string"
+      - "keycloak_ingress_class_name is string"
+      - "keycloak_service_monitor_path is string"
+      - "keycloak_service_monitor_port is string"
+      - "keycloak_resources_requests_cpu is string"
+      - "keycloak_resources_requests_memory is string"
+      - "keycloak_resources_limits_cpu is string"
+      - "keycloak_resources_limits_memory is string"
+      - "keycloak_startup_probe_http_get_path is string"
+      - "keycloak_liveness_probe_http_get_path is string"
+      - "keycloak_readiness_probe_http_get_path is string"
+      - "keycloak_ingress_tls_secret_name is string"
+      - "keycloak_http_relative_path is string"
+
+      # List values
+      - "keycloak_image_pull_secrets is iterable"
+      - "keycloak_command is iterable"
+      - "keycloak_extra_args is iterable"
+      - "keycloak_extra_volumes is iterable"
+      - "keycloak_extra_volume_mounts is iterable"
+      - "keycloak_extra_config_external is iterable"
+      - "keycloak_extra_secret_external is iterable"
+
+      # Boolean values
+      - "keycloak_create_namespace is boolean"
+      - "keycloak_autoscaling_enabled is boolean"
+      - "keycloak_pod_disruption_budget_enabled is boolean"
+      - "keycloak_import_realms is boolean"
+      - "keycloak_hostname_strict is boolean"
+      - "keycloak_hostname_backchannel_dynamic is boolean"
+      - "keycloak_ingress_tls_enabled is boolean"
+      - "keycloak_service_monitor_enabled is boolean"
+      - "keycloak_startup_probe_enabled is boolean"
+      - "keycloak_liveness_probe_enabled is boolean"
+      - "keycloak_readiness_probe_enabled is boolean"
+      - "keycloak_service_account_create is boolean"
+      - "keycloak_service_account_automount_token is boolean"
+
+      # Integer values
+      - "keycloak_replica_count is integer"
+      - "keycloak_autoscaling_min_replicas is integer"
+      - "keycloak_autoscaling_max_replicas is integer"
+      - "keycloak_autoscaling_target_cpu_utilization_percentage is integer"
+      - "keycloak_thread_pool is integer"
+      - "keycloak_startup_probe_period_seconds is integer"
+      - "keycloak_startup_probe_timeout_seconds is integer"
+      - "keycloak_startup_probe_failure_threshold is integer"
+      - "keycloak_startup_probe_success_threshold is integer"
+      - "keycloak_liveness_probe_period_seconds is integer"
+      - "keycloak_liveness_probe_timeout_seconds is integer"
+      - "keycloak_liveness_probe_failure_threshold is integer"
+      - "keycloak_liveness_probe_success_threshold is integer"
+      - "keycloak_readiness_probe_period_seconds is integer"
+      - "keycloak_readiness_probe_timeout_seconds is integer"
+      - "keycloak_readiness_probe_failure_threshold is integer"
+      - "keycloak_readiness_probe_success_threshold is integer"
+
+      # Dict values
+      - "keycloak_extra_config_data is mapping"
+      - "keycloak_extra_secret_data is mapping"
+      - "keycloak_ingress_annotations is mapping"
+      - "keycloak_service_account_annotations is mapping"
+
+      # For variables with default "", check that they are set (not empty)
+      - "keycloak_namespace | length > 0"
+      - "keycloak_hostname | length > 0"
+      - "not keycloak_ingress_tls_enabled or keycloak_ingress_tls_secret_name | length > 0"
+      - >
+        keycloak_auth_existing_secret | length > 0
+        or (keycloak_auth_secret_name is string
+        and keycloak_auth_admin_username | length > 0
+        and keycloak_auth_admin_password | length > 0
+        and keycloak_auth_rs256_private_key | length > 0
+        and keycloak_auth_rs256_certificate | length > 0
+        and keycloak_auth_admin_secret | length > 0
+        and keycloak_auth_client_secret | length > 0
+        and keycloak_auth_service_client_certificate | length > 0
+        and keycloak_database_username | length > 0
+        and keycloak_database_password | length > 0
+        and keycloak_database_host | length > 0
+        and keycloak_database_port | length > 0
+        and keycloak_database_name | length > 0)

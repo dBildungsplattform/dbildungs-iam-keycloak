@@ -10,7 +10,9 @@ image:
 {% endfor %}
 
 auth:
+{% if keycloak_auth_existing_secret | length > 0 %}
   existingSecret: "{{ keycloak_auth_existing_secret }}"
+{% else %}
   secretName: "{{ keycloak_auth_secret_name }}"
   adminUsername: "{{ keycloak_auth_admin_username }}"
   adminPassword: "{{ keycloak_auth_admin_password }}"
@@ -19,7 +21,7 @@ auth:
   keycloakAdminSecret: "{{ keycloak_auth_admin_secret }}"
   keycloakClientSecret: "{{ keycloak_auth_client_secret }}"
   keycloakServiceClientCertificate: "{{ keycloak_auth_service_client_certificate }}"
-
+{% endif %}
 importRealms: {{ keycloak_import_realms }}
 
 command:
@@ -38,68 +40,54 @@ extraVolumeMounts:
   {{ keycloak_extra_volume_mounts | to_nice_yaml | indent(2) | trim }}
 
 extraConfig:
+{% if keycloak_extra_config_name | length > 0 %}
   name: "{{ keycloak_extra_config_name }}"
-  create: {{ keycloak_extra_config_create }}
   data:
 {% for key, value in keycloak_extra_config_data.items() %}
     {{ key }}: "{{ value }}"
 {% endfor %}
+{% endif %}
   external:
 {% for item in keycloak_extra_config_external %}
     - "{{ item }}"
 {% endfor %}
 
 extraSecret:
+{% if keycloak_extra_secret_name | length > 0 %}
   name: "{{ keycloak_extra_secret_name }}"
-  create: {{ keycloak_extra_secret_create }}
   data:
 {% for key, value in keycloak_extra_secret_data.items() %}
     {{ key }}: "{{ value }}"
 {% endfor %}
+{% endif %}
   external:
 {% for item in keycloak_extra_secret_external %}
     - "{{ item }}"
 {% endfor %}
 
 database:
+{% if keycloak_auth_existing_secret | length == 0 %}
   username: "{{ keycloak_database_username }}"
   password: "{{ keycloak_database_password }}"
   host: "{{ keycloak_database_host }}"
   port: "{{ keycloak_database_port }}"
   name: "{{ keycloak_database_name }}"
+{% endif %}
   type: "{{ keycloak_database_type }}"
 
 realm:
   filepath: "{{ keycloak_realm_filepath }}"
 
 keycloak:
-  hosts:
-{% for value  in keycloak_hosts %}
-    - name: "{{ value.name }}"
-  {% if value.auth_only is defined %}
-      authOnly: {{ value.auth_only }}
-  {% else %}
-      authOnly: {{ keycloak_ingress_path_auth_only }}
-  {% endif %}
-      protocol: {{ value.protocol | default(keycloak_host_protocol) }}
-{% endfor %}
-  hostname:
-    strict: {{ keycloak_hostname_strict }}
-    strictHTTPS: {{ keycloak_hostname_strict_https }}
-    enabled: {{ keycloak_hostname_enabled }}
-{% if keycloak_frontend_enabled %}
-  frontendHostname: "{{ keycloak_frontend_hostname }}"
-  frontendProtocol: "{{ keycloak_frontend_protocol }}"
-{% endif %}
-  frontendEnabled: {{ keycloak_frontend_enabled }}
+  hostname: "{{ keycloak_hostname }}"
+  hostnameAdmin: "{{ keycloak_hostname_admin }}"
+  hostnameStrict: {{ keycloak_hostname_strict }}
   hostnameBackchannelDynamic: {{ keycloak_hostname_backchannel_dynamic }}
+  httpRelativePath: "{{ keycloak_http_relative_path }}"
   serviceMonitor:
     enabled: {{ keycloak_service_monitor_enabled }}
     path: "{{ keycloak_service_monitor_path }}"
     port: "{{ keycloak_service_monitor_port }}"
-{% if keycloak_http_relative_path is defined %}
-  httpRelativePath: "{{ keycloak_http_relative_path }}"
-{% endif %}
 
 resources:
   limits:
@@ -143,8 +131,6 @@ ingress:
   tls:
     enabled: {{ keycloak_ingress_tls_enabled }}
     secretName: "{{ keycloak_ingress_tls_secret_name }}"
-  path:
-    authOnly: {{ keycloak_ingress_path_auth_only }}
   annotations:
 {% for key, value in keycloak_ingress_annotations.items() %}
     {{ key }}: "{{ value }}"

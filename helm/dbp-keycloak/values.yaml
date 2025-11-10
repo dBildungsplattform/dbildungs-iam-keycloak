@@ -33,8 +33,6 @@ extraVolumeMounts: []
 extraConfig:
   # The name of the ConfigMap that will be created.
   name: ""
-  # If enabled, the ConfigMap will be created with the specified data.
-  create: false
   # The data to be added to the ConfigMap.
   data: {}
   # Add additional existing ConfigMaps. These will be active even if enabled is false.
@@ -44,8 +42,6 @@ extraConfig:
 extraSecret:
   # name of the Secret that will be created.
   name: ""
-  # create enables the Secret with the specified data and name.
-  create: false
   # data is a dict of environment variables to be added to the Secret.
   data: {}
   # external is a list of additional existing Secrets. These will be active even if enabled is false.
@@ -71,20 +67,23 @@ realm:
   filepath: ""
 
 keycloak:
-  hosts: []
-  hostname:
-    strict: true
-    strictHTTPS: true
-    enabled: true
+  hostname: ""
+  hostnameAdmin: "localhost:8080"
+  hostnameStrict: true
   hostnameBackchannelDynamic: true
+  httpRelativePath: ""
+  # see https://www.keycloak.org/server/reverseproxy#_exposed_path_recommendations
+  exposedPaths:
+    # This path is needed to work correctly, for example, for OIDC endpoints.
+    - "/realms"
+    # This path is needed to serve assets correctly. It may be served from a CDN instead of the Keycloak path.
+    - "/resources"
+    # This path is needed to resolve Authorization Server Metadata and other information via RFC8414.
+    - "/.well-known"
   serviceMonitor:
     enabled: true
     path: "/metrics"
     port: "mgmt"
-  frontendHostname: ""  
-  frontendProtocol: "https"
-  frontendEnabled: true
-  # httpRelativePath: "/auth"
 
 ingress:
   ingressClassName: nginx

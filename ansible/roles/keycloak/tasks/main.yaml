@@ -1,4 +1,7 @@
 ---
+- name: "Import asserts"
+  ansible.builtin.import_tasks: "asserts.yaml"
+
 - name: "Add chart repo: {{ keycloak_chart_repo_name }}"
   kubernetes.core.helm_repository:
     name: "{{ keycloak_chart_repo_name }}"

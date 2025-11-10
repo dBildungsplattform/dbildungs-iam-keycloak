@@ -28,7 +28,7 @@ jobs:
             echo "branch=$BRANCH_REF_NAME" >> $GITHUB_OUTPUT
             echo "sha=$BRANCH_SHA" >> $GITHUB_OUTPUT
           fi
-  
+
   build_and_upload_image:
     name: Publish image
     runs-on: ubuntu-latest
@@ -49,7 +49,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
+
       - id: lower-repo
         name: Repository to lowercase
         run: |
@@ -85,7 +85,7 @@ jobs:
           labels: ${{ steps.docker_meta_img.outputs.labels }}
           build-args: |
             KEYCLOAK_VARIANT=${{ matrix.variant }}
-      
+
       - name: run trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.29.0
         with:
@@ -113,7 +113,7 @@ jobs:
     concurrency:
       group: helm_release
       cancel-in-progress: false
-    needs: 
+    needs:
       - scan
       - branch_meta
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
@@ -130,7 +130,7 @@ jobs:
     concurrency:
       group: helm_release
       cancel-in-progress: false
-    needs: 
+    needs:
       - scan
       - branch_meta
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7

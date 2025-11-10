@@ -60,7 +60,7 @@ spec:
             - configMapRef:
                 name: {{ include "common.names.fullname" . }}
             ## extra config
-            {{- if .Values.extraConfig.create }}
+            {{- if .Values.extraConfig.name }}
             - configMapRef:
                 name: "{{ .Values.extraConfig.name }}"
             {{- end }}
@@ -77,7 +77,7 @@ spec:
             - secretRef:
                 name: "{{ .Values.auth.existingSecret }}"
             {{- end }}
-            {{- if .Values.extraSecret.create }}
+            {{- if .Values.extraSecret.name }}
             ## extra secret
             - secretRef:
                 name: "{{ .Values.extraSecret.name }}"

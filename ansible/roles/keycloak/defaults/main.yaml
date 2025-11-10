@@ -5,7 +5,7 @@ keycloak_chart_repo_url: "https://dbildungsplattform.github.io/helm-charts-regis
 keycloak_chart_ref: "{{ keycloak_chart_repo_name }}/dbp-keycloak"
 keycloak_chart_version: "1.0.0"
 keycloak_release_name: "keycloak"
-keycloak_namespace: ""
+# keycloak_namespace: ""
 keycloak_create_namespace: true
 
 keycloak_image_repository: "ghcr.io/dbildungsplattform/dbp-keycloak-generic"
@@ -23,16 +23,16 @@ keycloak_pod_disruption_budget_enabled: false
 keycloak_pod_disruption_budget_min_available: "60%"
 
 
-keycloak_auth_existing_secret: ""
+# keycloak_auth_existing_secret: ""
 keycloak_auth_secret_name: "dbp-keycloak"
 
 keycloak_auth_admin_username: "admin"
-keycloak_auth_admin_password: ""
-keycloak_auth_rs256_private_key: ""
-keycloak_auth_rs256_certificate: ""
-keycloak_auth_admin_secret: ""
-keycloak_auth_client_secret: ""
-keycloak_auth_service_client_certificate: ""
+# keycloak_auth_admin_password: ""
+# keycloak_auth_rs256_private_key: ""
+# keycloak_auth_rs256_certificate: ""
+# keycloak_auth_admin_secret: ""
+# keycloak_auth_client_secret: ""
+# keycloak_auth_service_client_certificate: ""
 
 
 keycloak_command: []
@@ -41,46 +41,34 @@ keycloak_extra_volumes: []
 keycloak_extra_volume_mounts: []
 
 keycloak_extra_config_name: ""
-keycloak_extra_config_create: false
 keycloak_extra_config_data: {}
 keycloak_extra_config_external: []
 
 keycloak_extra_secret_name: ""
-keycloak_extra_secret_create: false
 keycloak_extra_secret_data: {}
 keycloak_extra_secret_external: []
 
 keycloak_database_type: "postgres"
-keycloak_database_host: ""
+# keycloak_database_host: ""
 keycloak_database_port: "5432"
 keycloak_database_name: "keycloak"
 keycloak_database_username: "keycloak"
-keycloak_database_password: ""
+# keycloak_database_password: ""
 
 keycloak_import_realms: true
 keycloak_realm_filepath: ""
 
-# for example:
-# keycloak_hosts:
-#   - name: "kc.example.com"
-#     auth_only: true
-#     protocol: https
-keycloak_hosts: []
-keycloak_host_protocol: "https"
-keycloak_frontend_hostname: ""
-keycloak_frontend_protocol: "https"
-keycloak_frontend_enabled: true
-keycloak_hostname_backchannel_dynamic: true
+# keycloak_hostname: ""
+keycloak_hostname_admin: "localhost:8080"
 keycloak_hostname_strict: true
-keycloak_hostname_strict_https: true
-keycloak_hostname_enabled: true
-# For keycloak_http_relative_path example:
-# keycloak_http_relative_path: "/auth"
+keycloak_hostname_backchannel_dynamic: true
+## For keycloak_http_relative_path example:
+## keycloak_http_relative_path: "/auth"
+keycloak_http_relative_path: ""
 
 keycloak_ingress_class_name: "nginx"
-keycloak_ingress_tls_enabled: false
-keycloak_ingress_tls_secret_name: ""
-keycloak_ingress_path_auth_only: false
+keycloak_ingress_tls_enabled: true
+keycloak_ingress_tls_secret_name: "keycloak-tls"
 keycloak_ingress_annotations: {}
 
 keycloak_service_monitor_enabled: true
@@ -117,5 +105,6 @@ keycloak_readiness_probe_success_threshold: 1
 
 keycloak_service_account_create: true
 keycloak_service_account_annotations: {}
+# if set to "", the default defined in the helm chart will be used
 keycloak_service_account_name: ""
 keycloak_service_account_automount_token: false
