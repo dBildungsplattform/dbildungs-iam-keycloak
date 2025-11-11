@@ -133,12 +133,19 @@ jobs:
     needs:
       - scan
       - branch_meta
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
-    secrets: inherit
+    uses: bsord/helm-push@v4.1.0
     with:
-      chart_name: "dbp-keycloak"
-      chart_path: "./helm"
-      helm_chart_version_generation: specified
-      image_tag_generation: specified
-      helm_chart_version: "0.0.1-${{ needs.branch_meta.outputs.branch }}"
-      image_tag: ${{ needs.branch_meta.outputs.branch }}
+      useOCIRegistry: true
+      registry-url:  oci://ghcr.io/${{ github.repository }}
+      access-token: ${{ secrets.GITHUB_TOKEN }}
+      version: "0.0.1-${{ needs.branch_meta.outputs.branch }}"
+      force: true
+      chart-folder: "helm"
+    secrets: inherit
+    # with:
+    #   chart_name: "dbp-keycloak"
+    #   chart_path: "./helm"
+    #   helm_chart_version_generation: specified
+    #   image_tag_generation: specified
+    #   helm_chart_version: "0.0.1-${{ needs.branch_meta.outputs.branch }}"
+    #   image_tag: ${{ needs.branch_meta.outputs.branch }}
