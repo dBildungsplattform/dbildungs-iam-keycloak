@@ -58,7 +58,9 @@ jobs:
   codeql_analyze:
     name: "CodeQL"
     if: ${{ github.event_name == 'push' }}
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-codeql.yaml@7
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-codeql.yaml@8
+    with:
+      codeql_languages: actions
     permissions:
       actions: read
       contents: read
@@ -74,7 +76,7 @@ jobs:
       packages: write
       security-events: write
       contents: read
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@7
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@8
     with:
       image_name: "dbildungs-iam-keycloak"
       run_trivy_scan: true
@@ -88,7 +90,7 @@ jobs:
 
   scan_helm:
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@7
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@8
     permissions:
       contents: read
 
@@ -117,7 +119,7 @@ jobs:
       - create_branch_identifier
       - select_helm_version_generation_and_image_tag_generation
     if: ${{ github.event_name == 'push' && !startsWith(github.ref_name,'dependabot/') }}
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@8
     secrets: inherit
     with:
       chart_name: dbildungs-iam-keycloak
@@ -220,7 +222,7 @@ jobs:
     permissions:
       packages: read
       security-events: write
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-trivy.yaml@7
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-trivy.yaml@8
     with:
       image_ref: 'ghcr.io/${{ github.repository_owner }}/dbildungs-iam-keycloak:latest'
       fail_on_vulnerabilites: true
