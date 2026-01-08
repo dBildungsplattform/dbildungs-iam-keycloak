@@ -1,5 +1,5 @@
 <#macro registrationLayout bodyClass="" displayInfo=false displayMessage=true displayRequiredFields=false>
-<#assign resourcesRoot="https://portal.schule-sh.de/assets/">
+<#assign resourcesRoot="https://portal.schule-sh.de">
 <!DOCTYPE html>
 <html class="${properties.kcHtmlClass!}"<#if realm.internationalizationEnabled> lang="${locale.currentLanguageTag}"</#if>>
 
