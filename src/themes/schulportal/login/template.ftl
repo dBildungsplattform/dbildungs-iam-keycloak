@@ -1,4 +1,5 @@
 <#macro registrationLayout bodyClass="" displayInfo=false displayMessage=true displayRequiredFields=false>
+<#assign resourcesRoot="https://portal.schule-sh.de">
 <!DOCTYPE html>
 <html class="${properties.kcHtmlClass!}"<#if realm.internationalizationEnabled> lang="${locale.currentLanguageTag}"</#if>>
 
@@ -46,7 +47,7 @@
     <div class="${properties.kcLoginClass!}">
         <div id="kc-header" class="${properties.kcHeaderClass!}">
             <div id="kc-header-wrapper" class="${properties.kcHeaderWrapperClass!}">
-                <a href="${client.baseUrl}">
+                <a href="${resourcesRoot}">
                     <img
                         src="${url.resourcesPath}/img/Schulportal_SH_Wort_Bildmarke_RGB_Anwendung_HG_Blau.svg"
                         alt="Logo Schulportal"
@@ -216,7 +217,7 @@
             </a>
             <a
                 class="footer-item"
-                href="${client.baseUrl}/impressum_datenschutzerklaerung.html"
+                href="${resourcesRoot}/impressum_datenschutzerklaerung.html"
                 target="_blank"
                 rel="noopener noreferrer"
             >
@@ -224,7 +225,7 @@
             </a>
             <a
                 class="footer-item"
-                href="${client.baseUrl}/impressum_datenschutzerklaerung.html#privacy_policy"
+                href="${resourcesRoot}/impressum_datenschutzerklaerung.html#privacy_policy"
                 target="_blank"
                 rel="noopener noreferrer"
             >
@@ -232,7 +233,7 @@
             </a>
             <a
                 class="footer-item"
-                href="${client.baseUrl}/impressum_datenschutzerklaerung.html#accessibility"
+                href="${resourcesRoot}/impressum_datenschutzerklaerung.html#accessibility"
                 target="_blank"
                 rel="noopener noreferrer"
             >
