@@ -16,3 +16,10 @@ data:
   KC_SCHOOLSH_CLIENT_ROOT_URL: "{{ .Values.schoolsh.rootUrl }}"
   KC_HTTP_MANAGEMENT_PORT: "8090"
   STATUS_URL: "{{ .Values.status.url }}"
+  KC_METRICS_ENABLED: "true"
+  KC_EVENT_METRICS_USER_ENABLED: "true"
+  KC_EVENT_METRICS_USER_EVENTS: "login"
+  KC_EVENT_METRICS_USER_TAGS: "clientId"
+
+
+
