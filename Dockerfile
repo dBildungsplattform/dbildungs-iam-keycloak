@@ -48,7 +48,8 @@ ENV KC_HEALTH_ENABLED=true \
     DISABLE_EXTERNAL_ACCESS=true \
     KC_EVENT_METRICS_USER_ENABLED=true \
     KC_EVENT_METRICS_USER_EVENTS=login \
-    KC_EVENT_METRICS_USER_TAGS=clientId
+    KC_EVENT_METRICS_USER_TAGS=clientId \
+    KC_SPI_EVENTS_LISTENER_JBOSS_LOGGING_SUCCESS_LEVEL=info
 
 # Build Keycloak for deployment
 RUN /opt/keycloak/bin/kc.sh build

@@ -11,7 +11,7 @@ data:
   KC_ROOT_URL: "https://{{ .Values.frontendHostname }}"
   KC_PROXY_HEADERS: "xforwarded"
   KC_HTTP_ENABLED: "{{ default .Values.service.http.enabled false }}"
-  KEYCLOAK_ADMIN: admin
+  KEYCLOAK_ADMIN: "admin"
   KC_SCHOOLSH_CLIENT_ID: "{{ .Values.schoolsh.clientId }}"
   KC_SCHOOLSH_CLIENT_ROOT_URL: "{{ .Values.schoolsh.rootUrl }}"
   KC_HTTP_MANAGEMENT_PORT: "8090"
@@ -20,6 +20,7 @@ data:
   KC_EVENT_METRICS_USER_ENABLED: "true"
   KC_EVENT_METRICS_USER_EVENTS: "login"
   KC_EVENT_METRICS_USER_TAGS: "clientId"
+  KC_SPI_EVENTS_LISTENER_JBOSS_LOGGING_SUCCESS_LEVEL: "info"
 
 
 
