@@ -45,7 +45,12 @@ ENV KC_HEALTH_ENABLED=true \
     KC_FEATURES_DISABLED=impersonation,par \
     KC_CACHE=ispn \
     KC_CACHE_STACK=kubernetes \
-    DISABLE_EXTERNAL_ACCESS=true
+    DISABLE_EXTERNAL_ACCESS=true \
+    KC_EVENT_METRICS_USER_ENABLED=true \
+    KC_EVENT_METRICS_USER_EVENTS=login \
+    KC_EVENT_METRICS_USER_TAGS=clientId \
+    KC_SPI_EVENTS_LISTENER_JBOSS_LOGGING_SUCCESS_LEVEL=info \
+    KC_LOG_CONSOLE_OUTPUT=json
 
 # Build Keycloak for deployment
 RUN /opt/keycloak/bin/kc.sh build
