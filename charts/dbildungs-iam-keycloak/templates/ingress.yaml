@@ -10,10 +10,12 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if .Values.ingress.tls }}
   tls:
     - hosts:
         - {{ .Values.keycloakHostname  }}
-      secretName: {{ printf "%s-tls" (.Values.keycloakHostname) | replace "*." "") }}
+      secretName: {{ .Values.ingress.tlsSecretName | default (printf "%s-tls" (.Values.keycloakHostname | replace "*." "")) }}
+  {{- end }}
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
     - host: {{ .Values.keycloakHostname  }}

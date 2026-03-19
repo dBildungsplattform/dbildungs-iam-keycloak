@@ -103,14 +103,14 @@ readinessProbe:
     port: mgmt
 
 ingress:
-  # Only enable if 2nd host name is defined
-  enabled2nd: false
   ingressClassName: nginx
   path: /
   pathType: Prefix
   annotations:
     nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
     nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
+  tls: false
+  tlsSecretName: ""
 
 containerPorts:
   - name: web
