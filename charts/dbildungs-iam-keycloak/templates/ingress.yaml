@@ -13,6 +13,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.keycloakHostname  }}
+      secretName: {{ printf "%s-tls" (.Values.keycloakHostname) | replace "*." "") }}
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
     - host: {{ .Values.keycloakHostname  }}
