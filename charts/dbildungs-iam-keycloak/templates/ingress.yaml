@@ -14,7 +14,9 @@ spec:
   tls:
     - hosts:
         - {{ .Values.keycloakHostname  }}
-      secretName: {{ .Values.ingress.tlsSecretName | default (printf "%s-tls" (.Values.keycloakHostname | replace "*." "")) }}
+  {{- if .Values.ingress.tlsSecretName }}
+      secretName: {{ .Values.ingress.tlsSecretName }}
+  {{- end }}
   {{- end }}
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
