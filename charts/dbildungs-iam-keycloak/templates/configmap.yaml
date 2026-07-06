@@ -23,5 +23,8 @@ data:
   KC_SPI_EVENTS_LISTENER_JBOSS_LOGGING_SUCCESS_LEVEL: "info"
   KC_LOG_CONSOLE_OUTPUT: "json"
 
+  # Temporary solution after upgrading, this should be removed in a future ticket
+  KC_SPI_LOGIN_PROTOCOL__OPENID_CONNECT__ALLOW_TOKEN_INTROSPECTION_WITHOUT_AUDIENCE_CHECK: "true"
+
 
 
