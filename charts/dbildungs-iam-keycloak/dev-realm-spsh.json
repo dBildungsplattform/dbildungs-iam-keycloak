@@ -855,19 +855,6 @@
             "claim.name": "clientHost",
             "jsonType.label": "String"
           }
-        },
-        {
-          "name": "Audience",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-audience-mapper",
-          "consentRequired": false,
-          "config": {
-            "included.client.audience": "spsh-service",
-            "id.token.claim": "true",
-            "lightweight.claim": "true",
-            "access.token.claim": "true",
-            "introspection.token.claim": "true"
-          }
         }
       ],
       "defaultClientScopes": [
@@ -917,7 +904,8 @@
         "display.on.consent.screen": "false",
         "backchannel.logout.revoke.offline.tokens": "false",
         "acr.loa.map": "{\"gold\":\"10\", \"silver\":\"15\"}",
-        "default.acr.values": "0"
+        "default.acr.values": "0",
+        "allow.token.introspection.without.audience.check": "true"
       },
       "authenticationFlowBindingOverrides": {
         "browser": "2e19a392-6bf3-4ea4-a599-ac39bcdfd827"
@@ -968,19 +956,6 @@
             "access.token.claim": "true",
             "claim.name": "clientHost",
             "jsonType.label": "String"
-          }
-        },
-        {
-          "name": "Audience",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-audience-mapper",
-          "consentRequired": false,
-          "config": {
-            "included.client.audience": "spsh",
-            "id.token.claim": "true",
-            "lightweight.claim": "true",
-            "access.token.claim": "true",
-            "introspection.token.claim": "true"
           }
         }
       ],
@@ -1077,19 +1052,6 @@
             "access.token.claim": "true",
             "claim.name": "clientHost",
             "jsonType.label": "String"
-          }
-        },
-        {
-          "name": "Audience",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-audience-mapper",
-          "consentRequired": false,
-          "config": {
-            "included.client.audience": "spsh-admin",
-            "id.token.claim": "true",
-            "lightweight.claim": "true",
-            "access.token.claim": "true",
-            "introspection.token.claim": "true"
           }
         }
       ],
@@ -1198,19 +1160,6 @@
             "access.token.claim": "true",
             "claim.name": "clientHost",
             "jsonType.label": "String"
-          }
-        },
-        {
-          "name": "Audience",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-audience-mapper",
-          "consentRequired": false,
-          "config": {
-            "included.client.audience": "spsh-test",
-            "id.token.claim": "true",
-            "lightweight.claim": "true",
-            "access.token.claim": "true",
-            "introspection.token.claim": "true"
           }
         }
       ],
