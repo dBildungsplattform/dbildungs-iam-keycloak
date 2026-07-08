@@ -961,8 +961,7 @@
           "display.on.consent.screen": "false",
           "backchannel.logout.revoke.offline.tokens": "false",
           "acr.loa.map": "{\"gold\":\"10\", \"silver\":\"15\"}",
-          "default.acr.values": "0",
-          "allow.token.introspection.without.audience.check": "true"
+          "default.acr.values": "0"
         },
         "authenticationFlowBindingOverrides": {
           "browser": "2e19a392-6bf3-4ea4-a599-ac39bcdfd827"
@@ -2026,7 +2025,7 @@
       {
         "id": "4613d8da-9279-4d3c-8f8a-43ad76598bca",
         "name": "spsh-audience",
-        "description": "OpenID Connect scope for add 'spsh' aud to the token. Meant for tokens that should be used to authenticate to the backend.",
+        "description": "OpenID Connect scope to add 'spsh' aud to the token. Meant for tokens that should be used to authenticate to the backend.",
         "protocol": "openid-connect",
         "attributes": {
           "include.in.token.scope": "false",
