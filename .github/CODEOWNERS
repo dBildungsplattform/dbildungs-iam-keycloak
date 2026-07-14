@@ -3,8 +3,7 @@
 ########################################
 /src/                @dBildungsplattform/schulportal-sh
 ########################################
-# Helm 
-# CI/CD Pipelines
+# Helm  / CI/CD Pipelines
 ########################################
 /charts/             @dBildungsplattform/sre-team
 /.github/workflows/  @dBildungsplattform/sre-team
