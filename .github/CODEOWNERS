@@ -1,9 +1,6 @@
-########################################
-# SPSH Application Code
-########################################
-/src/                @dBildungsplattform/schulportal-sh
-########################################
-# Helm  / CI/CD Pipelines
-########################################
-/charts/             @dBildungsplattform/sre-team
-/.github/workflows/  @dBildungsplattform/sre-team
+
+# Default owner for all repository files
+* @dBildungsplattform/schulportal-sh
+
+# GitHub configuration files can be reviewed by either the Dev or SRE team
+/.github/ @dBildungsplattform/schulportal-sh @dBildungsplattform/sre-team
