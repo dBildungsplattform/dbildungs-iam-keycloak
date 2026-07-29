@@ -4,4 +4,3 @@ version: 0.1.1
 description: A Helm Chart for the dbildungs-iam-keycloak
 type: application
 appVersion: ""
-##
