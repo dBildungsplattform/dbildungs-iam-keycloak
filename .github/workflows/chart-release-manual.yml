@@ -28,7 +28,7 @@ jobs:
       HELM_CHARTS_REGISTRY_PUBLISHER: ${{ secrets.HELM_CHARTS_REGISTRY_PUBLISHER }}
     with:
       chart_name: dbildungs-iam-keycloak
-      helm_chart_version_generation: specified 
-      image_tag_generation: specified 
+      helm_chart_version_generation: specified
+      image_tag_generation: specified
       helm_chart_version: ${{ inputs.chart_version }}
       image_tag: ${{ inputs.image_tag }}

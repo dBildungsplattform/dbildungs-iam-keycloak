@@ -3,7 +3,7 @@ name: Release Image and Helm Chart
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
+      - "[0-9]+.[0-9]+.[0-9]+"
 
 concurrency:
   group: dbildungs-iam-keycloak-image-helm-chart
@@ -25,7 +25,7 @@ jobs:
       fail_on_vulnerabilites: false
       report_location: "Dockerfile"
       target: "deployment"
-  
+
   # Helm Chart
   scan_helm:
     uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@8
@@ -39,7 +39,7 @@ jobs:
       HELM_CHARTS_REGISTRY_PUBLISHER: ${{ secrets.HELM_CHARTS_REGISTRY_PUBLISHER }}
     with:
       chart_name: "dbildungs-iam-keycloak"
-      helm_chart_version_generation: specified 
-      image_tag_generation: specified 
+      helm_chart_version_generation: specified
+      image_tag_generation: specified
       helm_chart_version: "${{ github.ref_name }}"
       image_tag: "${{ github.ref_name }}"
