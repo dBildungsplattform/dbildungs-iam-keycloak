@@ -3,7 +3,7 @@ name: Release Image and Helm Chart
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
+      - "[0-9]+.[0-9]+.[0-9]+"
 
 concurrency:
   group: dbildungs-iam-keycloak-image-helm-chart
@@ -16,7 +16,7 @@ jobs:
       packages: write
       security-events: write
       contents: read
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@7
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/image-publish-trivy.yaml@8
     with:
       image_name: "dbildungs-iam-keycloak"
       run_trivy_scan: true
@@ -25,20 +25,21 @@ jobs:
       fail_on_vulnerabilites: false
       report_location: "Dockerfile"
       target: "deployment"
-  
+
   # Helm Chart
   scan_helm:
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@7
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/check-helm-kics.yaml@8
     permissions:
       contents: read
 
   release_helm:
     needs: scan_helm
-    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@7
-    secrets: inherit
+    uses: dBildungsplattform/dbp-github-workflows/.github/workflows/chart-release.yaml@8
+    secrets:
+      HELM_CHARTS_REGISTRY_PUBLISHER: ${{ secrets.HELM_CHARTS_REGISTRY_PUBLISHER }}
     with:
       chart_name: "dbildungs-iam-keycloak"
-      helm_chart_version_generation: specified 
-      image_tag_generation: specified 
+      helm_chart_version_generation: specified
+      image_tag_generation: specified
       helm_chart_version: "${{ github.ref_name }}"
       image_tag: "${{ github.ref_name }}"
