@@ -605,7 +605,9 @@
           "post.logout.redirect.uris": "+",
           "pkce.code.challenge.method": "S256"
         },
-        "authenticationFlowBindingOverrides": {},
+        "authenticationFlowBindingOverrides": {
+          "browser": "855cea6b-102a-4770-9b6e-33f5813a68ea"
+        },
         "fullScopeAllowed": false,
         "nodeReRegistrationTimeout": 0,
         "protocolMappers": [
@@ -2889,6 +2891,24 @@
             "priority": 0,
             "autheticatorFlow": true,
             "flowAlias": "Stepup flow",
+            "userSetupAllowed": false
+          }
+        ]
+      },
+      {
+        "id": "855cea6b-102a-4770-9b6e-33f5813a68ea",
+        "alias": "Deny account console",
+        "description": "Blocks all access to the account-console client",
+        "providerId": "basic-flow",
+        "topLevel": true,
+        "builtIn": false,
+        "authenticationExecutions": [
+          {
+            "authenticator": "deny-access-authenticator",
+            "authenticatorFlow": false,
+            "requirement": "REQUIRED",
+            "priority": 0,
+            "autheticatorFlow": false,
             "userSetupAllowed": false
           }
         ]
