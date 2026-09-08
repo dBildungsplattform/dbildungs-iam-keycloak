@@ -2908,7 +2908,6 @@
             "authenticatorFlow": false,
             "requirement": "REQUIRED",
             "priority": 0,
-            "autheticatorFlow": false,
             "userSetupAllowed": false
           }
         ]
